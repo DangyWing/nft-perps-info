@@ -55,14 +55,22 @@ export function PerpData({ data }: { data: Datum[] }) {
       id: "indexPrice",
       header: "Index Price",
       cell: (info) => {
-        return parseFloat(info.getValue())?.toFixed(4);
+        return (
+          <div className="text-right">
+            {parseFloat(info.getValue())?.toFixed(4)}
+          </div>
+        );
       },
     }),
     columnHelper.accessor((row) => row.markPrice, {
       id: "markPrice",
       header: "Mark Price",
       cell: (info) => {
-        return parseFloat(info.getValue())?.toFixed(4);
+        return (
+          <div className="text-right">
+            {parseFloat(info.getValue())?.toFixed(4)}
+          </div>
+        );
       },
     }),
     columnHelper.accessor((row) => row.indexToMark, {
