@@ -23,9 +23,12 @@
     "baseUrl": ".",
     "paths": {
       "~/*": [
-        "app/*"
+        "./src/*"
       ]
     },
+    "typeRoots": [
+      "src/types"
+    ],
     "plugins": [
       {
         "name": "next"
