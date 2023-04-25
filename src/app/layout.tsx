@@ -17,7 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "flex min-h-screen flex-col items-center justify-center bg-slate-900 align-middle text-lg text-slate-200",
+          "flex min-h-screen flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
           fontMono.className
         )}
       >
