@@ -95,7 +95,7 @@ export const columns = [
     columns: [
       columnHelper.accessor((row) => row.indexToMark, {
         id: "indexToMark",
-        header: "Index To Mark (%)",
+        header: "nfex",
         cell: (info) => {
           return info.getValue().toFixed(2);
         },
