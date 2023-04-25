@@ -1,3 +1,60 @@
+import { z } from "zod";
+
+export const NfexData = z.object({
+  symbol_id: z.number(),
+  base_cfn: z.string(),
+  taker_fratio: z.string(),
+  maker_fratio: z.string(),
+  max_lever: z.string(),
+  last_fund_rate_info: z.object({
+    moment_fund_rate: z.string(),
+    timestamp: z.number(),
+    MomentBaseData: z.object({
+      market_p: z.string(),
+      index_p: z.string(),
+    }),
+  }),
+});
+
+export const NfexResponseSchema = z.object({
+  errno: z.string(),
+  msg: z.string(),
+  data: z.array(NfexData),
+});
+
+export type NfexDataResponse = z.infer<typeof NfexResponseSchema>;
+export type NfexData = z.infer<typeof NfexData>;
+
+export type AMMResponse = {
+  status: string;
+  data: AMMData;
+};
+
+export type AMMData = {
+  ammName: string;
+  markPrice: string;
+  indexPrice: string;
+  feeRatio: string;
+  fluctuationLimitRatio: string;
+  initMarginRatio: string;
+  maintenanceMarginRatio: string;
+  liquidationFeeRatio: string;
+  quoteAssetReserve: string;
+  baseAssetReserve: string;
+  openInterestNotionalCap: string;
+  maxHoldingCap: string;
+  netPositionSize: string;
+  positionSizeLong: string;
+  positionSizeShort: string;
+  openInterestNotional: string;
+  fundingPeriod: string;
+  nextFundingTime: string;
+  previousFundingRateLong: string;
+  previousFundingRateShort: string;
+  nextEstimatedFundingRateLong: string;
+  nextEstimatedFundingRateShort: string;
+};
+
 export type NfexResponse = {
   errno: string;
   msg: string;
@@ -45,7 +102,6 @@ export type Datum = {
   grade_ratio: number;
   created_at: Date;
   updated_at: Date;
-  remark: Remark;
   trade_pair_leverage_list: TradePairLeverageList[];
   match_srv: string;
   market_price_threshold: string;
@@ -103,10 +159,6 @@ export type MomentBaseData = {
 
 export enum QuoteCcy {
   Eth = "ETH",
-}
-
-export enum Remark {
-  Empty = " ",
 }
 
 export interface TradePairLeverageList {
