@@ -40,7 +40,7 @@ async function getNftPerpData() {
   return nftPerpData;
 }
 
-async function getNftexData() {
+async function getNfexData() {
   const res = await fetch("https://apigw.nfex.io/market/pairs", {
     next: {
       revalidate: 10,
@@ -58,7 +58,7 @@ async function getNftexData() {
 
 export async function getPerpData() {
   const [nftexData, nftPerpData] = await Promise.all([
-    await getNftexData(),
+    await getNfexData(),
     await getNftPerpData(),
   ]);
 

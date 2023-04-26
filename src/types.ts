@@ -25,6 +25,36 @@ export const NfexResponseSchema = z.object({
 export type NfexDataResponse = z.infer<typeof NfexResponseSchema>;
 export type NfexData = z.infer<typeof NfexData>;
 
+export type PerpData = {
+  projectName: string;
+  indexPrice: string;
+  markPrice: string;
+  fundingRate: string;
+  indexToMark: number;
+  nftPerpIndexPrice?: string;
+  nftPerpMarkPrice?: string;
+  nftPerpFundingRate?: string;
+  nftPerpIndexToMark?: number;
+  source: string;
+};
+export type NfexPerpData = {
+  projectName: string;
+  indexPrice: string;
+  markPrice: string;
+  fundingRate: string;
+  indexToMark: number;
+  source: string;
+};
+
+export type NftPerpData = {
+  projectName: string;
+  nftPerpIndexPrice: string;
+  nftPerpMarkPrice: string;
+  nftPerpFundingRate: string;
+  nftPerpIndexToMark: number;
+  source: string;
+};
+
 export type AMMResponse = {
   status: string;
   data: AMMData;

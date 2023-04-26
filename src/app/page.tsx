@@ -1,4 +1,4 @@
-import { PerpData } from "../components/perpDataTable/perpDataTable";
+import { PerpDataTable } from "../components/perpDataTable/perpDataTable";
 import { Suspense } from "react";
 import { getPerpData } from "./lib/getPerpData";
 
@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>
-        <PerpData data={data} />
+        <PerpDataTable data={data} />
       </Suspense>
     </div>
   );

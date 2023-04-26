@@ -8,41 +8,15 @@ import {
   type SortingState,
   getFilteredRowModel,
   getPaginationRowModel,
+  getFacetedUniqueValues,
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "./columns";
+import type { PerpData } from "../../types";
 
-export type PerpData = {
-  projectName: string;
-  indexPrice: string;
-  markPrice: string;
-  fundingRate: string;
-  indexToMark: number;
-  nftPerpIndexPrice?: string;
-  nftPerpMarkPrice?: string;
-  nftPerpFundingRate?: string;
-  nftPerpIndexToMark?: number;
-  source: string;
-};
-export type NfexPerpData = {
-  projectName: string;
-  indexPrice: string;
-  markPrice: string;
-  fundingRate: string;
-  indexToMark: number;
-  source: string;
-};
+import { Filter } from "../Filter";
 
-export type NftPerpData = {
-  projectName: string;
-  nftPerpIndexPrice: string;
-  nftPerpMarkPrice: string;
-  nftPerpFundingRate: string;
-  nftPerpIndexToMark: number;
-  source: string;
-};
-
-export function PerpData({ data }: { data: PerpData[] }) {
+export function PerpDataTable({ data }: { data: PerpData[] }) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
@@ -52,10 +26,17 @@ export function PerpData({ data }: { data: PerpData[] }) {
     state: {
       sorting,
     },
+    // defaultColumn: {
+    //   minSize: 0,
+    //   size: 0,
+    // },
+    enableColumnFilters: true,
+    enableFilters: true,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
     initialState: {
       grouping: ["projectName"],
       pagination: {
@@ -65,7 +46,7 @@ export function PerpData({ data }: { data: PerpData[] }) {
   });
 
   return (
-    <div className="p-2">
+    <div className="max-w-6xl p-2">
       <table className="divide-y divide-gray-200">
         <thead className="border-b border-slate-200 text-xl uppercase dark:border-slate-800">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -74,32 +55,43 @@ export function PerpData({ data }: { data: PerpData[] }) {
                 <th
                   key={header.id}
                   colSpan={header.colSpan}
-                  className="px-4 py-3 text-slate-800 dark:text-slate-200"
+                  className="px-2 py-2 text-slate-800 dark:text-slate-200"
+                  style={{
+                    width:
+                      header.getSize() !== 0 ? header.getSize() : undefined,
+                  }}
                 >
                   {header.isPlaceholder ? null : (
-                    <div
-                      {...{
-                        className: header.column.getCanSort()
-                          ? "inline-flex min-w-max cursor-pointer select-none"
-                          : "",
-                        onClick: header.column.getToggleSortingHandler(),
-                      }}
-                    >
-                      <div className="inline-flex space-x-2">
-                        <div>
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                        </div>
-                        <div>
-                          {{
-                            asc: "^",
-                            desc: <p className="rotate-180">^</p>,
-                          }[header.column.getIsSorted() as string] ?? null}
+                    <>
+                      <div
+                        {...{
+                          className: header.column.getCanSort()
+                            ? "inline-flex min-w-max cursor-pointer select-none"
+                            : "",
+                          onClick: header.column.getToggleSortingHandler(),
+                        }}
+                      >
+                        <div className="inline-flex space-x-2">
+                          <div>
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
+                          </div>
+                          <div>
+                            {{
+                              asc: "^",
+                              desc: <p className="rotate-180">^</p>,
+                            }[header.column.getIsSorted() as string] ?? null}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                      {header.column.getCanFilter() ? (
+                        <div className="px-0">
+                          <Filter column={header.column} table={table} />
+                        </div>
+                      ) : null}
+                    </>
                   )}
                 </th>
               ))}
@@ -110,7 +102,16 @@ export function PerpData({ data }: { data: PerpData[] }) {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className="px-12">
+                <td
+                  key={cell.id}
+                  className="px-12"
+                  style={{
+                    width:
+                      cell.column.getSize() !== 0
+                        ? cell.column.getSize()
+                        : undefined,
+                  }}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

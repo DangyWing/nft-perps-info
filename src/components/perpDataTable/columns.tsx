@@ -1,14 +1,14 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import { type PerpData } from "./perpDataTable";
+import type { PerpData } from "../../types";
 
 const columnHelper = createColumnHelper<PerpData>();
 
 export const columns = [
   columnHelper.accessor((row) => row.projectName, {
     id: "projectName",
-    header: "Project Name",
+    header: "Project",
     cell: (info) => (
       <a
         href={`https://nfex.io/trade/${info.getValue()}`}
@@ -20,6 +20,11 @@ export const columns = [
     ),
     enableSorting: true,
     sortingFn: "alphanumeric",
+    enableColumnFilter: true,
+    filterFn: "includesString",
+    minSize: 666,
+    size: 666,
+    maxSize: 666,
   }),
   {
     header: "Index Price",
