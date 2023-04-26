@@ -1,11 +1,11 @@
 "use client";
 
 import {
+  type SortingState,
   getCoreRowModel,
   useReactTable,
   flexRender,
   getSortedRowModel,
-  type SortingState,
   getFilteredRowModel,
   getPaginationRowModel,
   getFacetedUniqueValues,

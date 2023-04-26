@@ -1,5 +1,4 @@
-import { type NfexPerpData } from "~/components/perpDataTable/perpDataTable";
-import { type NfexData } from "~/types";
+import { type NfexData, type NfexPerpData } from "~/types";
 import { calculate_percentage_change } from "./utils";
 
 export function parseNfexData(data: NfexData[]) {

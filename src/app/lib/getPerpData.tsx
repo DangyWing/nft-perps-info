@@ -1,8 +1,7 @@
 import { type NfexDataResponse } from "~/types";
 import { parseNfexData } from "~/utils/parseNfexData";
 import { AMMData } from "~/constants/constants";
-import { type AMMResponse } from "~/types";
-import { type NftPerpData } from "~/components/perpDataTable/perpDataTable";
+import type { AMMResponse, NftPerpData } from "~/types";
 
 async function getNftPerpData() {
   const nftPerpData = [];

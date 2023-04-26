@@ -1,7 +1,6 @@
 import { type Amm } from "@nftperp/sdk/types";
-import type { AMMResponse } from "~/types";
+import type { AMMResponse, PerpData } from "~/types";
 import { AMMData } from "~/constants/constants";
-import { type PerpData } from "~/components/perpDataTable/perpDataTable";
 
 async function getNftPerpData({ amm }: { amm: Amm }) {
   const url = `https://api3.nftperp.xyz/${amm}`;
