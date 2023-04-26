@@ -46,7 +46,6 @@ export const getAllNftPerpData = async () => {
       markPrice: collectionInfo.markPrice.toString(),
       fundingRate: funding.toString(),
       indexToMark: indexToMarkDelta,
-      source: "nftperp",
     };
 
     nftPerpData.push(perpData);

@@ -22,9 +22,6 @@ export const columns = [
     sortingFn: "alphanumeric",
     enableColumnFilter: true,
     filterFn: "includesString",
-    minSize: 666,
-    size: 666,
-    maxSize: 666,
   }),
   {
     header: "Index Price",
@@ -47,7 +44,6 @@ export const columns = [
         header: "NFTPerp",
         cell: (info) => {
           const indexPrice = info.getValue();
-
           return indexPrice ? (
             <div className="text-right">
               {parseFloat(indexPrice)?.toFixed(4)}
@@ -58,6 +54,7 @@ export const columns = [
         },
         enableSorting: true,
         sortingFn: "alphanumeric",
+        size: 100,
       }),
     ],
   },
@@ -92,6 +89,7 @@ export const columns = [
         },
         enableSorting: true,
         sortingFn: "alphanumeric",
+        size: 100,
       }),
     ],
   },
@@ -131,7 +129,7 @@ export const columns = [
         cell: (info) => {
           return (
             <div className="text-right">
-              {(parseFloat(info.getValue()) * 100)?.toFixed(4)}
+              {parseFloat(info.getValue())?.toFixed(4)}
             </div>
           );
         },
@@ -156,10 +154,4 @@ export const columns = [
       }),
     ],
   },
-  columnHelper.accessor((row) => row.source, {
-    id: "source",
-    header: "Source",
-    cell: (info) => info.getValue(),
-    enableSorting: true,
-  }),
 ];

@@ -35,7 +35,6 @@ export type PerpData = {
   nftPerpMarkPrice?: string;
   nftPerpFundingRate?: string;
   nftPerpIndexToMark?: number;
-  source: string;
 };
 export type NfexPerpData = {
   projectName: string;
@@ -43,7 +42,6 @@ export type NfexPerpData = {
   markPrice: string;
   fundingRate: string;
   indexToMark: number;
-  source: string;
 };
 
 export type NftPerpData = {
@@ -52,7 +50,6 @@ export type NftPerpData = {
   nftPerpMarkPrice: string;
   nftPerpFundingRate: string;
   nftPerpIndexToMark: number;
-  source: string;
 };
 
 export type AMMResponse = {

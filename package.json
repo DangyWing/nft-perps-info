@@ -12,6 +12,7 @@
   "dependencies": {
     "@nftperp/sdk": "^3.8.0",
     "@prisma/client": "^4.11.0",
+    "@radix-ui/react-popover": "^1.0.5",
     "@tanstack/match-sorter-utils": "^8.8.4",
     "@tanstack/react-query": "^4.28.0",
     "@tanstack/react-table": "^8.8.5",
@@ -19,8 +20,10 @@
     "@trpc/next": "^10.18.0",
     "@trpc/react-query": "^10.18.0",
     "@trpc/server": "^10.18.0",
+    "class-variance-authority": "^0.5.3",
     "clsx": "^1.2.1",
     "ethers": "^5.7.2",
+    "lucide-react": "^0.181.0",
     "next": "^13.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
