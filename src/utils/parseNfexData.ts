@@ -7,7 +7,7 @@ export function parseNfexData(data: NfexData[]) {
     indexPrice: row.last_fund_rate_info.MomentBaseData.index_p,
     markPrice: row.last_fund_rate_info.MomentBaseData.market_p,
     fundingRate: (
-      parseFloat(row.last_fund_rate_info.moment_fund_rate) * 100
+      parseFloat(row.last_fund_rate_info.current_period_fund_rate) * 100
     ).toString(),
     indexToMark: calculate_percentage_change(
       parseFloat(row.last_fund_rate_info.MomentBaseData.index_p),

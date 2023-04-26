@@ -9,7 +9,7 @@ async function getNftPerpData() {
     const url = `https://api3.nftperp.xyz/${amm.AMM}`;
     const res = await fetch(url, {
       next: {
-        revalidate: 100,
+        revalidate: 60,
       },
     });
 
@@ -17,8 +17,8 @@ async function getNftPerpData() {
 
     const funding =
       Number(data.nextEstimatedFundingRateLong) > 0
-        ? Math.abs(Number(data.nextEstimatedFundingRateShort) * 100)
-        : Math.abs(Number(data.nextEstimatedFundingRateLong) * 100);
+        ? Number(data.nextEstimatedFundingRateShort) * 100
+        : Number(data.nextEstimatedFundingRateLong) * 100;
 
     const indexToMarkDelta =
       (Math.abs(parseFloat(data.indexPrice) - parseFloat(data.markPrice)) /

@@ -7,7 +7,7 @@ export const NfexData = z.object({
   maker_fratio: z.string(),
   max_lever: z.string(),
   last_fund_rate_info: z.object({
-    moment_fund_rate: z.string(),
+    current_period_fund_rate: z.string(),
     timestamp: z.number(),
     MomentBaseData: z.object({
       market_p: z.string(),
