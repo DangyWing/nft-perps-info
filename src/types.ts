@@ -1,4 +1,40 @@
+import { type Address } from "viem";
 import { z } from "zod";
+
+export type TraderPositionResponse = {
+  status: string;
+  data: TraderPositionData;
+};
+
+export type TraderPositionData = {
+  bayc: TraderAmmPosition;
+  punks: TraderAmmPosition;
+  azuki: TraderAmmPosition;
+  milady: TraderAmmPosition;
+  mayc: TraderAmmPosition;
+  ppg: TraderAmmPosition;
+};
+
+export type TraderAmmPosition = {
+  trader: Address;
+  ammName: string;
+  side: string;
+  lastUpdatedTimestamp: string;
+  size: string;
+  entryPrice: string;
+  markPrice: string;
+  margin: string;
+  leverage: string;
+  notional: string;
+  fundingPayment: string;
+  unrealizedPnl: string;
+  liquidationPrice: string;
+  marginRatio: string;
+  blockNumber: string;
+  markToLiq?: string;
+  maintenanceMargin?: number;
+  marginRatioToMinimumMarginRatio?: string;
+};
 
 export const NfexData = z.object({
   symbol_id: z.number(),

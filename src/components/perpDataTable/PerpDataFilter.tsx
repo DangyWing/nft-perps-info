@@ -1,9 +1,9 @@
 import type { Column, Table } from "@tanstack/react-table";
 import React from "react";
 import type { PerpData } from "~/types";
-import { DebouncedInput } from "./DebouncedInput";
+import { DebouncedInput } from "../DebouncedInput";
 
-export function Filter({
+export function PerpDataFilter({
   column,
   table,
 }: {

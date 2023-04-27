@@ -1,0 +1,7 @@
+sources:
+  - name: nftPerp
+    handler:
+      graphql:
+        strategy: fallback
+        sources:
+          - endpoint: https://api.thegraph.com/subgraphs/name/nftperp/beta

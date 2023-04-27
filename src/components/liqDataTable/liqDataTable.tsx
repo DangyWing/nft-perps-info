@@ -13,11 +13,10 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "./columns";
-import type { PerpData } from "../../types";
-import { PerpDataFilter } from "./PerpDataFilter";
-import { LegendPopover } from "../LegendPopover";
+import { LiqDataFilter } from "./LiqDataFilter";
+import type { LiqTableData } from "./columns";
 
-export function PerpDataTable({ data }: { data: PerpData[] }) {
+export function LiqDataTable({ data }: { data: LiqTableData[] }) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
@@ -36,68 +35,29 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
     getFacetedUniqueValues: getFacetedUniqueValues(),
 
     initialState: {
-      grouping: ["projectName"],
       pagination: {
         pageSize: 50,
       },
     },
   });
 
-  const getRowProps = (row: Row<PerpData>) => {
-    const nfexFundingRate = parseFloat(row.getValue<string>("fundingRate"));
-    const nftPerpFundingRate = parseFloat(
-      row.getValue<string>("nftPerpFundingRate")
-    );
-    const targetNftPerpFundingRate = nftPerpFundingRate > 0.03;
-    const targetNfexFundingRate = nfexFundingRate > 0.03;
-    const targetNftPerpIndexToMark =
-      parseFloat(row.getValue<string>("nftPerpIndexToMark")) > 0.25;
+  const getRowProps = (row: Row<LiqTableData>) => {
+    const marginRatio = parseFloat(row.getValue<string>("marginRatio"));
+    const maintenanceMargin = row.original.maintenanceMargin ?? 0.0625;
 
-    if (
-      targetNftPerpFundingRate &&
-      targetNfexFundingRate &&
-      targetNftPerpIndexToMark
-    ) {
-      return {
-        className: "bg-zinc-100 px-1 text-zinc-800 text-bold",
-      };
-    }
-    if (targetNftPerpFundingRate) {
-      return {
-        className: "bg-purple-600 bg-opacity-20",
-      };
-    }
-    if (targetNfexFundingRate) {
-      return {
-        className: "bg-green-600 bg-opacity-30",
-      };
-    }
-
-    if (targetNftPerpIndexToMark) {
+    if (marginRatio < maintenanceMargin) {
       return {
         className: "bg-pink-400 bg-opacity-70 border border-zinc-800 border-1",
       };
     }
   };
 
-  // Func to provide props to table cell
-  // const getCellProps = (context: CellContext<PerpData, unknown>) => {
-  //   const value = context.getValue();
-
-  //   if (context.row.index === 0) {
-  //     return {
-  //       className: "bg-pink-700 bg-opacity-40",
-  //     };
-  //   }
-  // };
-
   return (
     <div className="max-w-6xl p-2">
-      <LegendPopover />
       <table className="divide-y divide-gray-200">
         <thead className="border-b border-slate-200 text-xl uppercase dark:border-slate-800">
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <tr key={headerGroup.id} className="align-bottom">
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
@@ -131,10 +91,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
                       </div>
                       {header.column.getCanFilter() ? (
                         <div className="px-0">
-                          <PerpDataFilter
-                            column={header.column}
-                            table={table}
-                          />
+                          <LiqDataFilter column={header.column} table={table} />
                         </div>
                       ) : null}
                     </>
@@ -147,12 +104,8 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
         <tbody className="p-2">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} {...getRowProps(row)}>
-              {row.getVisibleCells().map((cell) => (
-                <td
-                  key={cell.id}
-                  className="px-2"
-                  // {...getCellProps(cell.getContext())}
-                >
+              {row.getAllCells().map((cell) => (
+                <td key={cell.id} className="px-2">
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
