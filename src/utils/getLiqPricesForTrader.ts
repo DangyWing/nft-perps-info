@@ -6,7 +6,7 @@ export const getLiqPricesForTrader = cache(async (trader: `0x${string}`) => {
   try {
     const res = await fetch(url, {
       next: {
-        revalidate: 600,
+        revalidate: 300,
       },
     });
     const { data } = (await res.json()) as TraderPositionResponse;

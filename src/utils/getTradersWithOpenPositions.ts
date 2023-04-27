@@ -18,8 +18,8 @@ export async function getTradersWithOpenPositions() {
     ammPositions(
       orderBy: unrealizedPnl
       orderDirection: asc
-      first: 1000
-      where: {and: [{unrealizedPnl_lt: 0}, {margin_gt: 10000000000000000}]}
+      first: 500
+      where: {and: [{unrealizedPnl_lt: 0}, {margin_gt: 50000000000000000}]}
     ) {
       trader
     }

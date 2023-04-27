@@ -11,9 +11,7 @@ export const metadata = {
 };
 
 export default async function Page() {
-  const liqPrices = (await getAllTraderLiqPrices()).sort((a, b) => {
-    return parseFloat(a.marginRatio) - parseFloat(b.marginRatio);
-  });
+  const liqPrices = await getAllTraderLiqPrices();
 
   return (
     <div>
