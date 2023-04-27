@@ -38,7 +38,24 @@ export const columns = [
   }),
   columnHelper.accessor((row) => row.marginRatioToMinimumMarginRatio, {
     id: "marginRatioToMinimumMarginRatio",
-    header: "mR to mmr",
+    header: () => {
+      return (
+        <div>
+          margin ratio <br /> to min
+        </div>
+      );
+    },
+    cell: (info) => {
+      return <div className="text-right">{info.getValue()}</div>;
+    },
+    enableSorting: true,
+    sortingFn: "basic",
+  }),
+  columnHelper.accessor((row) => row.entryPrice, {
+    id: "entryPrice",
+    header: () => {
+      return <div>entry price</div>;
+    },
     cell: (info) => {
       return <div className="text-right">{info.getValue()}</div>;
     },
@@ -140,16 +157,15 @@ export const columns = [
     cell: (info) => <TraderHoverCard trader={info.getValue()} />,
     enableSorting: true,
     sortingFn: "alphanumeric",
-    size: 100,
   }),
-  columnHelper.accessor((row) => row.lastUpdatedTimestamp, {
-    id: "lastUpdated",
-    header: "last updated",
-    cell: (info) => {
-      return <div>{info.getValue()}</div>;
-    },
-    enableSorting: true,
-    sortingFn: "alphanumeric",
-    size: 150,
-  }),
+  // columnHelper.accessor((row) => row.lastUpdatedTimestamp, {
+  //   id: "lastUpdated",
+  //   header: "last updated",
+  //   cell: (info) => {
+  //     return <div>{info.getValue()}</div>;
+  //   },
+  //   enableSorting: true,
+  //   sortingFn: "alphanumeric",
+  //   size: 150,
+  // }),
 ];
