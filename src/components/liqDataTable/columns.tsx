@@ -19,7 +19,7 @@ export const columns = [
         target="_blank"
         rel="noreferrer"
       >
-        {info.row.original.side === "BUY" ? "📉 " : "🚀 "}
+        {info.row.original.side === "BUY" ? "🚀" : "📉"}
         {info.getValue()}
       </a>
     ),
