@@ -1,9 +1,6 @@
 import { Suspense } from "react";
 import { getAllTraderLiqPrices } from "../lib/getAllTraderLiqPrices";
 import { LiqDataTable } from "~/components/liqDataTable/liqDataTable";
-import { Button } from "~/components/ui/button";
-import Link from "next/link";
-import { HomeIcon } from "lucide-react";
 
 export const metadata = {
   title: "NFTPerp Liq Info",
@@ -15,13 +12,10 @@ export default async function Page() {
 
   return (
     <div>
-      <div className="flex justify-center ">
-        <Button variant="link" className="text-5xl">
-          <Link href="/">
-            <HomeIcon />
-          </Link>
-        </Button>
-      </div>
+      <h1 className="flex justify-end text-xl text-red-500">
+        DEAR GOD DO NOT CLICK THE LIQ BUTTON I DO NOT KNOW WHAT IT WILL DO EVEN
+        THOUGH I MADE IT
+      </h1>
       <Suspense fallback={<div>Loading...</div>}>
         <div>
           <LiqDataTable data={liqPrices} />

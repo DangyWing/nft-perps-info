@@ -53,7 +53,7 @@ export function LiqDataTable({ data }: { data: LiqTableData[] }) {
   };
 
   return (
-    <div className="max-w-6xl p-2">
+    <div className="p-2">
       <table className="divide-y divide-gray-200">
         <thead className="border-b border-slate-200 text-xl uppercase dark:border-slate-800">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -105,7 +105,7 @@ export function LiqDataTable({ data }: { data: LiqTableData[] }) {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} {...getRowProps(row)}>
               {row.getAllCells().map((cell) => (
-                <td key={cell.id} className="px-2">
+                <td key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}

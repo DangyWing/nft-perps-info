@@ -16,13 +16,13 @@ export function LiqDataFilter({
 
   const columnFilterValue = column.getFilterValue();
 
-  const sortedUniqueValues = React.useMemo(
-    () =>
-      !firstValue || parseFloat(firstValue.toString())
-        ? []
-        : Array.from<string>(column.getFacetedUniqueValues().keys()).sort(),
-    [column, firstValue]
-  );
+  // const sortedUniqueValues = React.useMemo(
+  //   () =>
+  //     !firstValue || parseFloat(firstValue.toString())
+  //       ? []
+  //       : Array.from<string>(column.getFacetedUniqueValues().keys()).sort(),
+  //   [column, firstValue]
+  // );
 
   return firstValue === "number" ? (
     <div className="flex">
@@ -59,13 +59,13 @@ export function LiqDataFilter({
     </div>
   ) : (
     <>
-      {["projectName", "side"].includes(column.id) && sortedUniqueValues && (
+      {/* {["projectName", "side"].includes(column.id) && sortedUniqueValues && (
         <datalist id={column.id + "list"}>
           {sortedUniqueValues.splice(0, 1000).map((value: string) => (
             <option value={value} key={value} />
           ))}
         </datalist>
-      )}
+      )} */}
       <DebouncedInput
         type="text"
         value={(columnFilterValue ?? "") as string}

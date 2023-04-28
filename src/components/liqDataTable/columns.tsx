@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { type getAllTraderLiqPrices } from "~/app/lib/getAllTraderLiqPrices";
 import { TraderHoverCard } from "../TraderHoverCard";
+import { LiqButton } from "../liqAction/liqButton";
 
 export type LiqTableData = Awaited<ReturnType<typeof getAllTraderLiqPrices>>[0];
 
@@ -157,6 +158,17 @@ export const columns = [
     cell: (info) => <TraderHoverCard trader={info.getValue()} />,
     enableSorting: true,
     sortingFn: "alphanumeric",
+  }),
+  columnHelper.display({
+    id: "liq",
+    header: "👅",
+    cell: (props) => (
+      <LiqButton
+        ammName={props.row.original.ammName}
+        traderAddress={props.row.original.trader}
+        isLiquidatable={props.row.original.isLiquidatable}
+      />
+    ),
   }),
   // columnHelper.accessor((row) => row.lastUpdatedTimestamp, {
   //   id: "lastUpdated",

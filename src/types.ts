@@ -34,6 +34,7 @@ export type TraderAmmPosition = {
   markToLiq?: string;
   maintenanceMargin?: number;
   marginRatioToMinimumMarginRatio?: string;
+  isLiquidatable: boolean;
 };
 
 export const NfexData = z.object({

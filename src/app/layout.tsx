@@ -1,6 +1,27 @@
+"use client";
+
 import { VT323 } from "next/font/google";
 import "../styles/globals.css";
 import { cn } from "~/utils/utils";
+
+import { WagmiConfig, createClient } from "wagmi";
+import {
+  ConnectKitProvider,
+  getDefaultClient,
+  // ConnectKitButton,
+  // getDefaultClient,
+} from "connectkit";
+import { SiteHeader } from "~/components/SiteHeader";
+import { arbitrum } from "wagmi/chains";
+
+const chains = [arbitrum];
+
+const client = createClient(
+  getDefaultClient({
+    appName: "nftPerpData",
+    chains,
+  })
+);
 
 const fontMono = VT323({
   subsets: ["latin"],
@@ -15,14 +36,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={cn(
-          "flex min-h-screen flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
-          fontMono.className
-        )}
-      >
-        {children}
-      </body>
+      <WagmiConfig client={client}>
+        <ConnectKitProvider
+          options={{
+            truncateLongENSAddress: true,
+            initialChainId: 42161,
+          }}
+        >
+          <body
+            className={cn(
+              "flex flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
+              fontMono.className
+            )}
+          >
+            <SiteHeader />
+            {children}
+          </body>
+        </ConnectKitProvider>
+      </WagmiConfig>
     </html>
   );
 }

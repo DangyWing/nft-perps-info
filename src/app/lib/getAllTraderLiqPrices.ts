@@ -26,10 +26,6 @@ export const getAllTraderLiqPrices = cache(async () => {
     data.map((item) => {
       if (item.size === "0") return [];
       item.maintenanceMargin = item.ammName === "ppg" ? 0.1 : 0.0625;
-
-      // item.lastUpdatedTimestamp = dayjs
-      //   .unix(parseInt(item.lastUpdatedTimestamp))
-      //   .fromNow();
       item.markToLiq = calculate_percentage_change(
         parseFloat(item.markPrice),
         parseFloat(item.liquidationPrice)
@@ -45,6 +41,8 @@ export const getAllTraderLiqPrices = cache(async () => {
       item.unrealizedPnl = parseFloat(item.unrealizedPnl).toFixed(2);
       item.size = parseFloat(item.size).toFixed(4);
       item.entryPrice = parseFloat(item.entryPrice).toFixed(2);
+      item.isLiquidatable =
+        parseFloat(item.marginRatio) - item.maintenanceMargin < 0;
 
       return item;
     });
