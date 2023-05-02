@@ -4,10 +4,7 @@ const prisma = new PrismaClient();
 
 export const getPositionDataFromDb = async () => {
   const res = await prisma.positionUpdatedEvent.findMany({
-    orderBy: {
-      // timestamp: "desc",
-      liquidationPrice: "asc",
-    },
+    orderBy: [{ timestamp: "desc" }, { liquidationPrice: "asc" }],
     take: 50,
     select: {
       ammName: true,
@@ -42,6 +39,7 @@ export const getPositionDataFromDb = async () => {
         gte: 1683047347,
       },
     },
+    distinct: ["trader", "amm"],
   });
 
   return res.map((item) => ({
@@ -52,6 +50,6 @@ export const getPositionDataFromDb = async () => {
     liquidationPrice: parseFloat(item.liquidationPrice).toFixed(2),
     leverage: parseFloat(item.leverage).toFixed(2),
     unrealizedPnl: parseFloat(item.unrealizedPnl).toFixed(2),
-    size: parseFloat(item.size).toFixed(2),
+    size: Math.abs(parseFloat(item.size)).toFixed(2),
   }));
 };

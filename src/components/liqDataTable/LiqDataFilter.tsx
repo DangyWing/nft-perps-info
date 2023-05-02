@@ -66,6 +66,7 @@ export function LiqDataFilter({
           ))}
         </datalist>
       )} */}
+
       <DebouncedInput
         type="text"
         value={(columnFilterValue ?? "") as string}

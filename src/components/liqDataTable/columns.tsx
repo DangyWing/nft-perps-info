@@ -14,18 +14,35 @@ const columnHelper = createColumnHelper<LiqTableData>();
 const numberFormat = "text-right mx-12";
 
 export const columns = [
+  columnHelper.accessor((row) => row.side, {
+    id: "side",
+    header: "🚀 | 📉",
+    cell: (info) => {
+      return (
+        <div className="text-center">
+          {info.getValue() === "BUY" ? "🚀" : "📉"}
+        </div>
+      );
+    },
+    enableSorting: true,
+    sortingFn: "basic",
+    //todo: turn on once the datalist issue is sorted
+    enableColumnFilter: false,
+  }),
+
   columnHelper.accessor((row) => row.ammName, {
     id: "projectName",
     header: "project",
     cell: (info) => (
-      <a
-        href={`https://nfex.io/trade/${info.getValue()}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        {info.row.original.side === "BUY" ? "🚀 " : "📉 "}
-        {info.getValue()}
-      </a>
+      <div className="mx-14">
+        <a
+          href={`https://nfex.io/trade/${info.getValue()}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {info.getValue()}
+        </a>
+      </div>
     ),
     enableSorting: true,
     sortingFn: "alphanumeric",
