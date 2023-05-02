@@ -1,4 +1,5 @@
-import { type Address } from "viem";
+import { isAddress } from "viem";
+import { getAddress } from "viem";
 
 import {
   AlertDialog,
@@ -21,17 +22,20 @@ export function LiqButton({
   ammName,
   isLiquidatable,
 }: {
-  traderAddress: Address;
+  traderAddress: string;
   ammName: string;
   isLiquidatable: boolean;
 }) {
   const contractAddress = getContractAddressFromAmmName(ammName);
+
+  const validAddresses = isAddress(traderAddress) && isAddress(contractAddress);
+
   const { config, isSuccess } = usePrepareContractWrite({
     address: "0x6fc05B7DFe545cd488E9D47d56CFaCA88F69A2e1",
     abi: ClearingHouseAbi,
     functionName: "liquidate",
-    args: [contractAddress, traderAddress],
-    enabled: !!contractAddress && !!traderAddress && isLiquidatable,
+    args: [contractAddress, getAddress(traderAddress)],
+    enabled: validAddresses && isLiquidatable,
   });
 
   const { write } = useContractWrite(config);

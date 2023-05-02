@@ -1,13 +1,17 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import { type getAllTraderLiqPrices } from "~/app/lib/getAllTraderLiqPrices";
+// import { type getAllTraderLiqPrices } from "~/app/lib/getAllTraderLiqPrices";
+import { type getPositionDataFromDb } from "~/app/lib/getPositionDataFromDb";
 import { TraderHoverCard } from "../TraderHoverCard";
 import { LiqButton } from "../liqAction/liqButton";
 
-export type LiqTableData = Awaited<ReturnType<typeof getAllTraderLiqPrices>>[0];
+// export type LiqTableData = Awaited<ReturnType<typeof getAllTraderLiqPrices>>[0];
+export type LiqTableData = Awaited<ReturnType<typeof getPositionDataFromDb>>[0];
 
 const columnHelper = createColumnHelper<LiqTableData>();
+
+const numberFormat = "text-right mx-12";
 
 export const columns = [
   columnHelper.accessor((row) => row.ammName, {
@@ -19,7 +23,7 @@ export const columns = [
         target="_blank"
         rel="noreferrer"
       >
-        {info.row.original.side === "BUY" ? "🚀" : "📉"}
+        {info.row.original.side === "BUY" ? "🚀 " : "📉 "}
         {info.getValue()}
       </a>
     ),
@@ -32,8 +36,9 @@ export const columns = [
     id: "marginRatio",
     header: "Margin Ratio",
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className="text-center">{info.getValue()}</div>;
     },
+
     enableSorting: true,
     sortingFn: "basic",
   }),
@@ -47,7 +52,7 @@ export const columns = [
       );
     },
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className="text-center">{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "basic",
@@ -58,7 +63,7 @@ export const columns = [
       return <div>entry price</div>;
     },
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "basic",
@@ -67,7 +72,7 @@ export const columns = [
     id: "liqPrice",
     header: "liq price",
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -78,7 +83,7 @@ export const columns = [
       return <div>mark</div>;
     },
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
   }),
@@ -93,11 +98,7 @@ export const columns = [
       );
     },
     cell: (info) => {
-      //   const markPrice = parseFloat(info.row.getValue("markPrice"));
-      //   const liqPrice = parseFloat(info.row.getValue("liqPrice"));
-      //   const markToLiq = Math.abs((markPrice - liqPrice) / markPrice) * 100;
-      //   return <div className="text-right">{markToLiq.toFixed(1)}</div>;
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
   }),
@@ -105,7 +106,7 @@ export const columns = [
     id: "leverage",
     header: "lev",
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -121,7 +122,7 @@ export const columns = [
       );
     },
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -131,27 +132,12 @@ export const columns = [
     id: "size",
     header: "size",
     cell: (info) => {
-      return <div className="text-right">{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
   }),
-  //   columnHelper.accessor((row) => row.notional, {
-  //     id: "notional",
-  //     header: "notional size",
-  //     cell: (info) => {
-  //       const markPrice = info.getValue();
 
-  //       return markPrice ? (
-  //         <div className="text-right">{parseFloat(markPrice)?.toFixed(2)}</div>
-  //       ) : (
-  //         <div className="text-right">-</div>
-  //       );
-  //     },
-  //     enableSorting: true,
-  //     sortingFn: "alphanumeric",
-  //     size: 100,
-  //   }),
   columnHelper.accessor((row) => row.trader, {
     id: "trader",
     header: "Trader",
@@ -170,14 +156,4 @@ export const columns = [
       />
     ),
   }),
-  // columnHelper.accessor((row) => row.lastUpdatedTimestamp, {
-  //   id: "lastUpdated",
-  //   header: "last updated",
-  //   cell: (info) => {
-  //     return <div>{info.getValue()}</div>;
-  //   },
-  //   enableSorting: true,
-  //   sortingFn: "alphanumeric",
-  //   size: 150,
-  // }),
 ];

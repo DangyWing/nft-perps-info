@@ -1,6 +1,6 @@
 // add gravatar?
-import type { Address } from "viem";
 import { Button } from "../components/ui/button";
+// import Link from "next/link";
 import {
   HoverCard,
   HoverCardContent,
@@ -8,12 +8,19 @@ import {
 } from "../components/ui/hover-card";
 import { middleEllipsize } from "~/utils/middleEllipsize";
 
-export function TraderHoverCard({ trader }: { trader: Address }) {
+export function TraderHoverCard({ trader }: { trader: string }) {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>
         <Button variant="link" className="text-md">
-          {middleEllipsize(trader)}
+          {/* <Link href={"www.google.com"}></Link>
+           */}
+          <a
+            href={`https://nft.perpanalytics.xyz/?address=${trader}`}
+            target="_blank"
+          >
+            {middleEllipsize(trader)}
+          </a>
         </Button>
       </HoverCardTrigger>
       <HoverCardContent className="background w-full border border-zinc-700 bg-black">

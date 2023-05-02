@@ -43,7 +43,8 @@ export function LiqDataTable({ data }: { data: LiqTableData[] }) {
 
   const getRowProps = (row: Row<LiqTableData>) => {
     const marginRatio = parseFloat(row.getValue<string>("marginRatio"));
-    const maintenanceMargin = row.original.maintenanceMargin ?? 0.0625;
+    const maintenanceMargin =
+      parseFloat(row.original.maintenanceMargin) ?? 0.0625;
 
     if (marginRatio < maintenanceMargin) {
       return {

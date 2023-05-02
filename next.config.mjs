@@ -7,7 +7,7 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
-  experimental: { appDir: true, typedRoutes: true },
+  experimental: { appDir: true, typedRoutes: false },
   /**
    * If you have `experimental: { appDir: true }` set, then you must comment the below `i18n` config
    * out.

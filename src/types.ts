@@ -15,6 +15,36 @@ export type TraderPositionData = {
   ppg: TraderAmmPosition;
 };
 
+export type TraderAmmPositionWithLiq = {
+  amm: string;
+  ammName: string;
+  blockNumber: string;
+  entryPrice: string;
+  exchangedPositionNotional: string;
+  exchangedPositionSize: string;
+  fundingPayment: string;
+  lastUpdatedTimestamp: string;
+  leverage: string;
+  liquidationPrice: string;
+  maintenanceMargin: number;
+  markToLiq: string;
+  marginRatioToMinimumMarginRatio: string;
+  margin: string;
+  markPrice: string;
+  marginRatio: string;
+  nftPerpId: string;
+  notional: string;
+  positionSizeAfter: string;
+  realizedPnl: string;
+  side: string;
+  size: string;
+  timestamp: string;
+  trader: Address;
+  unrealizedPnl: string;
+  unrealizedPnlAfter: string;
+  isLiquidatable: boolean;
+};
+
 export type TraderAmmPosition = {
   trader: Address;
   ammName: string;
