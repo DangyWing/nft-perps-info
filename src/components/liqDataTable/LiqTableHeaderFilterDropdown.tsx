@@ -1,4 +1,4 @@
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -7,16 +7,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { type PerpData } from "~/types";
+} from "../ui/dropdown-menu";
 import { type Column } from "@tanstack/react-table";
+import { type LiqTableData } from "./columns";
 
 function handleFilterChange({
   value,
   column,
 }: {
   value: string;
-  column: Column<PerpData>;
+  column: Column<LiqTableData>;
 }) {
   const currFilter = column.getFilterValue() as string[] | undefined;
 
@@ -30,12 +30,12 @@ function handleFilterChange({
   }
 }
 
-export function TableHeaderFilterDropdown({
+export function LiqTableHeaderFilterDropdown({
   values,
   column,
 }: {
   values: string[];
-  column: Column<PerpData, unknown>;
+  column: Column<LiqTableData, unknown>;
 }) {
   const currFilter = column.getFilterValue() as string[] | undefined;
 

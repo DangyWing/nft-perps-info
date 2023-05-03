@@ -1,12 +1,10 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-// import { type getAllTraderLiqPrices } from "~/app/lib/getAllTraderLiqPrices";
 import { type getPositionDataFromDb } from "~/app/lib/getPositionDataFromDb";
 import { TraderHoverCard } from "../TraderHoverCard";
 import { LiqButton } from "../liqAction/liqButton";
 
-// export type LiqTableData = Awaited<ReturnType<typeof getAllTraderLiqPrices>>[0];
 export type LiqTableData = Awaited<ReturnType<typeof getPositionDataFromDb>>[0];
 
 const columnHelper = createColumnHelper<LiqTableData>();
@@ -47,7 +45,7 @@ export const columns = [
     enableSorting: true,
     sortingFn: "alphanumeric",
     enableColumnFilter: true,
-    filterFn: "includesString",
+    filterFn: "arrIncludesSome",
   }),
   columnHelper.accessor((row) => row.marginRatio, {
     id: "marginRatio",
@@ -58,6 +56,7 @@ export const columns = [
 
     enableSorting: true,
     sortingFn: "basic",
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.marginRatioToMinimumMarginRatio, {
     id: "marginRatioToMinimumMarginRatio",
@@ -73,6 +72,7 @@ export const columns = [
     },
     enableSorting: true,
     sortingFn: "basic",
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.entryPrice, {
     id: "entryPrice",
@@ -84,6 +84,7 @@ export const columns = [
     },
     enableSorting: true,
     sortingFn: "basic",
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.liquidationPrice, {
     id: "liqPrice",
@@ -93,6 +94,7 @@ export const columns = [
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.markPrice, {
     id: "markPrice",
@@ -103,6 +105,7 @@ export const columns = [
       return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.markToLiq, {
     id: "markToLiq",
@@ -118,6 +121,7 @@ export const columns = [
       return <div className={numberFormat}>{info.getValue()}</div>;
     },
     enableSorting: true,
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.leverage, {
     id: "leverage",
@@ -127,6 +131,7 @@ export const columns = [
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
+    enableColumnFilter: false,
   }),
   columnHelper.accessor((row) => row.unrealizedPnl, {
     id: "nftPerpIndexToMark",
@@ -143,6 +148,7 @@ export const columns = [
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
+    enableColumnFilter: false,
   }),
 
   columnHelper.accessor((row) => row.size, {
@@ -153,6 +159,7 @@ export const columns = [
     },
     enableSorting: true,
     sortingFn: "alphanumeric",
+    enableColumnFilter: false,
   }),
 
   columnHelper.accessor((row) => row.trader, {
@@ -161,6 +168,7 @@ export const columns = [
     cell: (info) => <TraderHoverCard trader={info.getValue()} />,
     enableSorting: true,
     sortingFn: "alphanumeric",
+    enableColumnFilter: false,
   }),
   columnHelper.display({
     id: "liq",
