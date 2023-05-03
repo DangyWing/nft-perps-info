@@ -38,7 +38,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
     initialState: {
       grouping: ["projectName"],
       pagination: {
-        pageSize: 50,
+        pageSize: 25,
       },
     },
   });

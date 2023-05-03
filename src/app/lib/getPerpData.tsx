@@ -61,25 +61,33 @@ export async function getPerpData() {
     await getNftPerpData(),
   ]);
 
-  const perpData = nfexData.map((nfexData) => {
-    const item = nftPerpData.find(
-      (nftPerpData) => nftPerpData.projectName === nfexData.projectName
+  const perpData = nfexData
+    .map((nfexData) => {
+      const item = nftPerpData.find(
+        (nftPerpData) => nftPerpData.projectName === nfexData.projectName
+      );
+
+      const nftPerpMarkToNfexMark =
+        !item?.nftPerpMarkPrice || !nfexData?.markPrice
+          ? null
+          : calculate_percentage_change(
+              parseFloat(item.nftPerpMarkPrice),
+              parseFloat(nfexData.markPrice)
+            );
+
+      return {
+        nftPerpMarkToNfexMark,
+        ...nfexData,
+        ...item,
+      };
+    })
+    .sort((a, b) =>
+      a.nftPerpMarkToNfexMark === null
+        ? 1
+        : b.nftPerpMarkToNfexMark === null
+        ? -1
+        : b.nftPerpMarkToNfexMark - a.nftPerpMarkToNfexMark
     );
-
-    const nftPerpMarkToNfexMark =
-      !item?.nftPerpMarkPrice || !nfexData?.markPrice
-        ? null
-        : calculate_percentage_change(
-            parseFloat(item.nftPerpMarkPrice),
-            parseFloat(nfexData.markPrice)
-          );
-
-    return {
-      nftPerpMarkToNfexMark,
-      ...nfexData,
-      ...item,
-    };
-  });
 
   return perpData;
 }
