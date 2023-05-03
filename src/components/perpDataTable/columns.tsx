@@ -2,6 +2,7 @@
 
 import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
+import { numberFormat } from "../liqDataTable/columns";
 
 const columnHelper = createColumnHelper<PerpData>();
 
@@ -31,7 +32,7 @@ export const columns = [
         header: "nfex",
         cell: (info) => {
           return (
-            <div className="text-right">
+            <div className={numberFormat}>
               {parseFloat(info.getValue())?.toFixed(4)}
             </div>
           );
@@ -45,11 +46,11 @@ export const columns = [
         cell: (info) => {
           const indexPrice = info.getValue();
           return indexPrice ? (
-            <div className="text-right">
+            <div className={numberFormat}>
               {parseFloat(indexPrice)?.toFixed(4)}
             </div>
           ) : (
-            <div className="text-right">-</div>
+            <div className="text-center">-</div>
           );
         },
         enableSorting: true,
@@ -66,8 +67,8 @@ export const columns = [
         header: "nfex",
         cell: (info) => {
           return (
-            <div className="text-right">
-              {parseFloat(info.getValue())?.toFixed(4)}
+            <div className={numberFormat}>
+              {parseFloat(info.getValue())?.toFixed(2)}
             </div>
           );
         },
@@ -80,11 +81,11 @@ export const columns = [
           const markPrice = info.getValue();
 
           return markPrice ? (
-            <div className="text-right">
-              {parseFloat(markPrice)?.toFixed(4)}
+            <div className={numberFormat}>
+              {parseFloat(markPrice)?.toFixed(2)}
             </div>
           ) : (
-            <div className="text-right">-</div>
+            <div className="text-center">-</div>
           );
         },
         enableSorting: true,
@@ -100,7 +101,9 @@ export const columns = [
         id: "indexToMark",
         header: "nfex",
         cell: (info) => {
-          return info.getValue().toFixed(2);
+          return (
+            <div className={numberFormat}> {info.getValue().toFixed(2)}</div>
+          );
         },
         enableSorting: true,
       }),
@@ -110,9 +113,9 @@ export const columns = [
         cell: (info) => {
           const indexToMark = info.getValue();
           return indexToMark ? (
-            <div className="text-right">{indexToMark.toFixed(2)}</div>
+            <div className={numberFormat}>{indexToMark.toFixed(2)}</div>
           ) : (
-            <div className="text-right">-</div>
+            <div className="text-center">-</div>
           );
         },
         enableSorting: true,
@@ -128,7 +131,7 @@ export const columns = [
         header: "Nfex",
         cell: (info) => {
           return (
-            <div className="text-right">
+            <div className={numberFormat}>
               {parseFloat(info.getValue())?.toFixed(4)}
             </div>
           );
@@ -142,11 +145,11 @@ export const columns = [
           const fundingRate = info.getValue();
 
           return fundingRate ? (
-            <div className="text-right">
+            <div className={numberFormat}>
               {parseFloat(fundingRate)?.toFixed(4)}
             </div>
           ) : (
-            <div className="text-right">-</div>
+            <div className="text-center">-</div>
           );
         },
         enableSorting: true,

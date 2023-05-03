@@ -59,23 +59,25 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
       targetNftPerpIndexToMark
     ) {
       return {
-        className: "bg-zinc-100 px-1 text-zinc-800 text-bold",
+        className:
+          "bg-zinc-100 px-1 text-zinc-800 text-bold hover:text-zinc-800",
       };
     }
     if (targetNftPerpFundingRate) {
       return {
-        className: "bg-purple-600 bg-opacity-20",
+        className: "bg-purple-600 bg-opacity-20 hover:text-zinc-500",
       };
     }
     if (targetNfexFundingRate) {
       return {
-        className: "bg-green-600 bg-opacity-30",
+        className: "bg-green-600 bg-opacity-30 hover:text-zinc-800",
       };
     }
 
     if (targetNftPerpIndexToMark) {
       return {
-        className: "bg-pink-400 bg-opacity-70 border border-zinc-800 border-1",
+        className:
+          "bg-pink-400 bg-opacity-70 border border-zinc-800 border-1 hover:text-zinc-800",
       };
     }
   };
@@ -95,7 +97,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
     <div className="max-w-6xl p-2">
       <LegendPopover />
       <table className="divide-y divide-gray-200">
-        <thead className="border-b border-slate-200 text-xl uppercase dark:border-slate-800">
+        <thead className="border-collapse border-b border-slate-200 text-xl uppercase dark:border-slate-800">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
@@ -150,7 +152,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="px-2"
+                  className="border-b border-pink-300 border-s-violet-500 border-opacity-30 "
                   // {...getCellProps(cell.getContext())}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
