@@ -1,6 +1,7 @@
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -30,7 +31,7 @@ function handleFilterChange({
   }
 }
 
-export function TableHeaderCheckbox({
+export function TableHeaderFilterDropdown({
   values,
   column,
 }: {
@@ -44,32 +45,34 @@ export function TableHeaderCheckbox({
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="hover:background hover:bg-zinc-8 rounded-none border border-zinc-400 hover:bg-zinc-800"
+          size={"sm"}
+          className="hover:background hover:bg-zinc-8 rounded-none border border-zinc-400 py-1 hover:bg-zinc-800"
         >
           filter
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="background w-56 bg-black">
+      <DropdownMenuContent className="background w-56 bg-black" sticky="always">
         <DropdownMenuLabel>Projects</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
           {values.map((value) => (
-            <DropdownMenuItem
+            <DropdownMenuCheckboxItem
               key={value}
               className={
                 currFilter && currFilter.includes(value)
                   ? "background bg-zinc-800 text-green-300"
                   : "hover:background text-white hover:bg-zinc-800"
               }
-              onSelect={() =>
+              onSelect={(e) => {
+                e.preventDefault();
                 handleFilterChange({
                   value,
                   column,
-                })
-              }
+                });
+              }}
             >
               {value}
-            </DropdownMenuItem>
+            </DropdownMenuCheckboxItem>
           ))}
         </DropdownMenuGroup>
       </DropdownMenuContent>

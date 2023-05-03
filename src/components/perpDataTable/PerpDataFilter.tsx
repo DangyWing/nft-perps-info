@@ -1,7 +1,7 @@
 import type { Column, Table } from "@tanstack/react-table";
 import React from "react";
 import type { PerpData } from "~/types";
-import { TableHeaderCheckbox } from "../TableHeaderCheckbox";
+import { TableHeaderFilterDropdown } from "../TableHeaderFilterDropdown";
 
 export function PerpDataFilter({
   column,
@@ -17,8 +17,8 @@ export function PerpDataFilter({
   return (
     <>
       {column.id === "projectName" && sortedUniqueValues && (
-        <div>
-          <TableHeaderCheckbox
+        <div className="p-2">
+          <TableHeaderFilterDropdown
             values={["all", ...sortedUniqueValues]}
             column={column}
           />

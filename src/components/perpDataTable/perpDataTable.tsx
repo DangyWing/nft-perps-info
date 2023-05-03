@@ -154,6 +154,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} {...getRowProps(row)}>
               {row.getVisibleCells().map((cell) => (
+                // todo: add left and right border if within header group
                 <td
                   key={cell.id}
                   className="border-b border-pink-300 border-s-violet-500 border-opacity-30 "

@@ -38,7 +38,7 @@ export const columns = [
             </div>
           );
         },
-        size: 75,
+        size: 25,
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
@@ -56,7 +56,7 @@ export const columns = [
             )
           );
         },
-        size: 75,
+        size: 25,
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
