@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
 import { numberFormat } from "../liqDataTable/columns";
+import { calculate_percentage_change } from "~/utils/utils";
 
 const columnHelper = createColumnHelper<PerpData>();
 
@@ -67,7 +68,7 @@ export const columns = [
     header: "Mark Price",
     columns: [
       columnHelper.accessor((row) => row.markPrice, {
-        id: "markPrice",
+        id: "nfexMarkPrice",
         header: "nfex",
         cell: (info) => {
           return (
@@ -89,6 +90,27 @@ export const columns = [
             markPrice && (
               <div className={numberFormat}>
                 {parseFloat(markPrice)?.toFixed(2)}
+              </div>
+            )
+          );
+        },
+        size: 75,
+        enableSorting: true,
+        sortingFn: "alphanumeric",
+        enableColumnFilter: false,
+      }),
+      columnHelper.accessor((row) => row.nftPerpMarkPrice, {
+        id: "perpMarkToNfexMark",
+        header: "perp vs nfex",
+        cell: (info) => {
+          const markPrice = info.getValue();
+          return (
+            markPrice && (
+              <div className={numberFormat}>
+                {calculate_percentage_change(
+                  parseFloat(markPrice),
+                  parseFloat(info.row.getValue("nfexMarkPrice"))
+                ).toFixed(2)}
               </div>
             )
           );
