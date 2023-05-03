@@ -92,7 +92,7 @@ export function LiqDataTable({ data }: { data: LiqTableData[] }) {
                       </div>
                       {header.column.getCanFilter() ? (
                         <div className="px-0">
-                          <LiqDataFilter column={header.column} table={table} />
+                          <LiqDataFilter column={header.column} />
                         </div>
                       ) : null}
                     </>
