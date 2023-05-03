@@ -70,6 +70,7 @@ export type TraderAmmPosition = {
 export const NfexData = z.object({
   symbol_id: z.number(),
   base_cfn: z.string(),
+  base_ccy: z.string(),
   taker_fratio: z.string(),
   maker_fratio: z.string(),
   max_lever: z.string(),
@@ -94,6 +95,8 @@ export type NfexData = z.infer<typeof NfexData>;
 
 export type PerpData = {
   projectName: string;
+  nfexSlug: string;
+  nftPerpSlug?: string;
   indexPrice: string;
   markPrice: string;
   fundingRate: string;
@@ -106,6 +109,7 @@ export type PerpData = {
 };
 export type NfexPerpData = {
   projectName: string;
+  nfexSlug: string;
   indexPrice: string;
   markPrice: string;
   fundingRate: string;
@@ -114,6 +118,7 @@ export type NfexPerpData = {
 
 export type NftPerpData = {
   projectName: string;
+  nftPerpSlug?: string;
   nftPerpIndexPrice: string;
   nftPerpMarkPrice: string;
   nftPerpFundingRate: string;

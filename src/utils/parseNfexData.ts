@@ -4,6 +4,7 @@ import { calculate_percentage_change } from "./utils";
 export function parseNfexData(data: NfexData[]) {
   const perpData: NfexPerpData[] = data.map((row) => ({
     projectName: row.base_cfn,
+    nfexSlug: row.base_ccy,
     indexPrice: row.last_fund_rate_info.MomentBaseData.index_p,
     markPrice: row.last_fund_rate_info.MomentBaseData.market_p,
     fundingRate: (
