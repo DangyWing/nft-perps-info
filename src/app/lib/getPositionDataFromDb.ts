@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { prisma } from "../db";
 
 export const getPositionDataFromDb = async () => {
   const res = await prisma.positionUpdatedEvent.findMany({
