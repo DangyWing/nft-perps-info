@@ -191,10 +191,12 @@ export const columns = [
         id: "nftPerpFundingType",
         header: "",
         cell: (info) => {
-          return info.getValue() && <div>{info.getValue()}</div>;
+          return (
+            info.getValue() && <p className="text-center">{info.getValue()}</p>
+          );
         },
-        // enableSorting: true,
-        // sortingFn: "alphanumeric",
+        enableSorting: true,
+        sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
     ],

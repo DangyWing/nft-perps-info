@@ -65,19 +65,18 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
     }
     if (targetNftPerpFundingRate) {
       return {
-        className: "bg-purple-600 bg-opacity-20 hover:text-zinc-500",
+        className: "bg-purple-600 bg-opacity-20 hover:text-zinc-500 px-1",
       };
     }
     if (targetNfexFundingRate) {
       return {
-        className: "bg-green-600 bg-opacity-30 hover:text-zinc-800",
+        className: "bg-green-600 bg-opacity-30 hover:text-zinc-800 px-1",
       };
     }
 
     if (targetNftPerpIndexToMark) {
       return {
-        className:
-          "bg-pink-400 bg-opacity-70 border border-zinc-800 border-1 hover:text-zinc-800",
+        className: "bg-pink-400 bg-opacity-70 hover:text-zinc-800 px-1",
       };
     }
   };
@@ -96,7 +95,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
   return (
     <div className="max-w-full">
       <LegendPopover />
-      <table className="">
+      <table className="px-4">
         <thead className="text-xl uppercase">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
@@ -157,7 +156,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
                 // todo: add left and right border if within header group
                 <td
                   key={cell.id}
-                  className="border-b border-pink-300 border-s-violet-500 border-opacity-30 "
+                  className="border-b border-pink-300 border-opacity-30 px-2"
                   // {...getCellProps(cell.getContext())}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
