@@ -94,8 +94,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
   // };
 
   return (
-    // <div className="max-w-full">
-    <div className="">
+    <div className="max-w-full">
       <LegendPopover />
       <table className="">
         <thead className="text-xl uppercase">

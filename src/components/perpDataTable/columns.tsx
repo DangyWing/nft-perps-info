@@ -23,7 +23,7 @@ export const columns = [
     enableSorting: true,
     sortingFn: "alphanumeric",
     enableColumnFilter: true,
-    filterFn: "includesString",
+    filterFn: "arrIncludesSome",
   }),
   {
     header: "Index Price",
