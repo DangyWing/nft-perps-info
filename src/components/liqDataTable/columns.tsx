@@ -4,6 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { type getPositionDataFromDb } from "~/app/lib/getPositionDataFromDb";
 import { TraderHoverCard } from "../TraderHoverCard";
 import { LiqButton } from "../liqAction/liqButton";
+import dayjs from "dayjs";
 
 export type LiqTableData = Awaited<ReturnType<typeof getPositionDataFromDb>>[0];
 
@@ -47,17 +48,17 @@ export const columns = [
     enableColumnFilter: true,
     filterFn: "arrIncludesSome",
   }),
-  columnHelper.accessor((row) => row.marginRatio, {
-    id: "marginRatio",
-    header: "Margin Ratio",
-    cell: (info) => {
-      return <div className="text-center">{info.getValue()}</div>;
-    },
+  // columnHelper.accessor((row) => row.marginRatio, {
+  //   id: "marginRatio",
+  //   header: "Margin Ratio",
+  //   cell: (info) => {
+  //     return <div className="text-center">{info.getValue()}</div>;
+  //   },
 
-    enableSorting: true,
-    sortingFn: "basic",
-    enableColumnFilter: false,
-  }),
+  //   enableSorting: true,
+  //   sortingFn: "basic",
+  //   enableColumnFilter: false,
+  // }),
   columnHelper.accessor((row) => row.marginRatioToMinimumMarginRatio, {
     id: "marginRatioToMinimumMarginRatio",
     header: () => {
@@ -107,22 +108,22 @@ export const columns = [
     enableSorting: true,
     enableColumnFilter: false,
   }),
-  columnHelper.accessor((row) => row.markToLiq, {
-    id: "markToLiq",
-    header: () => {
-      return (
-        <div>
-          Mark to Liq <br />
-          (%)
-        </div>
-      );
-    },
-    cell: (info) => {
-      return <div className={numberFormat}>{info.getValue()}</div>;
-    },
-    enableSorting: true,
-    enableColumnFilter: false,
-  }),
+  // columnHelper.accessor((row) => row.markToLiq, {
+  //   id: "markToLiq",
+  //   header: () => {
+  //     return (
+  //       <div>
+  //         Mark to Liq <br />
+  //         (%)
+  //       </div>
+  //     );
+  //   },
+  //   cell: (info) => {
+  //     return <div className={numberFormat}>{info.getValue()}</div>;
+  //   },
+  //   enableSorting: true,
+  //   enableColumnFilter: false,
+  // }),
   columnHelper.accessor((row) => row.leverage, {
     id: "leverage",
     header: "lev",
@@ -160,6 +161,21 @@ export const columns = [
     enableSorting: true,
     sortingFn: "alphanumeric",
     enableColumnFilter: false,
+  }),
+  columnHelper.accessor((row) => row.updatedAt, {
+    id: "timestamp",
+    header: "timestamp",
+    cell: (info) => {
+      return (
+        <div className={numberFormat}>
+          {dayjs(info.getValue()).format("M-D-YY h:mm")}
+        </div>
+      );
+    },
+    enableSorting: true,
+    sortingFn: "basic",
+    enableColumnFilter: false,
+    size: 200,
   }),
 
   columnHelper.accessor((row) => row.trader, {
