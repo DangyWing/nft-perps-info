@@ -2,6 +2,7 @@ import { type NfexDataResponse } from "~/types";
 import { parseNfexData } from "~/utils/parseNfexData";
 import { AMMData } from "~/constants/constants";
 import type { AMMResponse, NftPerpData } from "~/types";
+import { calculate_percentage_change } from "~/utils/utils";
 
 async function getNftPerpData() {
   const nftPerpData = [];
@@ -55,18 +56,27 @@ async function getNfexData() {
 }
 
 export async function getPerpData() {
-  const [nftexData, nftPerpData] = await Promise.all([
+  const [nfexData, nftPerpData] = await Promise.all([
     await getNfexData(),
     await getNftPerpData(),
   ]);
 
-  const perpData = nftexData.map((nftexData) => {
+  const perpData = nfexData.map((nfexData) => {
     const item = nftPerpData.find(
-      (nftPerpData) => nftPerpData.projectName === nftexData.projectName
+      (nftPerpData) => nftPerpData.projectName === nfexData.projectName
     );
 
+    const nftPerpMarkToNfexMark =
+      !item?.nftPerpMarkPrice || !nfexData?.markPrice
+        ? null
+        : calculate_percentage_change(
+            parseFloat(item.nftPerpMarkPrice),
+            parseFloat(nfexData.markPrice)
+          );
+
     return {
-      ...nftexData,
+      nftPerpMarkToNfexMark,
+      ...nfexData,
       ...item,
     };
   });
