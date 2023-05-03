@@ -21,6 +21,12 @@ async function getNftPerpData() {
         ? Number(data.nextEstimatedFundingRateShort) * 100
         : Number(data.nextEstimatedFundingRateLong) * 100;
 
+    const fundingSide =
+      Math.abs(parseFloat(data.nextEstimatedFundingRateLong)) >
+      Math.abs(parseFloat(data.nextEstimatedFundingRateShort))
+        ? "Short"
+        : "Long";
+
     const indexToMarkDelta =
       (Math.abs(parseFloat(data.indexPrice) - parseFloat(data.markPrice)) /
         ((parseFloat(data.indexPrice) + parseFloat(data.markPrice)) / 2)) *
@@ -33,6 +39,7 @@ async function getNftPerpData() {
       nftPerpFundingRate: funding.toString(),
       nftPerpIndexToMark: indexToMarkDelta,
       nftPerpSlug: amm.AMM,
+      nftPerpFundingSide: fundingSide,
     };
 
     nftPerpData.push(perpData);

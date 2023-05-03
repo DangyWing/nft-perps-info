@@ -187,18 +187,11 @@ export const columns = [
         enableColumnFilter: false,
         size: 75,
       }),
-      columnHelper.accessor((row) => row.nftPerpFundingRate, {
+      columnHelper.accessor((row) => row.nftPerpFundingSide, {
         id: "nftPerpFundingType",
         header: "",
         cell: (info) => {
-          const fundingRate = info.getValue();
-          return (
-            fundingRate && (
-              <div className={numberFormat}>
-                {parseFloat(fundingRate) > 0 ? "short" : "long"}
-              </div>
-            )
-          );
+          return info.getValue() && <div>{info.getValue()}</div>;
         },
         // enableSorting: true,
         // sortingFn: "alphanumeric",
