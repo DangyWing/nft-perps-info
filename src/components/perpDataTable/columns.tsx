@@ -13,24 +13,24 @@ function getBackgroundClass(float: number | null) {
 
   switch (Math.floor(float)) {
     case 0:
-      return "bg-red-500";
+      return "bg-red-500 h-full text-slate-100 text-center";
     case 1:
-      return "bg-yellow-500";
+      return "bg-yellow-500 h-full text-slate-100 text-center";
 
     case 2:
       return "bg-green-600 h-full text-slate-100 text-center";
 
     case 3:
-      return "bg-blue-500 h-full";
+      return "bg-blue-500 h-full text-slate-100 text-center";
 
     case 4:
-      return "bg-indigo-500";
+      return "bg-indigo-500 h-full text-slate-100 text-center";
 
     case 5:
-      return "bg-purple-500";
+      return "bg-purple-500 h-full text-slate-100 text-center";
 
     default:
-      return "bg-gray-500";
+      return "bg-gray-500 h-full text-slate-100 text-center";
   }
 }
 
