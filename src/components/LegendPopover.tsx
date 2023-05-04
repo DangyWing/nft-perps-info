@@ -2,24 +2,26 @@ import { Button } from "./ui/button";
 import { HelpCircle } from "lucide-react";
 
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "../components/ui/popover";
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@radix-ui/react-hover-card";
 
 export function LegendPopover() {
   return (
-    <Popover>
-      <PopoverTrigger asChild>
+    <HoverCard>
+      <HoverCardTrigger asChild>
         <Button className="w-10 rounded-full p-0">
           <HelpCircle />
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="background w-96 rounded-none border-zinc-500 bg-zinc-900 bg-opacity-100">
+      </HoverCardTrigger>
+      <HoverCardContent
+        className="background w-96 rounded-none border border-zinc-500 bg-zinc-900 bg-opacity-100 p-4"
+        side="bottom"
+      >
         <div className="grid gap-4">
           <div className="space-y-2">
             <h4 className="font-xl leading-none">wat mean?</h4>
-
             <ul className="space-y-1">
               <li className="flex items-center space-x-2">
                 <div className=" bg-zinc-100 px-1 text-zinc-800">
@@ -44,7 +46,7 @@ export function LegendPopover() {
             </ul>
           </div>
         </div>
-      </PopoverContent>
-    </Popover>
+      </HoverCardContent>
+    </HoverCard>
   );
 }

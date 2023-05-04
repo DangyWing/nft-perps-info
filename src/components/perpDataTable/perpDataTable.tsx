@@ -10,8 +10,7 @@ import {
   getPaginationRowModel,
   getFacetedUniqueValues,
   type Row,
-  CellContext,
-  Cell,
+
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "./columns";
