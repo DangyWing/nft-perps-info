@@ -47,7 +47,7 @@ export const getPositionDataFromDb = async () => {
     markPrice: parseFloat(item.markPrice).toFixed(2),
     liquidationPrice: parseFloat(item.liquidationPrice).toFixed(2),
     leverage: parseFloat(item.leverage).toFixed(2),
-    unrealizedPnl: parseFloat(item.unrealizedPnl).toFixed(2),
+    unrealizedPnl: parseFloat(item.unrealizedPnl),
     size: Math.abs(parseFloat(item.size)).toFixed(2),
   }));
 };

@@ -1,6 +1,7 @@
 // import { getAllTraderLiqPrices } from "../lib/getAllTraderLiqPrices";
 import { LiqDataTable } from "~/components/liqDataTable/liqDataTable";
 import { getPositionDataFromDb } from "../lib/getPositionDataFromDb";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "NFTPerp Liq Info",
@@ -16,12 +17,10 @@ export default async function Page() {
         DEAR GOD DO NOT CLICK THE LIQ BUTTON I DO NOT KNOW WHAT IT WILL DO EVEN
         THOUGH I MADE IT
       </h1>
-      {/* <Suspense fallback={<div>Loading...</div>}> */}
-      <div>
-        {/* <LiqDataTable data={liqPrices} /> */}
+
+      <Suspense fallback={<div>Loading...</div>}>
         <LiqDataTable data={positionData} />
-      </div>
-      {/* </Suspense> */}
+      </Suspense>
     </div>
   );
 }

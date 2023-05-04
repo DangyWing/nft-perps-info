@@ -145,10 +145,10 @@ export const columns = [
       );
     },
     cell: (info) => {
-      return <div className={numberFormat}>{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue().toFixed(2)}</div>;
     },
     enableSorting: true,
-    sortingFn: "alphanumeric",
+    sortingFn: "basic",
     enableColumnFilter: false,
   }),
 

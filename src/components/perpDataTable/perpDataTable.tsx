@@ -44,7 +44,7 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
   });
 
   return (
-    <div className="max-w-full">
+    <div className="justify-center p-2">
       <LegendPopover />
       <table className="px-4">
         <thead className="text-xl uppercase">
@@ -108,7 +108,6 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
             >
               {/* todo: add left and right border if within header group */}
               {row.getVisibleCells().map((cell) => {
-                
                 const newClass = getBackgroundColorScales({
                   cellValue: cell.getValue(),
                   columnId: cell.column.id,
