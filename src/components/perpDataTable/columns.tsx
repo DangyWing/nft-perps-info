@@ -6,34 +6,6 @@ import { numberFormat } from "../liqDataTable/columns";
 
 const columnHelper = createColumnHelper<PerpData>();
 
-function getBackgroundClass(float: number | null) {
-  if (!float) {
-    return "bg-gray-500";
-  }
-
-  switch (Math.floor(float)) {
-    case 0:
-      return "bg-red-500 h-full text-slate-100 text-center";
-    case 1:
-      return "bg-yellow-500 h-full text-slate-100 text-center";
-
-    case 2:
-      return "bg-green-600 h-full text-slate-100 text-center";
-
-    case 3:
-      return "bg-blue-500 h-full text-slate-100 text-center";
-
-    case 4:
-      return "bg-indigo-500 h-full text-slate-100 text-center";
-
-    case 5:
-      return "bg-purple-500 h-full text-slate-100 text-center";
-
-    default:
-      return "bg-gray-500 h-full text-slate-100 text-center";
-  }
-}
-
 export const columns = [
   columnHelper.accessor((row) => row.projectName, {
     id: "projectName",
@@ -135,8 +107,8 @@ export const columns = [
         id: "perpMarkToNfexMark",
         header: "perp vs nfex",
         cell: (info) => {
-          const bgClass = getBackgroundClass(info.getValue());
-          return <div className={bgClass}>{info.getValue()?.toFixed(2)}</div>;
+          // const bgClass = getBackgroundColorScales(info.getValue());
+          return <div>{info.getValue()?.toFixed(2)}</div>;
         },
         size: 75,
         enableSorting: true,

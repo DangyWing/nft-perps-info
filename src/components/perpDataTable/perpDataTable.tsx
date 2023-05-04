@@ -9,14 +9,13 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getFacetedUniqueValues,
-  type Row,
-
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "./columns";
 import type { PerpData } from "../../types";
 import { PerpDataFilter } from "./PerpDataFilter";
 import { LegendPopover } from "../LegendPopover";
+import { getBackgroundColorScales } from "~/utils/getBackgroundColorScales";
 
 export function PerpDataTable({ data }: { data: PerpData[] }) {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -43,43 +42,6 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
       },
     },
   });
-
-  const getRowProps = (row: Row<PerpData>) => {
-    const nfexFundingRate = parseFloat(row.getValue<string>("fundingRate"));
-    const nftPerpFundingRate = parseFloat(
-      row.getValue<string>("nftPerpFundingRate")
-    );
-    const targetNftPerpFundingRate = nftPerpFundingRate > 0.03;
-    const targetNfexFundingRate = nfexFundingRate > 0.03;
-    const targetNftPerpIndexToMark =
-      parseFloat(row.getValue<string>("nftPerpIndexToMark")) > 0.25;
-
-    if (
-      targetNftPerpFundingRate &&
-      targetNfexFundingRate &&
-      targetNftPerpIndexToMark
-    ) {
-      return {
-        className: "bg-zinc-100 text-zinc-800 text-bold hover:text-zinc-800",
-      };
-    }
-    if (targetNftPerpFundingRate) {
-      return {
-        className: "bg-purple-600 bg-opacity-20 hover:text-zinc-500",
-      };
-    }
-    if (targetNfexFundingRate) {
-      return {
-        className: "bg-green-600 bg-opacity-30 hover:text-zinc-800",
-      };
-    }
-
-    if (targetNftPerpIndexToMark) {
-      return {
-        // className: "bg-pink-400 bg-opacity-70 hover:text-zinc-800",
-      };
-    }
-  };
 
   return (
     <div className="max-w-full">
@@ -140,14 +102,20 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
         </thead>
         <tbody className="p-2">
           {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} {...getRowProps(row)}>
+            <tr
+              key={row.id}
+              className="border-b border-pink-300 border-opacity-30"
+            >
               {/* todo: add left and right border if within header group */}
               {row.getVisibleCells().map((cell) => {
+                
+                const newClass = getBackgroundColorScales({
+                  cellValue: cell.getValue(),
+                  columnId: cell.column.id,
+                });
+
                 return (
-                  <td
-                    key={cell.id}
-                    // className="border-b border-pink-300 border-opacity-30"
-                  >
+                  <td key={cell.id} className={newClass}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </td>
                 );
