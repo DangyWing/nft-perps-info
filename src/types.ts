@@ -107,6 +107,7 @@ export type PerpData = {
   nftPerpIndexToMark?: number;
   nftPerpMarkToNfexMark: number | null;
   nftPerpFundingSide?: string;
+  sortValue: number;
 };
 export type NfexPerpData = {
   projectName: string;

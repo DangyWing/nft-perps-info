@@ -6,6 +6,34 @@ import { numberFormat } from "../liqDataTable/columns";
 
 const columnHelper = createColumnHelper<PerpData>();
 
+function getBackgroundClass(float: number | null) {
+  if (!float) {
+    return "bg-gray-500";
+  }
+
+  switch (Math.floor(float)) {
+    case 0:
+      return "bg-red-500";
+    case 1:
+      return "bg-yellow-500";
+
+    case 2:
+      return "bg-green-600 h-full text-slate-100 text-center";
+
+    case 3:
+      return "bg-blue-500 h-full";
+
+    case 4:
+      return "bg-indigo-500";
+
+    case 5:
+      return "bg-purple-500";
+
+    default:
+      return "bg-gray-500";
+  }
+}
+
 export const columns = [
   columnHelper.accessor((row) => row.projectName, {
     id: "projectName",
@@ -107,9 +135,8 @@ export const columns = [
         id: "perpMarkToNfexMark",
         header: "perp vs nfex",
         cell: (info) => {
-          return (
-            <div className={numberFormat}>{info.getValue()?.toFixed(2)}</div>
-          );
+          const bgClass = getBackgroundClass(info.getValue());
+          return <div className={bgClass}>{info.getValue()?.toFixed(2)}</div>;
         },
         size: 75,
         enableSorting: true,

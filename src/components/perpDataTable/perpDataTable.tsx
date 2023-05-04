@@ -10,6 +10,8 @@ import {
   getPaginationRowModel,
   getFacetedUniqueValues,
   type Row,
+  CellContext,
+  Cell,
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { columns } from "./columns";
@@ -59,38 +61,26 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
       targetNftPerpIndexToMark
     ) {
       return {
-        className:
-          "bg-zinc-100 px-1 text-zinc-800 text-bold hover:text-zinc-800",
+        className: "bg-zinc-100 text-zinc-800 text-bold hover:text-zinc-800",
       };
     }
     if (targetNftPerpFundingRate) {
       return {
-        className: "bg-purple-600 bg-opacity-20 hover:text-zinc-500 px-1",
+        className: "bg-purple-600 bg-opacity-20 hover:text-zinc-500",
       };
     }
     if (targetNfexFundingRate) {
       return {
-        className: "bg-green-600 bg-opacity-30 hover:text-zinc-800 px-1",
+        className: "bg-green-600 bg-opacity-30 hover:text-zinc-800",
       };
     }
 
     if (targetNftPerpIndexToMark) {
       return {
-        className: "bg-pink-400 bg-opacity-70 hover:text-zinc-800 px-1",
+        // className: "bg-pink-400 bg-opacity-70 hover:text-zinc-800",
       };
     }
   };
-
-  // Func to provide props to table cell
-  // const getCellProps = (context: CellContext<PerpData, unknown>) => {
-  //   const value = context.getValue();
-
-  //   if (context.row.index === 0) {
-  //     return {
-  //       className: "bg-pink-700 bg-opacity-40",
-  //     };
-  //   }
-  // };
 
   return (
     <div className="max-w-full">
@@ -152,16 +142,17 @@ export function PerpDataTable({ data }: { data: PerpData[] }) {
         <tbody className="p-2">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} {...getRowProps(row)}>
-              {row.getVisibleCells().map((cell) => (
-                // todo: add left and right border if within header group
-                <td
-                  key={cell.id}
-                  className="border-b border-pink-300 border-opacity-30 px-2"
-                  // {...getCellProps(cell.getContext())}
-                >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
+              {/* todo: add left and right border if within header group */}
+              {row.getVisibleCells().map((cell) => {
+                return (
+                  <td
+                    key={cell.id}
+                    // className="border-b border-pink-300 border-opacity-30"
+                  >
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>

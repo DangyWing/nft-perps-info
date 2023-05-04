@@ -95,7 +95,11 @@ export async function getPerpData() {
         : b.nftPerpMarkToNfexMark === null
         ? -1
         : b.nftPerpMarkToNfexMark - a.nftPerpMarkToNfexMark
-    );
+    )
+    .map((obj, index, arr) => ({
+      ...obj,
+      sortValue: obj.nftPerpMarkToNfexMark ? arr.length - index : 0,
+    }));
 
   return perpData;
 }
