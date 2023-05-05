@@ -22,10 +22,7 @@ async function getNftPerpData() {
         : Number(data.nextEstimatedFundingRateLong) * 100;
 
     const fundingSide =
-      Math.abs(parseFloat(data.nextEstimatedFundingRateLong)) >
-      Math.abs(parseFloat(data.nextEstimatedFundingRateShort))
-        ? "Short"
-        : "Long";
+      parseFloat(data.nextEstimatedFundingRateLong) > 0 ? "Short" : "Long";
 
     const indexToMarkDelta =
       (Math.abs(parseFloat(data.indexPrice) - parseFloat(data.markPrice)) /
