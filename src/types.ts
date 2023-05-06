@@ -15,6 +15,20 @@ export type TraderPositionData = {
   ppg: TraderAmmPosition;
 };
 
+export type AllAmmsDataResponse = {
+  status: string;
+  data: AllAmmsData;
+};
+
+export type AllAmmsData = {
+  bayc: AMMData;
+  punks: AMMData;
+  azuki: AMMData;
+  milady: AMMData;
+  mayc: AMMData;
+  ppg: AMMData;
+};
+
 export type TraderAmmPositionWithLiq = {
   amm: string;
   ammName: string;
