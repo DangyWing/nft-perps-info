@@ -15,7 +15,7 @@ export function getBackgroundColorScales({
   }
 
   if (columnId === "perpMarkToNfexMark") {
-    const cellValueTyped = cellValue as number;
+    const cellValueTyped = Math.abs(cellValue as number);
     switch (true) {
       case cellValue === 0:
         return "";
@@ -38,7 +38,7 @@ export function getBackgroundColorScales({
     }
   }
   if (columnId === "nftPerpIndexToMark") {
-    const cellValueTyped = cellValue as number;
+    const cellValueTyped = Math.abs(cellValue as number);
     switch (true) {
       case cellValue === 0:
         return "";
@@ -60,7 +60,7 @@ export function getBackgroundColorScales({
   }
 
   if (columnId === "nftPerpFundingRate") {
-    const cellValueTyped = cellValue as number;
+    const cellValueTyped = Math.abs(cellValue as number);
     switch (true) {
       case cellValue === 0:
         return "";

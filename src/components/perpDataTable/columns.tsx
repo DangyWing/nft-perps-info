@@ -197,18 +197,18 @@ export const columns = [
         enableColumnFilter: false,
         size: 75,
       }),
-      columnHelper.accessor((row) => row.nftPerpFundingSide, {
-        id: "nftPerpFundingType",
-        header: "",
-        cell: (info) => {
-          return (
-            info.getValue() && <p className="text-center">{info.getValue()}</p>
-          );
-        },
-        enableSorting: true,
-        sortingFn: "alphanumeric",
-        enableColumnFilter: false,
-      }),
     ],
   },
+  columnHelper.accessor((row) => row.nftPerpFundingSide, {
+    id: "nftPerpFundingType",
+    header: "",
+    cell: (info) => {
+      return (
+        info.getValue() && <p className="text-center">{info.getValue()}</p>
+      );
+    },
+    enableSorting: true,
+    sortingFn: "alphanumeric",
+    enableColumnFilter: false,
+  }),
 ];
