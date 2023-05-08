@@ -1,5 +1,8 @@
 import { Amm } from "@nftperp/sdk/types";
 
+export const ClearingHouseAddress: `0x${string}` =
+  "0x6fc05B7DFe545cd488E9D47d56CFaCA88F69A2e1";
+
 export const AMMData: {
   AMM: Amm;
   ammName: string;
