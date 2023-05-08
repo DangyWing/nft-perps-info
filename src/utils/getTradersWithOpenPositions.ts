@@ -28,6 +28,7 @@ export async function getTradersWithOpenPositions() {
   const res = (await execute(query, {})) as TradersWithOpenPositionsRes;
 
   const traderSet = new Set<`0x${string}`>();
+
   for (const { trader } of res.data.ammPositions) {
     traderSet.add(trader);
   }

@@ -1,7 +1,7 @@
 import { type NfexDataResponse } from "~/types";
 import { parseNfexData } from "~/utils/parseNfexData";
 import { AMMData } from "~/constants/constants";
-import type { AMMResponse, NftPerpData } from "~/types";
+import type { AMMResponse, NftPerpData, PerpData } from "~/types";
 import { calculate_percentage_change } from "~/utils/utils";
 
 async function getNftPerpData() {
@@ -10,7 +10,7 @@ async function getNftPerpData() {
     const url = `https://api3.nftperp.xyz/${amm.AMM}`;
     const res = await fetch(url, {
       next: {
-        revalidate: 60,
+        revalidate: 30,
       },
     });
 
@@ -66,37 +66,36 @@ export async function getPerpData() {
     await getNftPerpData(),
   ]);
 
-  const perpData = nfexData
-    .map((nfexData) => {
-      const item = nftPerpData.find(
-        (nftPerpData) => nftPerpData.projectName === nfexData.projectName
-      );
+  const combinedPerpData = [];
 
-      const nftPerpMarkToNfexMark =
-        !item?.nftPerpMarkPrice || !nfexData?.markPrice
-          ? null
-          : calculate_percentage_change(
-              parseFloat(item.nftPerpMarkPrice),
-              parseFloat(nfexData.markPrice)
-            );
+  for (const nftPerp of nftPerpData) {
+    const nfexDataItem = nfexData.find(
+      (nfexData) => nfexData.projectName === nftPerp.projectName
+    );
 
-      return {
-        nftPerpMarkToNfexMark,
-        ...nfexData,
-        ...item,
-      };
-    })
-    .sort((a, b) =>
-      a.nftPerpMarkToNfexMark === null
-        ? 1
-        : b.nftPerpMarkToNfexMark === null
-        ? -1
-        : b.nftPerpMarkToNfexMark - a.nftPerpMarkToNfexMark
-    )
-    .map((obj, index, arr) => ({
-      ...obj,
-      sortValue: obj.nftPerpMarkToNfexMark ? arr.length - index : 0,
-    }));
+    if (!nfexDataItem) {
+      return new Error("Failed to find nfexDataItem");
+    }
 
-  return perpData;
+    const nftPerpMarkToNfexMark = calculate_percentage_change(
+      parseFloat(nftPerp.nftPerpMarkPrice),
+      parseFloat(nfexDataItem.markPrice)
+    );
+
+    const perpData: PerpData = {
+      nftPerpMarkToNfexMark,
+      ...nftPerp,
+      ...nfexDataItem,
+    };
+
+    combinedPerpData.push(perpData);
+  }
+
+  return combinedPerpData.sort((a, b) =>
+    a.nftPerpMarkToNfexMark === null
+      ? 1
+      : b.nftPerpMarkToNfexMark === null
+      ? -1
+      : b.nftPerpMarkToNfexMark - a.nftPerpMarkToNfexMark
+  );
 }

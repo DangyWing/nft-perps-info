@@ -10,6 +10,10 @@ export const metadata = {
 export default async function Page() {
   const data = await getPerpData();
 
+  if (data instanceof Error) {
+    return <div>Failed to fetch data</div>;
+  }
+
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>

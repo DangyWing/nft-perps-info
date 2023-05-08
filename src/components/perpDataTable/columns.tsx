@@ -12,7 +12,6 @@ export const columns = [
     header: "Project",
     cell: (info) => (
       <a
-        // href={`https://nfex.io/trade/${info.row.original.nfexSlug}`}
         href={
           info.row.original.nftPerpSlug
             ? `https://beta.nftperp.xyz/trade/${info.row.original.nftPerpSlug}`
