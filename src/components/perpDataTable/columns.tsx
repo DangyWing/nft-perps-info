@@ -169,9 +169,8 @@ export const columns = [
             )
           );
         },
-        size: 75,
         enableSorting: true,
-        sortingFn: "alphanumeric",
+        sortingFn: "basic",
         enableColumnFilter: false,
       }),
     ],
@@ -183,32 +182,19 @@ export const columns = [
         id: "nftPerpFundingRate",
         header: "NFTPerp",
         cell: (info) => {
-          const fundingRate = info.getValue();
+          const shortOrLong = parseFloat(info.getValue()) < 0 ? "l" : "s";
           return (
-            fundingRate && (
+            <div className="flex">
               <div className={numberFormat}>
-                {parseFloat(fundingRate)?.toFixed(4)}
+                {parseFloat(info.getValue())?.toFixed(3) + " " + shortOrLong}
               </div>
-            )
+            </div>
           );
         },
         enableSorting: true,
-        sortingFn: "alphanumeric",
+        sortingFn: "basic",
         enableColumnFilter: false,
-        size: 75,
       }),
     ],
   },
-  columnHelper.accessor((row) => row.nftPerpFundingSide, {
-    id: "nftPerpFundingType",
-    header: "",
-    cell: (info) => {
-      return (
-        info.getValue() && <p className="text-center">{info.getValue()}</p>
-      );
-    },
-    enableSorting: true,
-    sortingFn: "alphanumeric",
-    enableColumnFilter: false,
-  }),
 ];
