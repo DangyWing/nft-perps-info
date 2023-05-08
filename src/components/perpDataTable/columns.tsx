@@ -102,11 +102,10 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
-      columnHelper.accessor((row) => row.nftPerpMarkToNfexMark, {
+      columnHelper.accessor((row) => row.nftPerpMarkToNfexIndex, {
         id: "perpMarkToNfexMark",
         header: "perp vs nfex",
         cell: (info) => {
-          // const bgClass = getBackgroundColorScales(info.getValue());
           return <div>{info.getValue()?.toFixed(2)}</div>;
         },
         size: 75,

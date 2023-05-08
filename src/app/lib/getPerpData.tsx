@@ -77,13 +77,13 @@ export async function getPerpData() {
       return new Error("Failed to find nfexDataItem");
     }
 
-    const nftPerpMarkToNfexMark = calculate_percentage_change(
+    const nftPerpMarkToNfexIndex = calculate_percentage_change(
       parseFloat(nftPerp.nftPerpMarkPrice),
-      parseFloat(nfexDataItem.markPrice)
+      parseFloat(nfexDataItem.indexPrice)
     );
 
     const perpData: PerpData = {
-      nftPerpMarkToNfexMark,
+      nftPerpMarkToNfexIndex,
       ...nftPerp,
       ...nfexDataItem,
     };
@@ -92,10 +92,10 @@ export async function getPerpData() {
   }
 
   return combinedPerpData.sort((a, b) =>
-    a.nftPerpMarkToNfexMark === null
+    a.nftPerpMarkToNfexIndex === null
       ? 1
-      : b.nftPerpMarkToNfexMark === null
+      : b.nftPerpMarkToNfexIndex === null
       ? -1
-      : b.nftPerpMarkToNfexMark - a.nftPerpMarkToNfexMark
+      : b.nftPerpMarkToNfexIndex - a.nftPerpMarkToNfexIndex
   );
 }
