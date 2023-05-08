@@ -119,18 +119,18 @@ export const columns = [
   {
     header: "Index To Mark (%)",
     columns: [
-      columnHelper.accessor((row) => row.indexToMark, {
-        id: "indexToMark",
-        header: "nfex",
-        cell: (info) => {
-          return (
-            <div className={numberFormat}> {info.getValue().toFixed(2)}</div>
-          );
-        },
-        size: 75,
-        enableSorting: true,
-        enableColumnFilter: false,
-      }),
+      // columnHelper.accessor((row) => row.indexToMark, {
+      //   id: "indexToMark",
+      //   header: "nfex",
+      //   cell: (info) => {
+      //     return (
+      //       <div className={numberFormat}> {info.getValue().toFixed(2)}</div>
+      //     );
+      //   },
+      //   size: 75,
+      //   enableSorting: true,
+      //   enableColumnFilter: false,
+      // }),
       columnHelper.accessor((row) => row.nftPerpIndexToMark, {
         id: "nftPerpIndexToMark",
         header: "NFTPerp",
@@ -152,20 +152,20 @@ export const columns = [
   {
     header: "Funding Rate",
     columns: [
-      columnHelper.accessor((row) => row.fundingRate, {
-        id: "fundingRate",
-        header: "Nfex",
-        cell: (info) => {
-          return (
-            <div className={numberFormat}>
-              {parseFloat(info.getValue())?.toFixed(4)}
-            </div>
-          );
-        },
-        enableSorting: true,
-        enableColumnFilter: false,
-        size: 75,
-      }),
+      // columnHelper.accessor((row) => row.fundingRate, {
+      //   id: "fundingRate",
+      //   header: "Nfex",
+      //   cell: (info) => {
+      //     return (
+      //       <div className={numberFormat}>
+      //         {parseFloat(info.getValue())?.toFixed(4)}
+      //       </div>
+      //     );
+      //   },
+      //   enableSorting: true,
+      //   enableColumnFilter: false,
+      //   size: 75,
+      // }),
       columnHelper.accessor((row) => row.nftPerpFundingRate, {
         id: "nftPerpFundingRate",
         header: "NFTPerp",
