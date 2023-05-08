@@ -147,7 +147,7 @@ export const columns = [
     header: "Index To Mark (%)",
     columns: [
       columnHelper.accessor((row) => row.nftPerpMarkToNfexIndex, {
-        id: "perpMarkToNfexMark",
+        id: "perpMarkToNfexIndex",
         header: "perp vs nfex",
         cell: (info) => {
           return <div>{info.getValue()?.toFixed(2)}</div>;

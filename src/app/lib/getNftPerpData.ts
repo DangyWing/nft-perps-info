@@ -25,8 +25,6 @@ export async function getNftPerpData() {
         ((parseFloat(value.indexPrice) + parseFloat(value.markPrice)) / 2)) *
       100;
 
-    console.log(value.ammName);
-
     const { label } =
       AMMData.find((amm) => amm.ammName === value.ammName) || {};
 

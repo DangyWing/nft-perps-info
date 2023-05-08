@@ -122,6 +122,7 @@ export type PerpData = {
   nftPerpMarkToNfexIndex: number | null;
   nftPerpFundingSide: string;
 };
+
 export type NfexPerpData = {
   projectName: string;
   nfexSlug: string;
