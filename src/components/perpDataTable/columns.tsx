@@ -3,6 +3,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
 import { numberFormat } from "../liqDataTable/columns";
+import { LongButton } from "./longButton";
 
 const columnHelper = createColumnHelper<PerpData>();
 
@@ -210,5 +211,15 @@ export const columns = [
     enableSorting: true,
     sortingFn: "alphanumeric",
     enableColumnFilter: false,
+  }),
+  columnHelper.display({
+    id: "long",
+    header: "👅",
+    cell: (props) => (
+      <LongButton
+        ammName={props.row.original.nftPerpSlug}
+        // traderAddress={props.row.original.traderAddress}
+      />
+    ),
   }),
 ];

@@ -110,7 +110,7 @@ export type NfexData = z.infer<typeof NfexData>;
 export type PerpData = {
   projectName: string;
   nfexSlug: string;
-  nftPerpSlug?: string;
+  nftPerpSlug: string;
   indexPrice: string;
   markPrice: string;
   fundingRate: string;

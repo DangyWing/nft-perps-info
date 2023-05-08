@@ -1,15 +1,7 @@
-// import Link from "next/link";
-
-// import { cn } from "~/utils/utils";
 import { ConnectKitButton } from "connectkit";
 import { Button } from "./ui/button";
 
 import Link from "next/link";
-// import { buttonVariants } from "@/components/ui/button";
-// import { CommandMenu } from "@/components/command-menu";
-
-// import { MainNav } from "@/components/main-nav";
-// import { ModeToggle } from "@/components/mode-toggle";
 
 export function SiteHeader() {
   return (
