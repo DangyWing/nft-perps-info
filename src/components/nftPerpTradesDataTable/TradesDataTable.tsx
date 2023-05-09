@@ -183,7 +183,7 @@ export function TradesDataTable() {
                   {/* todo: add left and right border if within header group */}
                   {row.getVisibleCells().map((cell) => {
                     return (
-                      <td key={cell.id}>
+                      <td key={cell.id} className="px-2">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
