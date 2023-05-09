@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { getTradersWithOpenPositions } from "~/utils/getTradersWithOpenPositions";
-import { getLiqPricesForTrader } from "~/utils/getLiqPricesForTrader";
+import { getLiqPricesForTrader } from "~/utils/getTraderPositions";
 import { type TraderAmmPosition } from "~/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

@@ -1,7 +1,7 @@
 import { cache } from "react";
 import type { TraderPositionResponse } from "../types";
 
-export const getLiqPricesForTrader = cache(async (trader: `0x${string}`) => {
+export const getTraderPositions = cache(async (trader: `0x${string}`) => {
   const url = `https://api3.nftperp.xyz/positions?trader=${trader}`;
   try {
     const res = await fetch(url, {

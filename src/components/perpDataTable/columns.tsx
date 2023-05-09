@@ -123,7 +123,7 @@ export const columns = [
         enableColumnFilter: false,
       }),
       columnHelper.accessor((row) => row.nftPerpMarkPrice, {
-        id: "nftPerpIndexToNfexIndex",
+        id: "nftPerpMarkToNfexMark",
         header: "nftperp/nfex",
         cell: (info) => {
           const nftPerpMarkPrice = info.getValue();

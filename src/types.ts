@@ -6,6 +6,39 @@ export type TraderPositionResponse = {
   data: TraderPositionData;
 };
 
+export type TradeDataResponse = {
+  status: string;
+  data: TradeData;
+};
+
+export type TradeData = {
+  page: number;
+  pageSize: number;
+  totalPages: number;
+  totalCount: number;
+  result: Trade[];
+};
+export type Trade = {
+  trader: Address;
+  amm: Address;
+  ammName: string;
+  exhangedPositionNotional: string;
+  exchangedPositionSize: string;
+  fee: string;
+  positionSizeAfter: string;
+  realizedPnl: string;
+  unrealizedPnlAfter: string;
+  badDebt: string;
+  liquidationPenalty: string;
+  markPrice: string;
+  fundingPayment: string;
+  transactionHash: string;
+  blockNumber: number;
+  transactionIndex: number;
+  logIndex: number;
+  timestamp: number;
+};
+
 export type TraderPositionData = {
   bayc: TraderAmmPosition;
   punks: TraderAmmPosition;
@@ -18,6 +51,21 @@ export type TraderPositionData = {
 export type AllAmmsDataResponse = {
   status: string;
   data: AllAmmsData;
+};
+
+export type LiqEventDisplay = {
+  ammName: string;
+  entryPrice: string;
+  markPrice: string;
+  liquidationPrice: string;
+  margin: string;
+  side: string;
+  exchangedPositionSize: number;
+  exchangedPositionNotional: number;
+  trader: `0x${string}`;
+  transactionHash: `0x${string}`;
+  isLiquidatable: boolean;
+  tradeType: string;
 };
 
 export type AllAmmsData = {
