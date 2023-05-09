@@ -55,7 +55,7 @@ export function TradesDataTable() {
     // if the relevant trader position margin is 0, then set it to "-"
 
     const marginNum = !relevantTraderPosition.margin
-      ? data.margin
+      ? parseFloat(data.margin).toFixed(2)
       : relevantTraderPosition.margin === "0"
       ? "-"
       : parseFloat(relevantTraderPosition.margin).toFixed(2);
