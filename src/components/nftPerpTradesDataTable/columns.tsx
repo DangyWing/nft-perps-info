@@ -82,7 +82,7 @@ export const columns = [
     id: "exchangedPositionSize",
     header: "size",
     cell: (info) => {
-      return <div>{info.getValue().toFixed(2)}</div>;
+      return <div className="text-right">{info.getValue().toFixed(2)}</div>;
     },
     enableSorting: true,
     sortingFn: "basic",
@@ -115,6 +115,7 @@ export const columns = [
     cell: (info) => {
       return (
         <a
+          rel="noreferrer"
           target="_blank"
           href={`https://arbiscan.io/address/${info.getValue()}`}
         >
@@ -131,7 +132,11 @@ export const columns = [
     header: "tx hash",
     cell: (info) => {
       return (
-        <a target="_blank" href={`https://arbiscan.io/tx/${info.getValue()}`}>
+        <a
+          rel="noreferrer"
+          target="_blank"
+          href={`https://arbiscan.io/tx/${info.getValue()}`}
+        >
           {info.getValue().substring(0, 10)}
         </a>
       );

@@ -10,7 +10,7 @@ export type LiqTableData = Awaited<ReturnType<typeof getPositionDataFromDb>>[0];
 
 const columnHelper = createColumnHelper<LiqTableData>();
 
-export const numberFormat = "text-right mx-12";
+export const numberFormat = "text-right mx-6";
 
 export const columns = [
   columnHelper.accessor((row) => row.side, {
@@ -18,7 +18,7 @@ export const columns = [
     header: "🚀 | 📉",
     cell: (info) => {
       return (
-        <div className="text-center">
+        <div className="text-center ">
           {info.getValue() === "BUY" ? "🚀" : "📉"}
         </div>
       );
