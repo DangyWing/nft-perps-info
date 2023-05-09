@@ -103,9 +103,13 @@ export function TradesDataTable() {
 
   return (
     <div className="p-2">
-      <div>
-        Connected:{" "}
-        {isConnected ? <span className="text-yellow-300">Yes</span> : "No"}
+      <div className="flex items-center">
+        status:{" "}
+        {isConnected ? (
+          <div className="mx-1 rounded-full bg-green-500 p-2" />
+        ) : (
+          <div className="mx-1 rounded-full bg-red-600 p-2" />
+        )}
       </div>
       {traderEvents.length === 0 ? (
         <div className="text-center text-xl">no trades yet</div>
