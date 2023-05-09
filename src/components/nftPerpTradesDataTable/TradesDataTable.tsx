@@ -64,7 +64,7 @@ export function TradesDataTable() {
 
     const liqData: LiqEventDisplay = {
       ammName: relevantTraderPosition.ammName,
-      entryPrice: relevantTraderPosition?.entryPrice ?? "",
+      entryPrice: relevantTraderPosition?.entryPrice ?? "-",
       markPrice: data.markPrice,
       liquidationPrice: liqPrice === 0 ? "-" : liqPrice.toFixed(2),
       margin: marginNum,
