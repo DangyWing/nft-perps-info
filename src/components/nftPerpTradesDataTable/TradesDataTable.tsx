@@ -126,8 +126,8 @@ export function TradesDataTable() {
         <div className="text-center text-xl">no trades yet</div>
       ) : (
         <div>
-          <table className="border px-4">
-            <thead className="text-xl uppercase">
+          <table className="border p-2">
+            <thead className="px-2 text-xl uppercase">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
