@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { getTradersWithOpenPositions } from "~/utils/getTradersWithOpenPositions";
-import { getLiqPricesForTrader } from "~/utils/getTraderPositions";
+import { getTraderPositions } from "~/utils/getTraderPositions";
 import { type TraderAmmPosition } from "~/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -19,7 +19,7 @@ export const getAllTraderLiqPrices = cache(async () => {
   const traderData = [];
 
   for (const item of traders) {
-    const data = await getLiqPricesForTrader(item);
+    const data = await getTraderPositions(item);
 
     if (!data) return [];
 
