@@ -3,49 +3,54 @@ import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 export function getTradeTypeFromPositionEvent(
   data: ProcessedPositionChangedEvent
 ) {
-  let tradeType = "";
   switch (true) {
     case data.badDebt > "0":
-      tradeType = "liquidated";
+      return "liquidated";
       break;
     case data.margin === "0" &&
       parseFloat(data.exchangedPositionSize) > 0 &&
       data.unrealizedPnlAfter === "0":
-      tradeType = "completely closed a short";
+      return "completely closed a short";
       break;
     case data.margin === "0" &&
       parseFloat(data.exchangedPositionSize) < 0 &&
       data.unrealizedPnlAfter === "0":
-      tradeType = "completely closed a long";
+      return "completely closed a long";
       break;
     case parseFloat(data.unrealizedPnlAfter) === 0 &&
       parseFloat(data.exchangedPositionSize) > 0:
-      tradeType = "opened new long";
+      return "opened new long";
       break;
     case parseFloat(data.unrealizedPnlAfter) === 0 &&
       parseFloat(data.exchangedPositionSize) < 0:
-      tradeType = "opened new short";
+      return "opened new short";
       break;
-    case parseFloat(data.exchangedPositionSize) > 0:
-      tradeType = "added";
+    case parseFloat(data.unrealizedPnlAfter) != 0 &&
+      data.positionSizeAfter != "0" &&
+      parseFloat(data.exchangedPositionSize) < 0:
+      return "added to short";
+      break;
+    case parseFloat(data.unrealizedPnlAfter) != 0 &&
+      data.positionSizeAfter != "0" &&
+      parseFloat(data.exchangedPositionSize) > 0:
+      return "added to long";
       break;
     case data.positionSizeAfter === "0":
-      tradeType = "closed";
+      return "closed";
       break;
     case data.exchangedPositionSize === "0":
-      tradeType = "no trade";
+      return "no trade";
       break;
     case parseFloat(data.exchangedPositionSize) > 0 &&
       parseFloat(data.positionSizeAfter) < 0 &&
       data.unrealizedPnlAfter !== "0":
-      tradeType = "completely closed a short";
+      return "completely closed a short";
       break;
     case parseFloat(data.positionSizeAfter) > 0 &&
       data.unrealizedPnlAfter !== "0":
-      tradeType = "partially closed a long";
+      return "partially closed a long";
       break;
     default:
-      tradeType = "idk";
+      return "idk";
   }
-  return tradeType;
 }
