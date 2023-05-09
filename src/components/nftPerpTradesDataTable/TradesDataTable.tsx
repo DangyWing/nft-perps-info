@@ -51,10 +51,14 @@ export function TradesDataTable() {
         ? 0
         : parseFloat(relevantTraderPosition.liquidationPrice);
 
-    const marginNum =
-      !relevantTraderPosition.margin || relevantTraderPosition.margin === "0"
-        ? "-"
-        : parseFloat(relevantTraderPosition.margin).toFixed(2);
+    // this sucks but if there is no relevant trader position margin, get margin from the data object
+    // if the relevant trader position margin is 0, then set it to "-"
+
+    const marginNum = !relevantTraderPosition.margin
+      ? data.margin
+      : relevantTraderPosition.margin === "0"
+      ? "-"
+      : parseFloat(relevantTraderPosition.margin).toFixed(2);
 
     const isLiquidatable =
       (relevantTraderPosition.side === "LONG" &&
@@ -64,10 +68,10 @@ export function TradesDataTable() {
 
     const liqData: LiqEventDisplay = {
       ammName: relevantTraderPosition.ammName,
-      entryPrice: relevantTraderPosition?.entryPrice ?? "-",
+      entryPrice: relevantTraderPosition?.entryPrice ?? data.markPrice,
       markPrice: data.markPrice,
       liquidationPrice: liqPrice === 0 ? "-" : liqPrice.toFixed(2),
-      margin: marginNum,
+      margin: data.margin ?? marginNum,
       side: relevantTraderPosition.side,
       exchangedPositionSize: parseFloat(data.exchangedPositionSize),
       exchangedPositionNotional: parseFloat(data.exchangedPositionNotional),

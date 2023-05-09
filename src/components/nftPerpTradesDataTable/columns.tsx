@@ -17,9 +17,11 @@ export const columns = [
     id: "markPrice",
     header: "mark",
     cell: (info) => {
-      <div className={numberFormat}>
-        {parseFloat(info.getValue()).toFixed(3)}
-      </div>;
+      return (
+        <div className={numberFormat}>
+          {parseFloat(info.getValue()).toFixed(3)}
+        </div>
+      );
     },
     // size: 25,
     enableSorting: true,
@@ -30,9 +32,11 @@ export const columns = [
     id: "entryPrice",
     header: "entry",
     cell: (info) => {
-      <div className={numberFormat}>
-        {parseFloat(info.getValue()).toFixed(2)}
-      </div>;
+      return (
+        <div className={numberFormat}>
+          {parseFloat(info.getValue()).toFixed(2)}
+        </div>
+      );
     },
     size: 25,
     enableSorting: true,
@@ -43,7 +47,7 @@ export const columns = [
     id: "liquidationPrice",
     header: "liq price",
     cell: (info) => {
-      <div className={numberFormat}>{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     // size: 75,
     enableSorting: true,
@@ -54,7 +58,7 @@ export const columns = [
     id: "margin",
     header: "margin",
     cell: (info) => {
-      <div className={numberFormat}>{info.getValue()}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     // size: 25,
     enableSorting: true,
