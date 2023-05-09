@@ -51,6 +51,11 @@ export function TradesDataTable() {
         ? 0
         : parseFloat(relevantTraderPosition.liquidationPrice);
 
+    const marginNum =
+      !relevantTraderPosition.margin || relevantTraderPosition.margin === "0"
+        ? 0
+        : parseFloat(relevantTraderPosition.margin);
+
     const isLiquidatable =
       (relevantTraderPosition.side === "LONG" &&
         liqPrice > parseFloat(data.markPrice)) ||
@@ -61,8 +66,8 @@ export function TradesDataTable() {
       ammName: relevantTraderPosition.ammName,
       entryPrice: relevantTraderPosition?.entryPrice ?? "",
       markPrice: data.markPrice,
-      liquidationPrice: relevantTraderPosition.liquidationPrice ?? "",
-      margin: relevantTraderPosition?.margin ?? "",
+      liquidationPrice: liqPrice,
+      margin: marginNum,
       side: relevantTraderPosition.side,
       exchangedPositionSize: parseFloat(data.exchangedPositionSize),
       exchangedPositionNotional: parseFloat(data.exchangedPositionNotional),
