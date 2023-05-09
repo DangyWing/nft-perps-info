@@ -36,7 +36,9 @@ export const columns = [
       return (
         indexPrice && (
           <div className={numberFormat}>
-            {parseFloat(indexPrice)?.toFixed(2)}
+            {info.getValue() === "0"
+              ? "-"
+              : parseFloat(info.getValue()).toFixed(2)}
           </div>
         )
       );
@@ -52,7 +54,9 @@ export const columns = [
     cell: (info) => {
       return (
         <div className={numberFormat}>
-          {parseFloat(info.getValue())?.toFixed(2)}
+          {info.getValue() === "0"
+            ? "-"
+            : parseFloat(info.getValue()).toFixed(2)}
         </div>
       );
     },
@@ -67,7 +71,9 @@ export const columns = [
     cell: (info) => {
       return (
         <div className={numberFormat}>
-          {parseFloat(info.getValue())?.toFixed(2)}
+          {info.getValue() === "0"
+            ? "-"
+            : parseFloat(info.getValue()).toFixed(2)}
         </div>
       );
     },
