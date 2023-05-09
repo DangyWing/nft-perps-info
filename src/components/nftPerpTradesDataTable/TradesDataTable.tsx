@@ -71,7 +71,7 @@ export function TradesDataTable() {
       entryPrice: relevantTraderPosition?.entryPrice ?? data.markPrice,
       markPrice: data.markPrice,
       liquidationPrice: liqPrice === 0 ? "-" : liqPrice.toFixed(2),
-      margin: data.margin ?? marginNum,
+      margin: marginNum,
       side: relevantTraderPosition.side,
       exchangedPositionSize: parseFloat(data.exchangedPositionSize),
       exchangedPositionNotional: parseFloat(data.exchangedPositionNotional),
