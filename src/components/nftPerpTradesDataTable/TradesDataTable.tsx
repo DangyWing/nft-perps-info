@@ -101,14 +101,14 @@ export function TradesDataTable() {
 
   return (
     <div className="p-2">
+      <div>
+        Connected:{" "}
+        {isConnected ? <span className="text-yellow-300">Yes</span> : "No"}
+      </div>
       {traderEvents.length === 0 ? (
         <div className="text-center text-xl">no trades yet</div>
       ) : (
         <div>
-          <div>
-            Connected:{" "}
-            {isConnected ? <span className="text-yellow-300">Yes</span> : "No"}
-          </div>
           <table className="border px-4">
             <thead className="text-xl uppercase">
               {table.getHeaderGroups().map((headerGroup) => (
