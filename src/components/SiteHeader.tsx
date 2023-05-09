@@ -15,6 +15,9 @@ export function SiteHeader() {
         <Button variant="link" className="text-2xl">
           <Link href="/liq">👅</Link>
         </Button>
+        <Button variant="link" className="text-2xl">
+          <Link href="/trades">👀</Link>
+        </Button>
         <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
           <ConnectKitButton showAvatar={false} showBalance={false} />
         </div>
