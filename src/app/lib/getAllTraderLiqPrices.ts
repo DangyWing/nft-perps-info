@@ -26,21 +26,32 @@ export const getAllTraderLiqPrices = cache(async () => {
     data.map((item) => {
       if (item.size === "0") return [];
       item.maintenanceMargin = item.ammName === "ppg" ? 0.1 : 0.0625;
-      item.markToLiq = calculate_percentage_change(
-        parseFloat(item.markPrice),
-        parseFloat(item.liquidationPrice)
-      ).toFixed(1);
+
+      const markPrice = !item.markPrice ? 0 : parseFloat(item.markPrice);
+      const liqPrice = !item.liquidationPrice
+        ? 0
+        : parseFloat(item.liquidationPrice);
+      const marginRatio = !item.marginRatio ? 0 : parseFloat(item.marginRatio);
+
+      item.markToLiq = calculate_percentage_change(markPrice, liqPrice).toFixed(
+        1
+      );
       item.marginRatioToMinimumMarginRatio = (
-        parseFloat(item.marginRatio) - item.maintenanceMargin
+        marginRatio - item.maintenanceMargin
       ).toFixed(2);
-      item.liquidationPrice = parseFloat(item.liquidationPrice).toFixed(2);
-      item.marginRatio = parseFloat(item.marginRatio).toFixed(2);
-      item.markPrice = parseFloat(item.markPrice).toFixed(2);
-      item.liquidationPrice = parseFloat(item.liquidationPrice).toFixed(2);
-      item.leverage = parseFloat(item.leverage).toFixed(2);
-      item.unrealizedPnl = parseFloat(item.unrealizedPnl).toFixed(2);
-      item.size = parseFloat(item.size).toFixed(4);
-      item.entryPrice = parseFloat(item.entryPrice).toFixed(2);
+      item.liquidationPrice = liqPrice.toFixed(2);
+      item.marginRatio = marginRatio.toFixed(2);
+      item.markPrice = markPrice.toFixed(2);
+      item.leverage = !item.leverage
+        ? "0"
+        : parseFloat(item.leverage).toFixed(2);
+      item.unrealizedPnl = !item.unrealizedPnl
+        ? "0"
+        : parseFloat(item.unrealizedPnl).toFixed(2);
+      item.size = !item.size ? "0" : parseFloat(item.size).toFixed(4);
+      item.entryPrice = !item.entryPrice
+        ? "0"
+        : parseFloat(item.entryPrice).toFixed(2);
       item.isLiquidatable =
         parseFloat(item.marginRatio) - item.maintenanceMargin < 0;
 

@@ -45,20 +45,22 @@ export function TradesDataTable() {
     if (!relevantTraderPosition || data.exchangedPositionSize === "0") return;
     const tradeType = getTradeTypeFromPositionEvent(data);
 
+    const liqPrice = !relevantTraderPosition.liquidationPrice
+      ? 0
+      : parseFloat(relevantTraderPosition.liquidationPrice);
+
     const isLiquidatable =
       (relevantTraderPosition.side === "LONG" &&
-        parseFloat(relevantTraderPosition.liquidationPrice) >
-          parseFloat(data.markPrice)) ||
+        liqPrice > parseFloat(data.markPrice)) ||
       (relevantTraderPosition.side === "SHORT" &&
-        parseFloat(relevantTraderPosition.liquidationPrice) <
-          parseFloat(data.markPrice));
+        liqPrice < parseFloat(data.markPrice));
 
     const liqData: LiqEventDisplay = {
       ammName: relevantTraderPosition.ammName,
-      entryPrice: relevantTraderPosition.entryPrice,
-      markPrice: relevantTraderPosition.markPrice,
-      liquidationPrice: relevantTraderPosition.liquidationPrice,
-      margin: relevantTraderPosition.margin,
+      entryPrice: relevantTraderPosition?.entryPrice ?? "",
+      markPrice: data.markPrice,
+      liquidationPrice: relevantTraderPosition.liquidationPrice ?? "",
+      margin: relevantTraderPosition?.margin ?? "",
       side: relevantTraderPosition.side,
       exchangedPositionSize: parseFloat(data.exchangedPositionSize),
       exchangedPositionNotional: parseFloat(data.exchangedPositionNotional),
