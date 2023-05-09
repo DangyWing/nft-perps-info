@@ -52,7 +52,7 @@ export const columns = [
     id: "liquidationPrice",
     header: "liq price",
     cell: (info) => {
-      return <div className={numberFormat}>{info.getValue().toFixed(2)}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     // size: 75,
     enableSorting: true,
@@ -63,7 +63,7 @@ export const columns = [
     id: "margin",
     header: "margin",
     cell: (info) => {
-      return <div className={numberFormat}>{info.getValue().toFixed(2)}</div>;
+      return <div className={numberFormat}>{info.getValue()}</div>;
     },
     // size: 25,
     enableSorting: true,

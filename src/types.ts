@@ -57,8 +57,8 @@ export type LiqEventDisplay = {
   ammName: string;
   entryPrice: string;
   markPrice: string;
-  liquidationPrice: number;
-  margin: number;
+  liquidationPrice: string;
+  margin: string;
   side: string;
   exchangedPositionSize: number;
   exchangedPositionNotional: number;
