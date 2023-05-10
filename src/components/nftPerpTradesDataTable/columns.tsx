@@ -137,7 +137,7 @@ export const columns = [
           target="_blank"
           href={`https://arbiscan.io/tx/${info.getValue()}`}
         >
-          {info.getValue().substring(0, 10)}
+          {info.getValue().substring(0, 5)}
         </a>
       );
     },

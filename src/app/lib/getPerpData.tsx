@@ -39,6 +39,6 @@ export async function getPerpData() {
       ? 1
       : b.nftPerpMarkToNfexIndex === null
       ? -1
-      : b.nftPerpMarkToNfexIndex - a.nftPerpMarkToNfexIndex
+      : Math.abs(b.nftPerpMarkToNfexIndex) - Math.abs(a.nftPerpMarkToNfexIndex)
   );
 }
