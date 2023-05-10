@@ -123,7 +123,9 @@ export function TradesDataTable() {
         )}
       </div>
       {traderEvents.length === 0 ? (
-        <div className="text-center text-xl">no trades yet</div>
+        <div>
+          <div className="text-center text-xl">no trades yet</div>
+        </div>
       ) : (
         <div>
           <table className="border p-2">

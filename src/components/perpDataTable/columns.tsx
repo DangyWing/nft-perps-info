@@ -23,7 +23,7 @@ export const columns = [
         {info.getValue()}
       </a>
     ),
-    size: 175,
+    size: 150,
     enableSorting: true,
     sortingFn: "alphanumeric",
     enableColumnFilter: true,
@@ -102,7 +102,7 @@ export const columns = [
         },
         enableSorting: true,
         enableColumnFilter: false,
-        size: 75,
+        size: 25,
       }),
       columnHelper.accessor((row) => row.nftPerpMarkPrice, {
         id: "nftPerpMarkPrice",
@@ -117,7 +117,7 @@ export const columns = [
             )
           );
         },
-        size: 75,
+        size: 25,
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
@@ -163,12 +163,9 @@ export const columns = [
         header: "NFTPerp",
         cell: (info) => {
           const indexToMark = info.getValue();
-          return (
-            indexToMark && (
-              <div className={numberFormat}>{indexToMark.toFixed(2)}</div>
-            )
-          );
+          return <div className={numberFormat}>{indexToMark.toFixed(2)}</div>;
         },
+        size: 75,
         enableSorting: true,
         sortingFn: "basic",
         enableColumnFilter: false,
@@ -176,7 +173,7 @@ export const columns = [
     ],
   },
   {
-    header: "Funding Rate",
+    header: "Funding",
     columns: [
       columnHelper.accessor((row) => row.nftPerpFundingRate, {
         id: "nftPerpFundingRate",
@@ -184,10 +181,8 @@ export const columns = [
         cell: (info) => {
           const shortOrLong = parseFloat(info.getValue()) < 0 ? "l" : "s";
           return (
-            <div className="flex">
-              <div className={numberFormat}>
-                {parseFloat(info.getValue())?.toFixed(3) + " " + shortOrLong}
-              </div>
+            <div className={numberFormat}>
+              {parseFloat(info.getValue())?.toFixed(3) + " " + shortOrLong}
             </div>
           );
         },
