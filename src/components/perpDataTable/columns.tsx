@@ -154,7 +154,13 @@ export const columns = [
         },
         size: 75,
         enableSorting: true,
-        sortingFn: "basic",
+
+        sortingFn: (rowA, rowB, columnId) => {
+          const numA = Math.abs(rowA.getValue<number>(columnId));
+          const numB = Math.abs(rowB.getValue<number>(columnId));
+
+          return numA > numB ? 1 : numA < numB ? -1 : 0;
+        },
         sortUndefined: 1,
         enableColumnFilter: false,
       }),
@@ -167,7 +173,7 @@ export const columns = [
         },
         size: 75,
         enableSorting: true,
-        sortingFn: "basic",
+
         enableColumnFilter: false,
       }),
     ],

@@ -1,5 +1,5 @@
 import type { PerpData } from "~/types";
-import { calculate_percentage_change } from "~/utils/utils";
+import { percentageChangeFromBase } from "~/utils/utils";
 import { getNftPerpData } from "./getNftPerpData";
 import { getNfexPerpData } from "./getNfexPerpData";
 
@@ -20,9 +20,9 @@ export async function getPerpData() {
       return new Error("Failed to find nfexDataItem");
     }
 
-    const nftPerpMarkToNfexIndex = calculate_percentage_change(
-      parseFloat(nftPerp.nftPerpMarkPrice),
-      parseFloat(nfexDataItem.indexPrice)
+    const nftPerpMarkToNfexIndex = percentageChangeFromBase(
+      parseFloat(nfexDataItem.indexPrice),
+      parseFloat(nftPerp.nftPerpMarkPrice)
     );
 
     const perpData: PerpData = {

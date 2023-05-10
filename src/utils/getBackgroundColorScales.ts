@@ -33,9 +33,15 @@ export function getBackgroundColorScales({
       case cellValueTyped < 4.5:
         return cn("bg-indigo-500", defaultClasses);
       case cellValueTyped < 5:
-        return cn("bg-white text-black", defaultClasses);
+        return cn("bg-zinc-700 text-zinc-200", defaultClasses);
+      case cellValueTyped < 5.5:
+        return cn("bg-zinc-500 text-zinc-200", defaultClasses);
+      case cellValueTyped < 6:
+        return cn("bg-zinc-300 text-zinc-600", defaultClasses);
+      case cellValueTyped < 7:
+        return cn("bg-zinc-200 text-zinc-800", defaultClasses);
       default:
-        return cn("bg-white text-zinc-800", defaultClasses);
+        return cn("bg-white text-black", defaultClasses);
     }
   }
   if (columnId === "nftPerpIndexToMark") {

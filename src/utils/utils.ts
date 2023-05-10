@@ -14,13 +14,9 @@ export function formatDate(input: string | number): string {
   });
 }
 
-export function calculate_percentage_change(first: number, second: number) {
-  if (first < second) {
-    return ((second - first) / first) * 100;
-  }
-  if (first > second) {
-    return ((first - second) / first) * 100;
-  } else {
-    return 0;
-  }
+export function percentageChangeFromBase(
+  first: number,
+  second: number
+): number {
+  return ((second - first) / first) * 100;
 }

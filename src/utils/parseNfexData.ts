@@ -1,5 +1,5 @@
 import { type NfexData, type NfexPerpData } from "~/types";
-import { calculate_percentage_change } from "./utils";
+import { percentageChangeFromBase } from "./utils";
 
 export function parseNfexData(data: NfexData[]) {
   const perpData: NfexPerpData[] = data.map((row) => ({
@@ -10,7 +10,7 @@ export function parseNfexData(data: NfexData[]) {
     fundingRate: (
       parseFloat(row.last_fund_rate_info.current_period_fund_rate) * 100
     ).toString(),
-    indexToMark: calculate_percentage_change(
+    indexToMark: percentageChangeFromBase(
       parseFloat(row.last_fund_rate_info.MomentBaseData.index_p),
       parseFloat(row.last_fund_rate_info.MomentBaseData.market_p)
     ),
