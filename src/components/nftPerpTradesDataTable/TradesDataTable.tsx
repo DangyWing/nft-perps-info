@@ -80,7 +80,7 @@ export function TradesDataTable() {
       isLiquidatable: isLiquidatable,
       tradeType: tradeType,
     };
-    setTraderEvents((previous) => [...previous, liqData]);
+    setTraderEvents((previous) => [liqData, ...previous]);
   }
 
   useEffect(() => {
