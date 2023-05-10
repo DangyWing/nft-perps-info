@@ -4,7 +4,7 @@ import { getTraderPositions } from "~/utils/getTraderPositions";
 import { type TraderAmmPosition } from "~/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { calculate_percentage_change } from "~/utils/utils";
+import { percentageChangeFromBase } from "~/utils/utils";
 
 function isTraderAmmPosition(
   item: TraderAmmPosition | undefined
@@ -33,9 +33,7 @@ export const getAllTraderLiqPrices = cache(async () => {
         : parseFloat(item.liquidationPrice);
       const marginRatio = !item.marginRatio ? 0 : parseFloat(item.marginRatio);
 
-      item.markToLiq = calculate_percentage_change(markPrice, liqPrice).toFixed(
-        1
-      );
+      item.markToLiq = percentageChangeFromBase(markPrice, liqPrice).toFixed(1);
       item.marginRatioToMinimumMarginRatio = (
         marginRatio - item.maintenanceMargin
       ).toFixed(2);
