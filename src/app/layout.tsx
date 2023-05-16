@@ -7,13 +7,10 @@ import { SiteHeader } from "~/components/SiteHeader";
 import { arbitrum } from "wagmi/chains";
 
 import { configureChains } from "@wagmi/core";
-import { createConfig, mainnet, WagmiConfig } from "wagmi";
+import { createConfig, WagmiConfig } from "wagmi";
 import { publicProvider } from "@wagmi/core/providers/public";
 
-const { publicClient } = configureChains(
-  [arbitrum, mainnet],
-  [publicProvider()]
-);
+const { publicClient } = configureChains([arbitrum], [publicProvider()]);
 
 const config = createConfig({
   autoConnect: true,
