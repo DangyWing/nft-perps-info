@@ -34,8 +34,8 @@ export async function getNftPerpDataFromContract() {
       nftPerpMarkPrice: markPrice.toString(),
       nftPerpFundingRate: fundingRate.toString(),
       nftPerpIndexToMark: calcPercentageDifference(
-        parseFloat(indexPrice),
-        parseFloat(markPrice)
+        parseFloat(markPrice),
+        parseFloat(indexPrice)
       ),
       nftPerpSlug: value.ammName,
       nftPerpFundingSide: fundingSide,
