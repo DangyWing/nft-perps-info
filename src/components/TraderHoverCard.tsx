@@ -1,6 +1,4 @@
-// add gravatar?
 import { Button } from "../components/ui/button";
-// import Link from "next/link";
 import {
   HoverCard,
   HoverCardContent,
@@ -13,8 +11,6 @@ export function TraderHoverCard({ trader }: { trader: string }) {
     <HoverCard>
       <HoverCardTrigger asChild>
         <Button variant="link" className="text-md">
-          {/* <Link href={"www.google.com"}></Link>
-           */}
           <a
             href={`https://nft.perpanalytics.xyz/?address=${trader}`}
             target="_blank"

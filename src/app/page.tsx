@@ -1,7 +1,6 @@
 import { PerpDataTable } from "../components/perpDataTable/perpDataTable";
 import { Suspense } from "react";
 import { getPerpData } from "./lib/getPerpData";
-// import { getAmmData } from "../utils/directFromContract/getAmmData";
 
 export const metadata = {
   title: "NFT Perps Info",
@@ -11,9 +10,6 @@ export const metadata = {
 export default async function Page() {
   const data = await getPerpData();
 
-  // console.log(data);
-  // const ammData = await getAmmData();
-  // // console.log(ammData);
   if (data instanceof Error) {
     return <div>Failed to fetch data</div>;
   }

@@ -11,7 +11,6 @@ export type TradersWithOpenPositionsData = {
 export type TraderWithOpenPosition = {
   trader: `0x${string}`;
 };
-//todo: change first to 1000 to get all traders
 export async function getTradersWithOpenPositions() {
   const query = `
   query TradersWithOpenPositions {
@@ -35,7 +34,3 @@ export async function getTradersWithOpenPositions() {
 
   return traderSet;
 }
-
-// subscribe to get new positions or position changes
-// get liquidation price for each position on create or change
-// if liquidation price is less than current price, alert

@@ -7,8 +7,7 @@
     "dev": "next dev",
     "postinstall": "prisma generate",
     "lint": "next lint",
-    "start": "next start",
-    "build-client": "graphclient build"
+    "start": "next start"
   },
   "dependencies": {
     "@graphprotocol/client-cli": "^2.2.22",

@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { cn } from "~/utils/utils";
 
-// const defaultClasses = clsx("text-center bg-opacity-80");
 const defaultClasses = clsx("text-center");
 
 export function getBackgroundColorScales({
@@ -73,7 +72,6 @@ export function getBackgroundColorScales({
         return "";
       case cellValueTyped < 0.01:
         return cn("bg-transparent", defaultClasses);
-      // return cn("bg-red-500", defaultClasses);
       case cellValueTyped < 0.02:
         return cn("bg-yellow-500 text-zinc-800", defaultClasses);
       case cellValueTyped < 0.03:
