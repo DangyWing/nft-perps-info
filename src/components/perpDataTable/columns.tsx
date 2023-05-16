@@ -65,26 +65,6 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
-      columnHelper.accessor((row) => row.nftPerpIndexPrice, {
-        id: "nftPerpIndexToNfexIndex",
-        header: "nftperp/nfex",
-        cell: (info) => {
-          const nftPerpIndexPrice: string =
-            info.row.getValue("nftPerpIndexPrice");
-          const nfexIndexPrice: string = info.row.getValue("nfexIndexPrice");
-          return (
-            <div className={numberFormat}>
-              {(
-                parseFloat(nftPerpIndexPrice) - parseFloat(nfexIndexPrice)
-              ).toFixed(2)}
-            </div>
-          );
-        },
-        size: 25,
-        enableSorting: true,
-        sortingFn: "alphanumeric",
-        enableColumnFilter: false,
-      }),
     ],
   },
   {
@@ -115,25 +95,6 @@ export const columns = [
                 {parseFloat(markPrice)?.toFixed(2)}
               </div>
             )
-          );
-        },
-        size: 25,
-        enableSorting: true,
-        sortingFn: "alphanumeric",
-        enableColumnFilter: false,
-      }),
-      columnHelper.accessor((row) => row.nftPerpMarkPrice, {
-        id: "nftPerpMarkToNfexMark",
-        header: "nftperp/nfex",
-        cell: (info) => {
-          const nftPerpMarkPrice = info.getValue();
-          const nfexMarkPrice: string = info.row.getValue("nfexMarkPrice");
-          return (
-            <div className={numberFormat}>
-              {(
-                parseFloat(nftPerpMarkPrice) - parseFloat(nfexMarkPrice)
-              ).toFixed(2)}
-            </div>
           );
         },
         size: 25,
