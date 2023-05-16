@@ -1,4 +1,4 @@
-import { ConnectKitButton } from "connectkit";
+// import { ConnectKitButton } from "connectkit";
 import { Button } from "./ui/button";
 
 import Link from "next/link";
@@ -24,9 +24,9 @@ export function SiteHeader() {
             👀
           </Link>
         </Button>
-        <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
+        {/* <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
           <ConnectKitButton showAvatar={false} showBalance={false} />
-        </div>
+        </div> */}
       </div>
     </header>
   );

@@ -4,12 +4,12 @@ import { VT323 } from "next/font/google";
 import "../styles/globals.css";
 import { cn } from "~/utils/utils";
 
-import {
-  ConnectKitProvider,
-  // getDefaultClient,
-  // ConnectKitButton,
-  // getDefaultClient,
-} from "connectkit";
+// import {
+//   ConnectKitProvider,
+//   // getDefaultClient,
+//   // ConnectKitButton,
+//   // getDefaultClient,
+// } from "connectkit";
 import { SiteHeader } from "~/components/SiteHeader";
 import { arbitrum } from "wagmi/chains";
 
@@ -41,22 +41,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <WagmiConfig config={config}>
-        <ConnectKitProvider
+        {/* <ConnectKitProvider
           options={{
             truncateLongENSAddress: true,
             initialChainId: 42161,
           }}
+        > */}
+        <body
+          className={cn(
+            "flex flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
+            fontMono.className
+          )}
         >
-          <body
-            className={cn(
-              "flex flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
-              fontMono.className
-            )}
-          >
-            <SiteHeader />
-            {children}
-          </body>
-        </ConnectKitProvider>
+          <SiteHeader />
+          {children}
+        </body>
+        {/* </ConnectKitProvider> */}
       </WagmiConfig>
     </html>
   );
