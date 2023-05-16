@@ -38,8 +38,10 @@ export const getAllTraderLiqPrices = cache(async () => {
         marginRatio - item.maintenanceMargin
       ).toFixed(2);
       item.liquidationPrice = liqPrice.toFixed(2);
+      
       item.marginRatio = marginRatio.toFixed(2);
       item.markPrice = markPrice.toFixed(2);
+      
       item.leverage = !item.leverage
         ? "0"
         : parseFloat(item.leverage).toFixed(2);

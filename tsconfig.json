@@ -43,7 +43,7 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts"
-  ],
+, "src/utils/directFromContract"  ],
   "exclude": [
     "node_modules"
   ]

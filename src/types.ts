@@ -1,5 +1,6 @@
 import { type Address } from "viem";
 import { z } from "zod";
+import type { AmmABI } from "./constants/AmmAbi";
 
 export type TraderPositionResponse = {
   status: string;
@@ -11,6 +12,32 @@ export type TradeDataResponse = {
   data: TradeData;
 };
 
+export type MulticallContracts = {
+  address: `0x${string}`;
+  abi: typeof AmmABI;
+  functionName: string;
+}[];
+
+export type ResultType =
+  | {
+      error: Error;
+      result?: undefined;
+      status: "failure";
+    }
+  | {
+      error?: undefined;
+      result:
+        | {
+            d: bigint[];
+          }[]
+        | {
+            d: bigint;
+          };
+      status: "success";
+    };
+
+export type TupleResultType = bigint[];
+export type BasicResultType = bigint;
 export type TradeData = {
   page: number;
   pageSize: number;

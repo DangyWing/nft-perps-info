@@ -14,7 +14,7 @@ import {
 } from "../../components/ui/alert-dialog";
 import { Button } from "../../components/ui/button";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import { ClearingHouseAbi } from "~/utils/nftPerpAbis";
+import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 import { getContractAddressFromAmmName } from "~/utils/getContractAddressFromAmmName";
 
 export function LiqButton({

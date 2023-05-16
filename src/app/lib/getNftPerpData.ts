@@ -25,15 +25,15 @@ export async function getNftPerpData() {
         ((parseFloat(value.indexPrice) + parseFloat(value.markPrice)) / 2)) *
       100;
 
-    const { label } =
+    const { nfexProjectName } =
       AMMData.find((amm) => amm.ammName === value.ammName) || {};
 
-    if (!label) {
+    if (!nfexProjectName) {
       return;
     }
 
     const perpData: NftPerpData = {
-      projectName: label,
+      projectName: nfexProjectName,
       nftPerpIndexPrice: value.indexPrice.toString(),
       nftPerpMarkPrice: value.markPrice.toString(),
       nftPerpFundingRate: funding.toString(),

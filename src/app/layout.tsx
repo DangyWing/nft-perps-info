@@ -4,24 +4,28 @@ import { VT323 } from "next/font/google";
 import "../styles/globals.css";
 import { cn } from "~/utils/utils";
 
-import { WagmiConfig, createClient } from "wagmi";
 import {
   ConnectKitProvider,
-  getDefaultClient,
+  // getDefaultClient,
   // ConnectKitButton,
   // getDefaultClient,
 } from "connectkit";
 import { SiteHeader } from "~/components/SiteHeader";
 import { arbitrum } from "wagmi/chains";
 
-const chains = [arbitrum];
+import { configureChains } from "@wagmi/core";
+import { createConfig, mainnet, WagmiConfig } from "wagmi";
+import { publicProvider } from "@wagmi/core/providers/public";
 
-const client = createClient(
-  getDefaultClient({
-    appName: "nftPerpData",
-    chains,
-  })
+const { publicClient } = configureChains(
+  [arbitrum, mainnet],
+  [publicProvider()]
 );
+
+const config = createConfig({
+  autoConnect: true,
+  publicClient,
+});
 
 const fontMono = VT323({
   subsets: ["latin"],
@@ -36,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <WagmiConfig client={client}>
+      <WagmiConfig config={config}>
         <ConnectKitProvider
           options={{
             truncateLongENSAddress: true,
