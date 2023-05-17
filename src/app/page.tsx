@@ -1,5 +1,5 @@
 import { PerpDataTable } from "../components/perpDataTable/perpDataTable";
-import { Suspense } from "react";
+// import { Suspense } from "react";
 import { getPerpData } from "./lib/getPerpData";
 
 export const metadata = {
@@ -16,9 +16,9 @@ export default async function Page() {
 
   return (
     <div>
-      <Suspense fallback={<div>Loading...</div>}>
-        <PerpDataTable data={data} />
-      </Suspense>
+      {/* <Suspense fallback={<div>Loading...</div>}> */}
+      <PerpDataTable data={data} />
+      {/* </Suspense> */}
     </div>
   );
 }

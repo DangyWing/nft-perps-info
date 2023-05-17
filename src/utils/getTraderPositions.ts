@@ -6,7 +6,7 @@ export const getTraderPositions = cache(async (trader: `0x${string}`) => {
   try {
     const res = await fetch(url, {
       next: {
-        revalidate: 300,
+        revalidate: 60,
       },
     });
     const { data } = (await res.json()) as TraderPositionResponse;
