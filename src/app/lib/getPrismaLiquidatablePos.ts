@@ -9,6 +9,7 @@ export async function getPrismaLiquidatablePos({
   amm: string;
   markPrice: string;
 }) {
+  "use server";
   const markPriceClean = parseFloat(markPrice);
 
   return await prisma.positionUpdatedEvent.findMany({
