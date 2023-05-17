@@ -5,6 +5,7 @@ import { type getPositionDataFromDb } from "~/app/lib/getPositionDataFromDb";
 import { TraderHoverCard } from "../TraderHoverCard";
 import { LiqButton } from "../liqAction/liqButton";
 import dayjs from "dayjs";
+import { formatEther } from "viem";
 
 export type LiqTableData = Awaited<ReturnType<typeof getPositionDataFromDb>>[0];
 
@@ -107,8 +108,8 @@ export const columns = [
     sortingFn: "alphanumeric",
     enableColumnFilter: false,
   }),
-  columnHelper.accessor((row) => row.unrealizedPnl, {
-    id: "nftPerpIndexToMark",
+  columnHelper.accessor((row) => row.unrealizedPnlAfter, {
+    id: "unrealizedPnL",
     header: () => {
       return (
         <div>
@@ -118,7 +119,11 @@ export const columns = [
       );
     },
     cell: (info) => {
-      return <div className={numberFormat}>{info.getValue().toFixed(2)}</div>;
+      return (
+        <div className={numberFormat}>
+          {parseFloat(formatEther(info.getValue())).toFixed(3)}
+        </div>
+      );
     },
     enableSorting: true,
     sortingFn: "basic",
