@@ -11,6 +11,7 @@ export async function checkForLiquidatablePositions({
   markPrice: number;
   side: string;
 }) {
+  "use server";
   if (!["BUY", "SELL"].includes(side)) console.log("WEIRD SIDE", side);
 
   const positions = await prisma.positionUpdatedEvent.findMany({

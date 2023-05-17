@@ -15,7 +15,7 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-import { checkForLiquidatablePositions } from "../../utils/checkForLiquidatablePositions";
+// import { checkForLiquidatablePositions } from "../../utils/checkForLiquidatablePositions";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -55,18 +55,18 @@ export function TradesDataTable() {
         ? 0
         : parseFloat(relevantTraderPosition.liquidationPrice);
 
-    const liquidatablePositions = await checkForLiquidatablePositions({
-      amm: data.amm,
-      markPrice: parseFloat(data.markPrice),
-      side: relevantTraderPosition.side,
-    });
+    // const liquidatablePositions = await checkForLiquidatablePositions({
+    //   amm: data.amm,
+    //   markPrice: parseFloat(data.markPrice),
+    //   side: relevantTraderPosition.side,
+    // });
 
-    if (liquidatablePositions.length > 0) {
-      setLiquidatablePositions((previous) => [
-        ...liquidatablePositions,
-        ...previous,
-      ]);
-    }
+    // if (liquidatablePositions.length > 0) {
+    //   setLiquidatablePositions((previous) => [
+    //     ...liquidatablePositions,
+    //     ...previous,
+    //   ]);
+    // }
 
     // this sucks but if there is no relevant trader position margin, get margin from the data object
     // if the relevant trader position margin is 0, then set it to "-"
