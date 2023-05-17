@@ -1,15 +1,15 @@
-"use server";
+// "use server";
 import { prisma } from "db";
 
 // Get all liquidatable positions
 export async function getPrismaLiquidatablePos({
   amm,
-  markPrice,
-}: {
+}: //   markPrice,
+{
   amm: string;
-  markPrice: string;
+  //   markPrice: string;
 }) {
-  const markPriceClean = parseFloat(markPrice);
+  //   const markPriceClean = parseFloat(markPrice);
 
   return await prisma.positionUpdatedEvent.findMany({
     where: {
