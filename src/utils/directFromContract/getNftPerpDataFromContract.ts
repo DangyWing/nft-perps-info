@@ -12,9 +12,7 @@ export async function getNftPerpDataFromContract() {
   data.forEach((value) => {
     const { nfexProjectName } =
       AMMData.find((amm) => amm.ammName === value.ammName) || {};
-    if (!nfexProjectName) return;
-
-    if (!value.fundingRate) return;
+    if (!nfexProjectName || !value.fundingRate) return;
 
     const indexPrice = formatEther(value.getIndexPrice ?? BigInt(0));
     const markPrice = formatEther(value.getMarkPrice ?? BigInt(0));
@@ -29,7 +27,7 @@ export async function getNftPerpDataFromContract() {
     const fundingSide = parseFloat(fundingRateLong) > 0 ? "short" : "long";
 
     nftPerpData.push({
-      projectName: nfexProjectName ?? "cat",
+      projectName: nfexProjectName,
       nftPerpIndexPrice: indexPrice.toString(),
       nftPerpMarkPrice: markPrice.toString(),
       nftPerpFundingRate: fundingRate.toString(),

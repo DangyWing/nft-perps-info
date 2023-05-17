@@ -15,6 +15,7 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
+import Image from "next/image";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -125,6 +126,12 @@ export function TradesDataTable() {
       {traderEvents.length === 0 ? (
         <div>
           <div className="text-center text-xl">no trades yet</div>
+          <Image
+            src={"https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif"}
+            width={300}
+            height={300}
+            alt={"Bet More"}
+          />
         </div>
       ) : (
         <div>

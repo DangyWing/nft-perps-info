@@ -1,6 +1,4 @@
-import { type Abi } from "abitype";
-
-export const AmmABI: Abi = [
+export const AmmABI = [
   {
     anonymous: false,
     inputs: [
