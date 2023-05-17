@@ -12,6 +12,8 @@ export async function getPerpData() {
   const combinedPerpData = [];
 
   for (const nftPerp of nftPerpData) {
+    // console.log(nftPerp.projectName);
+
     const nfexDataItem = nfexData.find(
       (nfexData) => nfexData.projectName === nftPerp.projectName
     );

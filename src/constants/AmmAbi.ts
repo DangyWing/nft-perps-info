@@ -588,7 +588,7 @@ export const AmmABI = [
         components: [
           {
             internalType: "int256",
-            name: "d",
+            name: "fundingRateLong",
             type: "int256",
           },
         ],
@@ -600,7 +600,7 @@ export const AmmABI = [
         components: [
           {
             internalType: "int256",
-            name: "d",
+            name: "fundingRateShort",
             type: "int256",
           },
         ],
@@ -680,12 +680,12 @@ export const AmmABI = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "indexPrice",
             type: "uint256",
           },
         ],
         internalType: "struct Decimal.decimal",
-        name: "",
+        name: "indexPrice",
         type: "tuple",
       },
     ],
@@ -858,12 +858,12 @@ export const AmmABI = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "getLiquidationFeeRatio",
             type: "uint256",
           },
         ],
         internalType: "struct Decimal.decimal",
-        name: "",
+        name: "getLiquidationFeeRatio",
         type: "tuple",
       },
     ],
@@ -878,7 +878,7 @@ export const AmmABI = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "maintenanceMarginRatio",
             type: "uint256",
           },
         ],
@@ -898,7 +898,7 @@ export const AmmABI = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "markPrice",
             type: "uint256",
           },
         ],
@@ -1142,7 +1142,7 @@ export const AmmABI = [
             components: [
               {
                 internalType: "uint256",
-                name: "d",
+                name: "maintenanceMarginRatio",
                 type: "uint256",
               },
             ],
@@ -2144,7 +2144,7 @@ export const AmmABI = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "markPrice",
             type: "uint256",
           },
         ],
@@ -2156,7 +2156,7 @@ export const AmmABI = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "indexPrice",
             type: "uint256",
           },
         ],

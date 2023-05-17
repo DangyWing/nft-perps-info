@@ -21,17 +21,21 @@ export type MulticallContracts = {
 export type ResultType =
   | {
       error: Error;
-      result?: undefined;
+      result: undefined;
       status: "failure";
     }
   | {
-      error?: undefined;
+      error: undefined;
       result:
         | {
-            d: bigint[];
+            fundingRateLong: bigint;
+            fundingRateShort: bigint;
           }[]
         | {
-            d: bigint;
+            markPrice: bigint;
+          }
+        | {
+            indexPrice: bigint;
           };
       status: "success";
     };

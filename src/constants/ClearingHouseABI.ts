@@ -494,7 +494,7 @@ export const ClearingHouseAbi = [
         components: [
           {
             internalType: "int256",
-            name: "d",
+            name: "marginRatio",
             type: "int256",
           },
         ],
@@ -527,7 +527,7 @@ export const ClearingHouseAbi = [
             components: [
               {
                 internalType: "int256",
-                name: "d",
+                name: "size",
                 type: "int256",
               },
             ],
@@ -539,7 +539,7 @@ export const ClearingHouseAbi = [
             components: [
               {
                 internalType: "uint256",
-                name: "d",
+                name: "margin",
                 type: "uint256",
               },
             ],
@@ -551,7 +551,7 @@ export const ClearingHouseAbi = [
             components: [
               {
                 internalType: "uint256",
-                name: "d",
+                name: "openNotional",
                 type: "uint256",
               },
             ],
@@ -563,7 +563,7 @@ export const ClearingHouseAbi = [
             components: [
               {
                 internalType: "int256",
-                name: "d",
+                name: "lastUpdatedCumulativePremiumFractionLong",
                 type: "int256",
               },
             ],
@@ -575,7 +575,7 @@ export const ClearingHouseAbi = [
             components: [
               {
                 internalType: "int256",
-                name: "d",
+                name: "lastUpdatedCumulativePremiumFractionShort",
                 type: "int256",
               },
             ],
@@ -621,7 +621,7 @@ export const ClearingHouseAbi = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "positionNotional",
             type: "uint256",
           },
         ],
@@ -633,7 +633,7 @@ export const ClearingHouseAbi = [
         components: [
           {
             internalType: "int256",
-            name: "d",
+            name: "unrealizedPnl",
             type: "int256",
           },
         ],

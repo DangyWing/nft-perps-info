@@ -2,12 +2,7 @@ import { AmmABI } from "../../constants/AmmAbi";
 import { publicClient } from "../viemClient";
 import { AMMData } from "../../constants/constants";
 
-import {
-  type TupleResultType,
-  type MulticallContracts,
-  type ResultType,
-  type BasicResultType,
-} from "../../types";
+import { type MulticallContracts, type ResultType } from "../../types";
 
 const functionNames = ["getMarkPrice", "getIndexPrice", "fundingRate"];
 
@@ -41,9 +36,10 @@ export async function getAmmData() {
   })) as ResultType[];
 
   type CleanResults = {
-    getMarkPrice?: BasicResultType;
-    getIndexPrice?: BasicResultType;
-    fundingRate?: TupleResultType;
+    fundingRateLong?: bigint;
+    fundingRateShort?: bigint;
+    markPrice?: bigint;
+    indexPrice?: bigint;
     ammName: string;
     nftPerpAmmAddress: string;
   };
@@ -51,34 +47,54 @@ export async function getAmmData() {
   const cleanResults: CleanResults[] = [];
 
   results.forEach((result, idx) => {
-    const key = ammDataCombined[idx]?.functionName ?? "dunno";
+    if (result.error) {
+      console.log(result.error);
+    }
 
-    const ammNameIdx = cleanResults.findIndex(
+    const ammIdx = cleanResults.findIndex(
       (cleanResult) => cleanResult.ammName === ammDataCombined[idx]?.ammName
     );
 
-    const dataResult = Array.isArray(result?.result)
-      ? result.result.map((result) => result.d)
-      : result?.result?.d;
+    const res = result.result;
+
+    const fundingRateLong = Array.isArray(res)
+      ? res[0]?.fundingRateLong
+      : undefined;
+
+    const fundingRateShort = Array.isArray(res)
+      ? res[1]?.fundingRateShort
+      : undefined;
+
+    const markPrice = !!res && "markPrice" in res ? res.markPrice : undefined;
+    const indexPrice =
+      !!res && "indexPrice" in res ? res.indexPrice : undefined;
 
     const ammName = ammDataCombined[idx]?.ammName;
     const nftPerpAmmAddress = ammDataCombined[idx]?.nftPerpAmmAddress;
 
-    if (ammNameIdx !== -1 && cleanResults[ammNameIdx] && result.result) {
-      const existingValues = cleanResults[ammNameIdx];
-
-      if (existingValues) {
-        cleanResults[ammNameIdx] = {
-          ...existingValues,
-          [key]: dataResult,
+    if (ammName && nftPerpAmmAddress) {
+      if (ammIdx === -1) {
+        cleanResults.push({
+          ammName: ammName,
+          nftPerpAmmAddress: nftPerpAmmAddress,
+          fundingRateLong: fundingRateLong,
+          fundingRateShort: fundingRateShort,
+          markPrice: markPrice,
+          indexPrice: indexPrice,
+        });
+      } else {
+        cleanResults[ammIdx] = {
+          ammName: cleanResults[ammIdx]?.ammName || ammName,
+          nftPerpAmmAddress:
+            cleanResults[ammIdx]?.nftPerpAmmAddress || nftPerpAmmAddress,
+          fundingRateLong:
+            cleanResults[ammIdx]?.fundingRateLong || fundingRateLong,
+          fundingRateShort:
+            cleanResults[ammIdx]?.fundingRateShort || fundingRateShort,
+          markPrice: cleanResults[ammIdx]?.markPrice || markPrice,
+          indexPrice: cleanResults[ammIdx]?.indexPrice || indexPrice,
         };
       }
-    } else if (!!ammName && !!nftPerpAmmAddress) {
-      cleanResults.push({
-        ammName: ammName,
-        nftPerpAmmAddress: nftPerpAmmAddress,
-        [key]: dataResult,
-      });
     }
   });
 

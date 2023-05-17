@@ -16,14 +16,9 @@ export async function getMarginRatio({
     traderAddress,
   ]);
 
-  const ammData = AMMData.find((amm) => amm.nftPerpAmmAddress === ammAddress);
+  // const ammData = AMMData.find((amm) => amm.nftPerpAmmAddress === ammAddress);
 
-  return {
-    ammName: ammData?.ammName,
-    trader: traderAddress,
-    ammAddress: ammAddress,
-    marginRatio: res.d,
-  };
+  return res.marginRatio;
 }
 
 export async function getPositionData({
@@ -44,9 +39,9 @@ export async function getPositionData({
     ammName: ammData?.ammName,
     trader: traderAddress,
     ammAddress: ammAddress,
-    positionSize: res.size.d,
-    positionMargin: res.margin.d,
-    openNotional: res.openNotional.d,
+    positionSize: res.size.size,
+    positionMargin: res.margin.margin,
+    openNotional: res.openNotional.openNotional,
   };
 }
 
@@ -71,7 +66,7 @@ export async function getPositionNotionalAndUnrealizedPnl({
     ammName: ammData?.ammName,
     trader: traderAddress,
     ammAddress: ammAddress,
-    positionNotional: res[0].d,
-    unrealizedPnl: res[1].d,
+    positionNotional: res[0].positionNotional,
+    unrealizedPnl: res[1].unrealizedPnl,
   };
 }
