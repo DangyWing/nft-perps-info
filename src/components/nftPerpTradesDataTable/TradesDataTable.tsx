@@ -16,6 +16,9 @@ import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
 // import { checkForLiquidatablePositions } from "../../utils/checkForLiquidatablePositions";
+// import { LiquidatablePositions } from "~/utils/LiquidatablePositions";
+import { getPrismaLiquidatablePos } from "~/app/lib/getPrismaLiquidatablePos";
+import { type PositionUpdatedEvent } from "@prisma/client";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -23,8 +26,12 @@ export function TradesDataTable() {
   const [isConnected, setIsConnected] = useState(false);
   const [traderEvents, setTraderEvents] = useState<LiqEventDisplay[]>([]);
   const [liquidatablePositions, setLiquidatablePositions] = useState<
-    { amm: string; trader: string }[]
+    PositionUpdatedEvent[]
   >([]);
+  // const [newTrade, setNewTrade] = useState<{
+  //   amm: string;
+  //   markPrice: string;
+  // }>();
 
   useEffect(() => {
     socket.connect();
@@ -41,7 +48,16 @@ export function TradesDataTable() {
 
   async function onTradeEvent(data: ProcessedPositionChangedEvent) {
     const trader = data.trader as `0x${string}`;
+    // setNewTrade({
+    //   amm: data.ammName,
+    //   markPrice: data.markPrice,
+    // });
+
     const traderPositions = await getTraderPositions(trader);
+    const liquidatablePositions = await getPrismaLiquidatablePos({
+      amm: data.ammName,
+      markPrice: data.markPrice,
+    });
     const relevantTraderPosition = traderPositions?.find(
       (traderPosition) => traderPosition.ammName === data.ammName
     );
@@ -99,6 +115,10 @@ export function TradesDataTable() {
     };
 
     setTraderEvents((previous) => [liqData, ...previous]);
+    setLiquidatablePositions((previous) => [
+      ...liquidatablePositions,
+      ...previous,
+    ]);
   }
 
   useEffect(() => {
@@ -143,22 +163,13 @@ export function TradesDataTable() {
 
   return (
     <div className="p-2">
-      {liquidatablePositions.length > 0 && (
-        <div className="text-center text-xl">
-          <div className="text-red-600">liquidatable positions</div>
-
-          {liquidatablePositions.map((position, idx) => (
-            <div key={idx}>
-              <div key={position.amm.concat(idx.toString())}>
-                amm: {position.amm}
-              </div>
-              <div key={position.trader.concat(idx.toString())}>
-                trader: {position.trader}
-              </div>
-            </div>
-          ))}
+      {liquidatablePositions.map((position) => (
+        <div key={position.nftPerpId}>
+          <div className="text-xl">
+            {position.ammName} - {position.side} - {position.markPrice}
+          </div>
         </div>
-      )}
+      ))}
       <div className="flex items-center">
         status:{" "}
         {isConnected ? (
