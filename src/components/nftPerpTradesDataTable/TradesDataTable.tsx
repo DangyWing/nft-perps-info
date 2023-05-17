@@ -117,6 +117,7 @@ export function TradesDataTable() {
     "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif",
     "https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif",
     "https://media.tenor.com/PaYR5iS-jukAAAAC/poker-all-in.gif",
+    "https://media.tenor.com/NWKdzSeCIWkAAAAC/timethemarkets-doge.gif",
   ];
 
   // get random index from the above array
