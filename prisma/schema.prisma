@@ -35,10 +35,10 @@ model PositionUpdatedEvent {
     marginRatioToMinimumMarginRatio String
     marginRatio                     String
     markToLiq                       String
-    liquidationPrice                String
+    liquidationPrice                Float
     fundingPayment                  String
     lastUpdatedTimestamp            String
     side                            String
-    unrealizedPnl                   String
-    unrealizedPnlAfter              String
+    unrealizedPnl                   BigInt
+    unrealizedPnlAfter              BigInt
 }

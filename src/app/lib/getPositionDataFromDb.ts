@@ -1,4 +1,4 @@
-import { prisma } from "../db";
+import { prisma } from "../../../db";
 
 export const getPositionDataFromDb = async () => {
   const res = await prisma.positionUpdatedEvent.findMany({
@@ -33,12 +33,17 @@ export const getPositionDataFromDb = async () => {
       size: {
         not: "0",
       },
+      unrealizedPnl: {
+        lte: 0,
+      },
       timestamp: {
         gte: 1683047347,
       },
     },
     distinct: ["trader", "amm"],
   });
+
+  console.log(res[0]?.unrealizedPnl.toString());
 
   return res.map((item) => ({
     ...item,
@@ -47,7 +52,7 @@ export const getPositionDataFromDb = async () => {
     markPrice: parseFloat(item.markPrice).toFixed(2),
     liquidationPrice: parseFloat(item.liquidationPrice).toFixed(2),
     leverage: parseFloat(item.leverage).toFixed(2),
-    unrealizedPnl: parseFloat(item.unrealizedPnl),
+    unrealizedPnl: parseFloat(item.unrealizedPnl.toString()),
     size: Math.abs(parseFloat(item.size)).toFixed(2),
   }));
 };

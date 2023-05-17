@@ -15,13 +15,16 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-import Image from "next/image";
+import { checkForLiquidatablePositions } from "../liqDataTable/checkForLiquidatable";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const [isConnected, setIsConnected] = useState(false);
   const [traderEvents, setTraderEvents] = useState<LiqEventDisplay[]>([]);
+  const [liquidatablePositions, setLiquidatablePositions] = useState<
+    { amm: string; trader: string }[]
+  >([]);
 
   useEffect(() => {
     socket.connect();
@@ -52,6 +55,19 @@ export function TradesDataTable() {
         ? 0
         : parseFloat(relevantTraderPosition.liquidationPrice);
 
+    const liquidatablePositions = await checkForLiquidatablePositions({
+      amm: data.amm,
+      markPrice: parseFloat(data.markPrice),
+      side: relevantTraderPosition.side,
+    });
+
+    if (liquidatablePositions.length > 0) {
+      setLiquidatablePositions((previous) => [
+        ...liquidatablePositions,
+        ...previous,
+      ]);
+    }
+
     // this sucks but if there is no relevant trader position margin, get margin from the data object
     // if the relevant trader position margin is 0, then set it to "-"
 
@@ -62,9 +78,9 @@ export function TradesDataTable() {
       : parseFloat(relevantTraderPosition.margin).toFixed(2);
 
     const isLiquidatable =
-      (relevantTraderPosition.side === "LONG" &&
+      (relevantTraderPosition.side === "BUY" &&
         liqPrice > parseFloat(data.markPrice)) ||
-      (relevantTraderPosition.side === "SHORT" &&
+      (relevantTraderPosition.side === "SELL" &&
         liqPrice < parseFloat(data.markPrice));
 
     const liqData: LiqEventDisplay = {
@@ -81,6 +97,7 @@ export function TradesDataTable() {
       isLiquidatable: isLiquidatable,
       tradeType: tradeType,
     };
+
     setTraderEvents((previous) => [liqData, ...previous]);
   }
 
@@ -113,21 +130,35 @@ export function TradesDataTable() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  const imageURLs = [
-    "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif",
-    "https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif",
-    "https://media.tenor.com/PaYR5iS-jukAAAAC/poker-all-in.gif",
-    "https://media.tenor.com/NWKdzSeCIWkAAAAC/timethemarkets-doge.gif",
-  ];
+  // const imageURLs = [
+  //   "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif",
+  //   "https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif",
+  //   "https://media.tenor.com/PaYR5iS-jukAAAAC/poker-all-in.gif",
+  //   "https://media.tenor.com/NWKdzSeCIWkAAAAC/timethemarkets-doge.gif",
+  // ];
 
-  // get random index from the above array
-
-  const imageURLToUse =
-    imageURLs[Math.floor(Math.random() * imageURLs.length)] ??
-    "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif";
+  // const imageURLToUse =
+  //   imageURLs[Math.floor(Math.random() * imageURLs.length)] ??
+  //   "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif";
 
   return (
     <div className="p-2">
+      {liquidatablePositions.length > 0 && (
+        <div className="text-center text-xl">
+          <div className="text-red-600">liquidatable positions</div>
+
+          {liquidatablePositions.map((position, idx) => (
+            <div key={idx}>
+              <div key={position.amm.concat(idx.toString())}>
+                amm: {position.amm}
+              </div>
+              <div key={position.trader.concat(idx.toString())}>
+                trader: {position.trader}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
       <div className="flex items-center">
         status:{" "}
         {isConnected ? (
@@ -139,12 +170,12 @@ export function TradesDataTable() {
       {traderEvents.length === 0 ? (
         <div>
           <div className="text-center text-xl">no trades yet</div>
-          <Image
+          {/* <Image
             src={imageURLToUse}
             width={300}
             height={300}
-            alt={"Bet More"}
-          />
+            alt={"No Trades Placeholder"}
+          /> */}
         </div>
       ) : (
         <div>

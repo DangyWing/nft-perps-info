@@ -133,7 +133,7 @@ export type TraderAmmPositionWithLiq = {
   size: string;
   timestamp: string;
   trader: Address;
-  unrealizedPnl: string;
+  unrealizedPnl: bigint;
   unrealizedPnlAfter: string;
   isLiquidatable: boolean;
 };
@@ -141,7 +141,7 @@ export type TraderAmmPositionWithLiq = {
 export type TraderAmmPosition = {
   trader: Address;
   ammName: string;
-  side: string;
+  side: "BUY" | "SELL";
   lastUpdatedTimestamp: string;
   size?: string;
   entryPrice?: string;
@@ -150,7 +150,7 @@ export type TraderAmmPosition = {
   leverage?: string;
   notional?: string;
   fundingPayment?: string;
-  unrealizedPnl?: string;
+  unrealizedPnl?: bigint;
   liquidationPrice?: string;
   marginRatio?: string;
   blockNumber?: string;

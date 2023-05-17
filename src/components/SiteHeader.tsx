@@ -9,20 +9,14 @@ export function SiteHeader() {
       <div className="container flex h-14 items-center">
         <div className="flex justify-center ">
           <Button variant="link" className="text-2xl">
-            <Link href="/" prefetch={false}>
-              🏠
-            </Link>
+            <Link href="/">🏠</Link>
           </Button>
         </div>
         <Button variant="link" className="text-2xl">
-          <Link href="/liq" prefetch={false}>
-            👅
-          </Link>
+          <Link href="/liq">👅</Link>
         </Button>
         <Button variant="link" className="text-2xl">
-          <Link href="/trades" prefetch={false}>
-            👀
-          </Link>
+          <Link href="/trades">👀</Link>
         </Button>
         {/* <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
           <ConnectKitButton showAvatar={false} showBalance={false} />
