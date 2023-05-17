@@ -25,9 +25,9 @@ export function TradesDataTable() {
 
   const [isConnected, setIsConnected] = useState(false);
   const [traderEvents, setTraderEvents] = useState<LiqEventDisplay[]>([]);
-  // const [liquidatablePositions, setLiquidatablePositions] = useState<
-  //   PositionUpdatedEvent[]
-  // >([]);
+  const [liquidatablePositions, setLiquidatablePositions] = useState<
+    PositionUpdatedEvent[]
+  >([]);
   // const [newTrade, setNewTrade] = useState<{
   //   amm: string;
   //   markPrice: string;
@@ -52,6 +52,13 @@ export function TradesDataTable() {
     //   amm: data.ammName,
     //   markPrice: data.markPrice,
     // });
+
+    const liqPos = await getPrismaLiquidatablePos({
+      amm: data.ammName,
+      markPrice: data.markPrice,
+    });
+
+    setLiquidatablePositions((previous) => [...liqPos, ...previous]);
 
     const traderPositions = await getTraderPositions(trader);
 
@@ -167,13 +174,13 @@ export function TradesDataTable() {
 
   return (
     <div className="p-2">
-      {/* {liquidatablePositions.map((position) => (
+      {liquidatablePositions.map((position) => (
         <div key={position.nftPerpId}>
           <div className="text-xl">
             {position.ammName} - {position.side} - {position.markPrice}
           </div>
         </div>
-      ))} */}
+      ))}
       <div className="flex items-center">
         status:{" "}
         {isConnected ? (
