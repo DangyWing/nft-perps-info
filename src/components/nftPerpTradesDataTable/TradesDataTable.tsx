@@ -15,7 +15,7 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-import { checkForLiquidatablePositions } from "../liqDataTable/checkForLiquidatable";
+import { checkForLiquidatablePositions } from "../../utils/checkForLiquidatablePositions";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
