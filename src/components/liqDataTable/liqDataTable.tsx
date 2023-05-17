@@ -40,18 +40,6 @@ export function LiqDataTable({ data }: { data: LiqTableData[] }) {
     },
   });
 
-  // const getRowProps = (row: Row<LiqTableData>) => {
-  //   const marginRatio = parseFloat(row.getValue<string>("marginRatio"));
-  //   const maintenanceMargin =
-  //     parseFloat(row.original.maintenanceMargin) ?? 0.0625;
-
-  //   if (marginRatio < maintenanceMargin) {
-  //     return {
-  //       className: "bg-pink-400 bg-opacity-70 border border-zinc-800 border-1",
-  //     };
-  //   }
-  // };
-
   return (
     <div className="p-2">
       <table className="divide-y divide-gray-200">
@@ -103,7 +91,6 @@ export function LiqDataTable({ data }: { data: LiqTableData[] }) {
         </thead>
         <tbody className="p-2">
           {table.getRowModel().rows.map((row) => (
-            // <tr key={row.id} {...getRowProps(row)}>
             <tr key={row.id}>
               {row.getAllCells().map((cell) => (
                 <td key={cell.id}>
