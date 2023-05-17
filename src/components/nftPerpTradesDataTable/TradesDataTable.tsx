@@ -113,6 +113,18 @@ export function TradesDataTable() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  const imageURLs = [
+    "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif",
+    "https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif",
+    "https://media.tenor.com/PaYR5iS-jukAAAAC/poker-all-in.gif",
+  ];
+
+  // get random index from the above array
+
+  const imageURLToUse =
+    imageURLs[Math.floor(Math.random() * imageURLs.length)] ??
+    "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif";
+
   return (
     <div className="p-2">
       <div className="flex items-center">
@@ -127,7 +139,7 @@ export function TradesDataTable() {
         <div>
           <div className="text-center text-xl">no trades yet</div>
           <Image
-            src={"https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif"}
+            src={imageURLToUse}
             width={300}
             height={300}
             alt={"Bet More"}
