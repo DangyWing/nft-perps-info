@@ -55,12 +55,12 @@ export function TradesDataTable() {
 
     const traderPositions = await getTraderPositions(trader);
 
-    const liquidatablePositions = await getPrismaLiquidatablePos({
-      amm: data.ammName,
-      markPrice: data.markPrice,
-    });
+    // const liquidatablePositions = await getPrismaLiquidatablePos({
+    //   amm: data.ammName,
+    //   markPrice: data.markPrice,
+    // });
 
-    console.log(liquidatablePositions);
+    // console.log(liquidatablePositions);
 
     const relevantTraderPosition = traderPositions?.find(
       (traderPosition) => traderPosition.ammName === data.ammName
