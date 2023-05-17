@@ -38,16 +38,16 @@ export const getAllTraderLiqPrices = cache(async () => {
         marginRatio - item.maintenanceMargin
       ).toFixed(2);
       item.liquidationPrice = liqPrice.toFixed(2);
-      
+
       item.marginRatio = marginRatio.toFixed(2);
       item.markPrice = markPrice.toFixed(2);
-      
+
       item.leverage = !item.leverage
         ? "0"
         : parseFloat(item.leverage).toFixed(2);
-      item.unrealizedPnl = !item.unrealizedPnl
-        ? "0"
-        : parseFloat(item.unrealizedPnl).toFixed(2);
+
+      item.unrealizedPnl = !item.unrealizedPnl ? BigInt(0) : item.unrealizedPnl;
+
       item.size = !item.size ? "0" : parseFloat(item.size).toFixed(4);
       item.entryPrice = !item.entryPrice
         ? "0"

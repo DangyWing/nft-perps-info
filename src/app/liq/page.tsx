@@ -1,4 +1,3 @@
-// import { getAllTraderLiqPrices } from "../lib/getAllTraderLiqPrices";
 import { LiqDataTable } from "~/components/liqDataTable/liqDataTable";
 import { getPositionDataFromDb } from "../lib/getPositionDataFromDb";
 // import { Suspense } from "react";

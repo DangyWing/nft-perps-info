@@ -50,7 +50,7 @@ export const getPositionDataFromDb = async () => {
     marginRatio: parseFloat(item.marginRatio).toFixed(2),
     entryPrice: parseFloat(item.entryPrice).toFixed(2),
     markPrice: parseFloat(item.markPrice).toFixed(2),
-    liquidationPrice: parseFloat(item.liquidationPrice).toFixed(2),
+    liquidationPrice: item.liquidationPrice.toFixed(2),
     leverage: parseFloat(item.leverage).toFixed(2),
     unrealizedPnl: parseFloat(item.unrealizedPnl.toString()),
     size: Math.abs(parseFloat(item.size)).toFixed(2),
