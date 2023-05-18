@@ -32,10 +32,10 @@ export async function GET(
       liquidationPrice: {
         not: 0,
       },
-      OR: [
-        { liquidationPrice: { gt: markPriceClean }, side: "BUY" },
-        { liquidationPrice: { lt: markPriceClean }, side: "SELL" },
-      ],
+      // OR: [
+      //   { liquidationPrice: { gt: markPriceClean }, side: "BUY" },
+      //   { liquidationPrice: { lt: markPriceClean }, side: "SELL" },
+      // ],
     },
     select: {
       amm: true,
