@@ -15,7 +15,7 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-import { type LiquidatablePosition } from "~/app/liquidatable/[amm]/[markPrice]/route";
+import type { LiquidatablePosition } from "~/app/api/liquidatable/[amm]/route";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -42,7 +42,7 @@ export function TradesDataTable() {
   async function onTradeEvent(data: ProcessedPositionChangedEvent) {
     const trader = data.trader as `0x${string}`;
 
-    const res = await fetch(`/liquidatable/${data.amm}/${data.markPrice}`);
+    const res = await fetch(`/api/liquidatable/${data.amm}/${data.markPrice}`);
     console.log("res", res);
 
     const positions = (await res.json()) as LiquidatablePosition[];

@@ -19,12 +19,12 @@ export async function GET(
   }: {
     params: {
       amm: string;
-      //   markPrice: string;
+        markPrice: string;
     };
   }
 ) {
   const amm = params.amm;
-  //   const markPriceClean = parseFloat(params.markPrice);
+    const markPriceClean = parseFloat(params.markPrice);
 
   const res = await prisma.positionUpdatedEvent.findMany({
     where: {
