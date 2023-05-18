@@ -6,7 +6,12 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     PUBLIC_NODE_ENV: z.enum(["development", "production"]),
+    PUBLIC_PROJECT_ID: z.string(),
+    // PUBLIC_ENVIRONMENT_ID: z.string(),
   },
-  client: {},
+  client: {
+    PUBLIC_ENVIRONMENT_ID: z.string(),
+    // PUBLIC_PROJECT_ID: z.string(),
+  },
   runtimeEnv: process.env,
 });

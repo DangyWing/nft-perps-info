@@ -1,6 +1,6 @@
 // import { ConnectKitButton } from "connectkit";
+import { DynamicWidget } from "@dynamic-labs/sdk-react";
 import { Button } from "./ui/button";
-
 import Link from "next/link";
 
 export function SiteHeader() {
@@ -24,9 +24,9 @@ export function SiteHeader() {
             👀
           </Link>
         </Button>
-        {/* <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
-          <ConnectKitButton showAvatar={false} showBalance={false} />
-        </div> */}
+        <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
+          <DynamicWidget />
+        </div>
       </div>
     </header>
   );

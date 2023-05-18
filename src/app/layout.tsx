@@ -4,18 +4,8 @@ import { VT323 } from "next/font/google";
 import "../styles/globals.css";
 import { cn } from "~/utils/utils";
 import { SiteHeader } from "~/components/SiteHeader";
-import { arbitrum } from "wagmi/chains";
-
-import { configureChains } from "@wagmi/core";
-import { createConfig, WagmiConfig } from "wagmi";
-import { publicProvider } from "@wagmi/core/providers/public";
-
-const { publicClient } = configureChains([arbitrum], [publicProvider()]);
-
-const config = createConfig({
-  autoConnect: true,
-  publicClient,
-});
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react";
+import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 
 const fontMono = VT323({
   subsets: ["latin"],
@@ -30,17 +20,40 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <WagmiConfig config={config}>
-        <body
-          className={cn(
-            "flex flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
-            fontMono.className
-          )}
+      <DynamicContextProvider
+        settings={{
+          environmentId: "5a9f5d89-eac8-4252-949d-790a79f7536b",
+        }}
+      >
+        <DynamicWagmiConnector
+          evmNetworks={[
+            {
+              blockExplorerUrls: ["https://arbiscan.io/"],
+              chainId: 42161,
+              chainName: "Arbitrum",
+              iconUrls: ["https://app.dynamic.xyz/assets/networks/eth.svg"],
+              nativeCurrency: { decimals: 18, name: "Ether", symbol: "ETH" },
+              networkId: 42161,
+              privateCustomerRpcUrls: [
+                "https://arbitrum-mainnet.infura.io/v3/cedae0e5449f4711a498a87ba69b133e",
+              ],
+              rpcUrls: ["https://arb1.arbitrum.io/rpc"],
+              vanityName: "Arbitrum",
+            },
+          ]}
         >
-          <SiteHeader />
-          {children}
-        </body>
-      </WagmiConfig>
+          {/* <DynamicWidget /> */}
+          <body
+            className={cn(
+              "flex flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
+              fontMono.className
+            )}
+          >
+            <SiteHeader />
+            {children}
+          </body>
+        </DynamicWagmiConnector>
+      </DynamicContextProvider>
     </html>
   );
 }
