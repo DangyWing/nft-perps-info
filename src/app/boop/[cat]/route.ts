@@ -10,8 +10,8 @@ export function GET(
     };
   }
 ) {
-  // console.log(_request);
-  // console.log(params);
+  console.log(_request);
+  console.log(params);
   const res = {
     foo: "bar",
     boop: params.cat,
