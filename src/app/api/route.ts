@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 
-export function GET(_request: Request) {
-  console.log(_request);
+export function GET(request: Request) {
+  console.log(request.url);
   const res = {
     foo: "bar",
-    omar: "dog",
+    omar: request.url,
   };
 
   return NextResponse.json(res);
