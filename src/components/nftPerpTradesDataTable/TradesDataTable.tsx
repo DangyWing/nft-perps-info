@@ -15,23 +15,16 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-// import { checkForLiquidatablePositions } from "../../utils/checkForLiquidatablePositions";
-// import { LiquidatablePositions } from "~/utils/LiquidatablePositions";
-// import { getPrismaLiquidatablePos } from "~/app/lib/getPrismaLiquidatablePos";
-// import { type PositionUpdatedEvent } from "@prisma/client";
+import { type LiquidatablePosition } from "~/app/liquidatable/[amm]/[markPrice]/route";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const [isConnected, setIsConnected] = useState(false);
   const [traderEvents, setTraderEvents] = useState<LiqEventDisplay[]>([]);
-  // const [liquidatablePositions, setLiquidatablePositions] = useState<
-  //   PositionUpdatedEvent[]
-  // >([]);
-  // const [newTrade, setNewTrade] = useState<{
-  //   amm: string;
-  //   markPrice: string;
-  // }>();
+  const [liquidatablePositions, setLiquidatablePositions] = useState<
+    LiquidatablePosition[]
+  >([]);
 
   useEffect(() => {
     socket.connect();
@@ -48,26 +41,16 @@ export function TradesDataTable() {
 
   async function onTradeEvent(data: ProcessedPositionChangedEvent) {
     const trader = data.trader as `0x${string}`;
-    // setNewTrade({
-    //   amm: data.ammName,
-    //   markPrice: data.markPrice,
-    // });
 
-    // const liqPos = await getPrismaLiquidatablePos({
-    //   amm: data.ammName,
-    //   markPrice: data.markPrice,
-    // });
+    const res = await fetch(`/liquidatable/${data.amm}/${data.markPrice}`);
+    console.log("res", res);
 
-    // setLiquidatablePositions((previous) => [...liqPos, ...previous]);
+    const positions = (await res.json()) as LiquidatablePosition[];
+    console.log("positions", positions);
+
+    setLiquidatablePositions((previous) => [...positions, ...previous]);
 
     const traderPositions = await getTraderPositions(trader);
-
-    // const liquidatablePositions = await getPrismaLiquidatablePos({
-    //   amm: data.ammName,
-    //   markPrice: data.markPrice,
-    // });
-
-    // console.log(liquidatablePositions);
 
     const relevantTraderPosition = traderPositions?.find(
       (traderPosition) => traderPosition.ammName === data.ammName
@@ -81,19 +64,6 @@ export function TradesDataTable() {
       relevantTraderPosition.liquidationPrice === "0"
         ? 0
         : parseFloat(relevantTraderPosition.liquidationPrice);
-
-    // const liquidatablePositions = await checkForLiquidatablePositions({
-    //   amm: data.amm,
-    //   markPrice: parseFloat(data.markPrice),
-    //   side: relevantTraderPosition.side,
-    // });
-
-    // if (liquidatablePositions.length > 0) {
-    //   setLiquidatablePositions((previous) => [
-    //     ...liquidatablePositions,
-    //     ...previous,
-    //   ]);
-    // }
 
     // this sucks but if there is no relevant trader position margin, get margin from the data object
     // if the relevant trader position margin is 0, then set it to "-"
@@ -126,10 +96,6 @@ export function TradesDataTable() {
     };
 
     setTraderEvents((previous) => [liqData, ...previous]);
-    // setLiquidatablePositions((previous) => [
-    //   ...liquidatablePositions,
-    //   ...previous,
-    // ]);
   }
 
   useEffect(() => {
@@ -174,13 +140,6 @@ export function TradesDataTable() {
 
   return (
     <div className="p-2">
-      {/* {liquidatablePositions.map((position) => (
-        <div key={position.nftPerpId}>
-          <div className="text-xl">
-            {position.ammName} - {position.side} - {position.markPrice}
-          </div>
-        </div>
-      ))} */}
       <div className="flex items-center">
         status:{" "}
         {isConnected ? (
@@ -191,7 +150,7 @@ export function TradesDataTable() {
       </div>
       {traderEvents.length === 0 ? (
         <div>
-          <div className="text-center text-xl">no trades yet</div>
+          <div className="text-center text-xl">Trades: none</div>
           {/* <Image
             src={imageURLToUse}
             width={300}
@@ -276,6 +235,16 @@ export function TradesDataTable() {
           </table>
         </div>
       )}
+      <div>
+        Liquidatable Positions: {liquidatablePositions.length === 0 && "none"}
+        {liquidatablePositions.map((position) => (
+          <div key={position.amm.concat(position.trader)}>
+            <div className="text-xl">
+              {position.entryPrice} - {position.side} - {position.trader}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
