@@ -1,6 +1,6 @@
-// import ConnectButton from "./ConnectButton";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { ConnectDynamicWidget } from "./DynamicWidget";
 
 export function SiteHeader() {
   return (
@@ -24,9 +24,9 @@ export function SiteHeader() {
           </Link>
         </Button>
         <div className="flex flex-1 justify-between space-x-2 p-2 md:justify-end">
-          {/* <div className="border border-zinc-200 p-2 "> */}
-          {/* <ConnectButton /> */}
-          {/* </div> */}
+          <div>
+            <ConnectDynamicWidget />
+          </div>
         </div>
       </div>
     </header>
