@@ -14,31 +14,29 @@ datasource db {
 model PositionUpdatedEvent {
     id                              String   @id @default(cuid())
     updatedAt                       DateTime @updatedAt
-    blockNumber                     BigInt
     timestamp                       BigInt
     trader                          String
-    amm                             String
     ammName                         String
-    margin                          String
-    exchangedPositionNotional       String
-    exchangedPositionSize           String
-    positionSizeAfter               String
-    realizedPnl                     String
-    markPrice                       String
+    side                            String
+    size                            String
     entryPrice                      String
+    markPrice                       String
     leverage                        String
     notional                        String
-    nftPerpId                       String
-    isLiquidatable                  Boolean
-    size                            String
-    maintenanceMargin               String
-    marginRatioToMinimumMarginRatio String
-    marginRatio                     String
-    markToLiq                       String
-    liquidationPrice                Float
     fundingPayment                  String
+    unrealizedPnl                   Float
+    liquidationPrice                Float
+    marginRatio                     Float
     lastUpdatedTimestamp            String
-    side                            String
-    unrealizedPnl                   BigInt
-    unrealizedPnlAfter              BigInt
+    nftPerpId                       String
+    amm                             String
+    blockNumber                     String
+    exchangedPositionSize           String
+    exchangedPositionNotional       String
+    isLiquidatable                  Boolean
+    margin                          String
+    marginRatioToMinimumMarginRatio Float
+    markToLiq                       Float
+    positionSizeAfter               String
+    unrealizedPnlAfter              String
 }

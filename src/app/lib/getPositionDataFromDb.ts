@@ -19,12 +19,11 @@ export const getPositionDataFromDb = async () => {
       markPrice: true,
       positionSizeAfter: true,
       size: true,
-      maintenanceMargin: true,
       marginRatio: true,
       marginRatioToMinimumMarginRatio: true,
       trader: true,
       updatedAt: true,
-      realizedPnl: true,
+      // realizedPnl: true,
       unrealizedPnl: true,
       nftPerpId: true,
       side: true,
@@ -37,17 +36,15 @@ export const getPositionDataFromDb = async () => {
         lte: 0,
       },
       timestamp: {
-        gte: 1683047347,
+        gte: 1684847347,
       },
     },
     distinct: ["trader", "amm"],
   });
 
-  console.log(res[0]?.unrealizedPnl.toString());
-
   return res.map((item) => ({
     ...item,
-    marginRatio: parseFloat(item.marginRatio).toFixed(2),
+    marginRatio: item.marginRatio,
     entryPrice: parseFloat(item.entryPrice).toFixed(2),
     markPrice: parseFloat(item.markPrice).toFixed(2),
     liquidationPrice: item.liquidationPrice.toFixed(2),

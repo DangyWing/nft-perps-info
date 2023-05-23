@@ -82,7 +82,17 @@ export const columns = [
     id: "exchangedPositionSize",
     header: "size",
     cell: (info) => {
-      return <div className="text-right">{info.getValue().toFixed(2)}</div>;
+      return <div className="text-right">{info.getValue().toFixed(3)}</div>;
+    },
+    enableSorting: true,
+    sortingFn: "basic",
+    enableColumnFilter: false,
+  }),
+  columnHelper.accessor((row) => row.sizeAndFee, {
+    id: "sizeIncludingfee",
+    header: "size & fee",
+    cell: (info) => {
+      return <div className="text-right">{info.getValue().toFixed(3)}</div>;
     },
     enableSorting: true,
     sortingFn: "basic",
@@ -140,16 +150,6 @@ export const columns = [
           {info.getValue().substring(0, 5)}
         </a>
       );
-    },
-    enableSorting: true,
-    sortingFn: "basic",
-    enableColumnFilter: false,
-  }),
-  columnHelper.accessor((row) => row.isLiquidatable, {
-    id: "isLiquidatable",
-    header: "liq ?",
-    cell: (info) => {
-      return <div>{info.getValue()}</div>;
     },
     enableSorting: true,
     sortingFn: "basic",

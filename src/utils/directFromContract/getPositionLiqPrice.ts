@@ -11,6 +11,7 @@ export async function getPositionLiqPrice({
   traderAddress: Address;
 }) {
   const markPrice = await getAMMMarkPrice({ ammAddress });
+
   const minMaintenanceMargin = await getAMMMinimumMarginRatio({ ammAddress });
 
   const marginRatio = await getMarginRatio({ ammAddress, traderAddress });

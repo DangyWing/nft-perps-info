@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "db";
+import { isAddress } from "viem";
 
 export type LiquidatablePosition = {
   trader: string;
@@ -11,6 +12,13 @@ export type LiquidatablePosition = {
   liquidationPrice: number;
   side: string;
 };
+
+function isFloat(value: unknown): value is number {
+  if (typeof value === "string") {
+    return !isNaN(parseFloat(value));
+  }
+  return false;
+}
 
 export async function GET(
   _request: Request,
@@ -24,6 +32,13 @@ export async function GET(
   }
 ) {
   const amm = params.amm;
+
+  if (!isAddress(amm)) {
+    return NextResponse.json(new Error("Invalid AMM address"), { status: 400 });
+  } else if (!isFloat(params.markPrice)) {
+    return NextResponse.json(new Error("Invalid mark price"), { status: 400 });
+  }
+
   const markPriceClean = parseFloat(params.markPrice);
 
   const res = await prisma.positionUpdatedEvent.findMany({
@@ -45,7 +60,6 @@ export async function GET(
       entryPrice: true,
       leverage: true,
       margin: true,
-      maintenanceMargin: true,
     },
   });
 

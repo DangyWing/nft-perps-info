@@ -5,7 +5,6 @@ import { type getPositionDataFromDb } from "~/app/lib/getPositionDataFromDb";
 import { TraderHoverCard } from "../TraderHoverCard";
 import { LiqButton } from "../liqAction/liqButton";
 import dayjs from "dayjs";
-import { formatEther } from "viem";
 
 export type LiqTableData = Awaited<ReturnType<typeof getPositionDataFromDb>>[0];
 
@@ -121,7 +120,7 @@ export const columns = [
     cell: (info) => {
       return (
         <div className={numberFormat}>
-          {parseFloat(formatEther(info.getValue())).toFixed(3)}
+          {parseFloat(info.getValue()).toFixed(3)}
         </div>
       );
     },
@@ -169,9 +168,9 @@ export const columns = [
     header: "👅",
     cell: (props) => (
       <LiqButton
-        ammName={props.row.original.ammName}
-        traderAddress={props.row.original.trader}
-        isLiquidatable={props.row.original.isLiquidatable}
+        _ammName={props.row.original.ammName}
+        _traderAddress={props.row.original.trader}
+        _isLiquidatable={props.row.original.isLiquidatable}
       />
     ),
   }),

@@ -15,7 +15,7 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-import type { LiquidatablePosition } from "~/app/api/liquidatable/[amm]/route";
+import type { LiquidatablePosition } from "~/app/api/liquidatable/[amm]/[markPrice]/route";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -43,10 +43,8 @@ export function TradesDataTable() {
     const trader = data.trader as `0x${string}`;
 
     const res = await fetch(`/api/liquidatable/${data.amm}/${data.markPrice}`);
-    console.log("res", res);
 
     const positions = (await res.json()) as LiquidatablePosition[];
-    console.log("positions", positions);
 
     setLiquidatablePositions((previous) => [...positions, ...previous]);
 
@@ -74,11 +72,23 @@ export function TradesDataTable() {
       ? "-"
       : parseFloat(relevantTraderPosition.margin).toFixed(2);
 
-    const isLiquidatable =
-      (relevantTraderPosition.side === "BUY" &&
-        liqPrice > parseFloat(data.markPrice)) ||
-      (relevantTraderPosition.side === "SELL" &&
-        liqPrice < parseFloat(data.markPrice));
+    let customSide: "short" | "long" | undefined;
+
+    if (relevantTraderPosition.side === "BUY") {
+      customSide = "long";
+    } else if (relevantTraderPosition.side === "SELL") {
+      customSide = "short";
+    } else if (parseFloat(data.exchangedPositionSize) > 0) {
+      customSide = "long";
+    } else if (parseFloat(data.exchangedPositionSize) < 0) {
+      customSide = "short";
+    }
+
+    console.log("SIDE");
+    console.log(relevantTraderPosition.side);
+
+    console.log("DATA");
+    console.log(data);
 
     const liqData: LiqEventDisplay = {
       ammName: relevantTraderPosition.ammName,
@@ -86,12 +96,13 @@ export function TradesDataTable() {
       markPrice: data.markPrice,
       liquidationPrice: liqPrice === 0 ? "-" : liqPrice.toFixed(2),
       margin: marginNum,
-      side: relevantTraderPosition.side,
+      // side: relevantTraderPosition.side,
+      side: customSide,
       exchangedPositionSize: parseFloat(data.exchangedPositionSize),
+      sizeAndFee: parseFloat(data.exchangedPositionSize) + parseFloat(data.fee),
       exchangedPositionNotional: parseFloat(data.exchangedPositionNotional),
       trader: relevantTraderPosition.trader,
       transactionHash: data.transactionHash as `0x${string}`,
-      isLiquidatable: isLiquidatable,
       tradeType: tradeType,
     };
 
@@ -237,8 +248,10 @@ export function TradesDataTable() {
       )}
       <div>
         Liquidatable Positions: {liquidatablePositions.length === 0 && "none"}
-        {liquidatablePositions.map((position) => (
-          <div key={position.amm.concat(position.trader)}>
+        {liquidatablePositions.map((position, index) => (
+          <div
+            key={`trader: ${position.trader} amm: ${position.amm}, index: ${index}`}
+          >
             <div className="text-xl">
               {position.entryPrice} - {position.side} - {position.trader}
             </div>

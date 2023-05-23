@@ -49,6 +49,7 @@ export type TradeData = {
   totalCount: number;
   result: Trade[];
 };
+
 export type Trade = {
   trader: Address;
   amm: Address;
@@ -90,12 +91,12 @@ export type LiqEventDisplay = {
   markPrice: string;
   liquidationPrice: string;
   margin: string;
-  side: string;
+  side: "short" | "long" | undefined;
+  sizeAndFee: number;
   exchangedPositionSize: number;
   exchangedPositionNotional: number;
   trader: `0x${string}`;
   transactionHash: `0x${string}`;
-  isLiquidatable: boolean;
   tradeType: string;
 };
 

@@ -1,12 +1,11 @@
-// import { ConnectKitButton } from "connectkit";
-import { DynamicWidget } from "@dynamic-labs/sdk-react";
+// import ConnectButton from "./ConnectButton";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
 export function SiteHeader() {
   return (
     <header className="supports-backdrop-blur:bg-background/60 bg-background/95 sticky top-0 z-40 w-full border-b border-yellow-100 bg-zinc-800 shadow-sm backdrop-blur">
-      <div className="container flex h-14 items-center">
+      <div className="container flex items-center">
         <div className="flex justify-center ">
           <Button variant="link" className="text-2xl">
             <Link href="/" placeholder="blur" prefetch={false}>
@@ -24,8 +23,10 @@ export function SiteHeader() {
             👀
           </Link>
         </Button>
-        <div className="flex flex-1 items-center justify-between space-x-2 sm:space-x-4 md:justify-end">
-          <DynamicWidget />
+        <div className="flex flex-1 justify-between space-x-2 p-2 md:justify-end">
+          {/* <div className="border border-zinc-200 p-2 "> */}
+          {/* <ConnectButton /> */}
+          {/* </div> */}
         </div>
       </div>
     </header>
