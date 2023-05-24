@@ -13,7 +13,7 @@ export function parseNfexData(data: NfexData[]) {
     indexToMark: percentageChangeFromBase(
       parseFloat(row.last_fund_rate_info.MomentBaseData.index_p),
       parseFloat(row.last_fund_rate_info.MomentBaseData.market_p)
-    ),
+    ).toFixed(4),
   }));
 
   return perpData;

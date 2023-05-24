@@ -36,7 +36,7 @@ export async function getNftPerpDataFromContract() {
       nftPerpIndexToMark: calcPercentageDifference(
         parseFloat(markPrice),
         parseFloat(indexPrice)
-      ),
+      ).toFixed(4),
       nftPerpSlug: value.ammName,
       nftPerpFundingSide: fundingSide,
     });

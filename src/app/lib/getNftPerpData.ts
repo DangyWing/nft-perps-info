@@ -37,7 +37,7 @@ export async function getNftPerpData() {
       nftPerpIndexPrice: value.indexPrice.toString(),
       nftPerpMarkPrice: value.markPrice.toString(),
       nftPerpFundingRate: funding.toString(),
-      nftPerpIndexToMark: indexToMarkDelta,
+      nftPerpIndexToMark: indexToMarkDelta.toFixed(4),
       nftPerpSlug: value.ammName,
       nftPerpFundingSide: fundingSide,
     };

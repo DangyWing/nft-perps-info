@@ -194,12 +194,12 @@ export type PerpData = {
   indexPrice: string;
   markPrice: string;
   fundingRate: string;
-  indexToMark: number;
+  indexToMark: string;
   nftPerpIndexPrice: string;
   nftPerpMarkPrice: string;
   nftPerpFundingRate: string;
-  nftPerpIndexToMark: number;
-  nftPerpMarkToNfexIndex: number | null;
+  nftPerpIndexToMark: string;
+  nftPerpMarkToNfexIndex: string;
   nftPerpFundingSide: string;
 };
 
@@ -209,7 +209,7 @@ export type NfexPerpData = {
   indexPrice: string;
   markPrice: string;
   fundingRate: string;
-  indexToMark: number;
+  indexToMark: string;
 };
 
 export type NftPerpData = {
@@ -218,7 +218,7 @@ export type NftPerpData = {
   nftPerpIndexPrice: string;
   nftPerpMarkPrice: string;
   nftPerpFundingRate: string;
-  nftPerpIndexToMark: number;
+  nftPerpIndexToMark: string;
   nftPerpFundingSide: string;
 };
 

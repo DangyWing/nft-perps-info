@@ -2,54 +2,62 @@
 
 import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
-import { numberFormat } from "../liqDataTable/columns";
+import { LegendPopover } from "../LegendPopover";
+
+// const numberFormat = "text-right mx-8";
+const numberFormat = "text-right align-middle px-2";
 
 const columnHelper = createColumnHelper<PerpData>();
 
 export const columns = [
-  columnHelper.accessor((row) => row.projectName, {
+  {
+    header: () => <LegendPopover />,
     id: "projectName",
-    header: "Project",
-    cell: (info) => (
-      <a
-        href={
-          info.row.original.nftPerpSlug
-            ? `https://beta.nftperp.xyz/trade/${info.row.original.nftPerpSlug}`
-            : `https://nfex.io/trade/${info.row.original.nfexSlug}`
-        }
-        target="_blank"
-        rel="noreferrer"
-      >
-        {info.getValue()}
-      </a>
-    ),
-    size: 150,
-    enableSorting: true,
-    sortingFn: "alphanumeric",
-    enableColumnFilter: true,
-    filterFn: "arrIncludesSome",
-  }),
+    columns: [
+      columnHelper.accessor((row) => row.projectName, {
+        id: "projectName",
+        header: () => <div className="text-left">Project</div>,
+        cell: (info) => (
+          <a
+            href={
+              info.row.original.nftPerpSlug
+                ? `https://beta.nftperp.xyz/trade/${info.row.original.nftPerpSlug}`
+                : `https://nfex.io/trade/${info.row.original.nfexSlug}`
+            }
+            target="_blank"
+            rel="noreferrer"
+          >
+            {info.getValue()}
+          </a>
+        ),
+        size: 150,
+        enableSorting: true,
+        sortingFn: "alphanumeric",
+        enableColumnFilter: true,
+        filterFn: "arrIncludesSome",
+      }),
+    ],
+  },
   {
     header: "Index Price",
     columns: [
       columnHelper.accessor((row) => row.indexPrice, {
         id: "nfexIndexPrice",
-        header: "nfex",
+        header: () => <div className="text-right">nfex Index</div>,
         cell: (info) => {
-          return (
-            <div className={numberFormat}>
-              {parseFloat(info.getValue()).toFixed(2)}
-            </div>
-          );
+          const amount = parseFloat(info.getValue());
+          const formatted = new Intl.NumberFormat("en-US", {}).format(amount);
+
+          return <div className={numberFormat}>{formatted}</div>;
         },
-        size: 25,
+
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
       columnHelper.accessor((row) => row.nftPerpIndexPrice, {
         id: "nftPerpIndexPrice",
-        header: "NFTPerp",
+        header: () => <div className="text-right">NFTPerp Index</div>,
         cell: (info) => {
           const indexPrice = info.getValue();
           return (
@@ -60,7 +68,6 @@ export const columns = [
             )
           );
         },
-        size: 25,
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
@@ -72,7 +79,7 @@ export const columns = [
     columns: [
       columnHelper.accessor((row) => row.markPrice, {
         id: "nfexMarkPrice",
-        header: "nfex",
+        header: () => <div className="text-center">nfex mark</div>,
         cell: (info) => {
           return (
             <div className={numberFormat}>
@@ -82,11 +89,10 @@ export const columns = [
         },
         enableSorting: true,
         enableColumnFilter: false,
-        size: 25,
       }),
       columnHelper.accessor((row) => row.nftPerpMarkPrice, {
         id: "nftPerpMarkPrice",
-        header: "NFTPerp",
+        header: () => <div className="text-center">nftperp mark</div>,
         cell: (info) => {
           const markPrice = info.getValue();
           return (
@@ -97,7 +103,6 @@ export const columns = [
             )
           );
         },
-        size: 25,
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
@@ -105,37 +110,43 @@ export const columns = [
     ],
   },
   {
-    header: "Index To Mark (%)",
+    header: "Index To Mark %",
     columns: [
       columnHelper.accessor((row) => row.nftPerpMarkToNfexIndex, {
         id: "perpMarkToNfexIndex",
-        header: "perp vs nfex",
+        header: () => <div className="text-right">Perp vs Nfex</div>,
         cell: (info) => {
-          return <div>{info.getValue()?.toFixed(2)}</div>;
+          return (
+            <p className={numberFormat}>
+              {parseFloat(info.getValue()).toFixed(2)}
+            </p>
+          );
         },
-        size: 75,
-        enableSorting: true,
-
         sortingFn: (rowA, rowB, columnId) => {
           const numA = Math.abs(rowA.getValue<number>(columnId));
           const numB = Math.abs(rowB.getValue<number>(columnId));
 
           return numA > numB ? 1 : numA < numB ? -1 : 0;
         },
+        enableSorting: true,
         sortUndefined: 1,
         enableColumnFilter: false,
+        size: 75,
+        maxSize: 75,
       }),
       columnHelper.accessor((row) => row.nftPerpIndexToMark, {
         id: "nftPerpIndexToMark",
-        header: "NFTPerp",
+        header: () => <div className="text-right">nftperp</div>,
         cell: (info) => {
-          const indexToMark = info.getValue();
-          return <div className={numberFormat}>{indexToMark.toFixed(2)}</div>;
+          return (
+            <p className={numberFormat}>
+              {parseFloat(info.getValue()).toFixed(2)}
+            </p>
+          );
         },
-        size: 75,
         enableSorting: true,
-
         enableColumnFilter: false,
+        size: 75,
       }),
     ],
   },
@@ -144,7 +155,7 @@ export const columns = [
     columns: [
       columnHelper.accessor((row) => row.nftPerpFundingRate, {
         id: "nftPerpFundingRate",
-        header: "NFTPerp",
+        header: () => <div className="text-right">nftperp</div>,
         cell: (info) => {
           const shortOrLong = parseFloat(info.getValue()) < 0 ? "l" : "s";
           return (
@@ -156,6 +167,7 @@ export const columns = [
         enableSorting: true,
         sortingFn: "basic",
         enableColumnFilter: false,
+        size: 75,
       }),
     ],
   },

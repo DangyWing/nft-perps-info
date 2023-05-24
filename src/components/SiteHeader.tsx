@@ -24,8 +24,12 @@ export function SiteHeader() {
           </Link>
         </Button>
         <div className="flex flex-1 justify-between space-x-2 p-2 md:justify-end">
-          <div className="h-12">
-            <ConnectDynamicWidget variant="dropdown" />
+          <div className="h-10">
+            <ConnectDynamicWidget
+              variant="dropdown"
+              buttonContainerClassName="h-8"
+              buttonClassName="h-8"
+            />
           </div>
         </div>
       </div>

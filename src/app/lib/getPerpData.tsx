@@ -12,8 +12,6 @@ export async function getPerpData() {
   const combinedPerpData = [];
 
   for (const nftPerp of nftPerpData) {
-    // console.log(nftPerp.projectName);
-
     const nfexDataItem = nfexData.find(
       (nfexData) => nfexData.projectName === nftPerp.projectName
     );
@@ -25,7 +23,7 @@ export async function getPerpData() {
     const nftPerpMarkToNfexIndex = percentageChangeFromBase(
       parseFloat(nfexDataItem.indexPrice),
       parseFloat(nftPerp.nftPerpMarkPrice)
-    );
+    ).toFixed(4);
 
     const perpData: PerpData = {
       nftPerpMarkToNfexIndex,
@@ -41,6 +39,7 @@ export async function getPerpData() {
       ? 1
       : b.nftPerpMarkToNfexIndex === null
       ? -1
-      : Math.abs(b.nftPerpMarkToNfexIndex) - Math.abs(a.nftPerpMarkToNfexIndex)
+      : Math.abs(parseFloat(b.nftPerpMarkToNfexIndex)) -
+        Math.abs(parseFloat(a.nftPerpMarkToNfexIndex))
   );
 }

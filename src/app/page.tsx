@@ -1,6 +1,7 @@
-import { PerpDataTable } from "../components/perpDataTable/perpDataTable";
 import { Suspense } from "react";
-import { getPerpData } from "./lib/getPerpData";
+import { DataTable } from "~/components/perpDataTable/data-table";
+import { columns } from "~/components/perpDataTable/columns";
+import { getPerpData } from "~/app/lib/getPerpData";
 
 export const metadata = {
   title: "NFT Perps Info",
@@ -17,7 +18,7 @@ export default async function Page() {
   return (
     <div>
       <Suspense fallback={<div>Loading...</div>}>
-        <PerpDataTable data={data} />
+        <DataTable columns={columns} data={data} />
       </Suspense>
     </div>
   );
