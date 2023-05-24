@@ -4,7 +4,6 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
 import { LegendPopover } from "../LegendPopover";
 
-// const numberFormat = "text-right mx-8";
 const numberFormat = "text-right align-middle px-2";
 
 const columnHelper = createColumnHelper<PerpData>();

@@ -10,7 +10,6 @@ export const metadata = {
 export default function Page() {
   return (
     <div>
-      {" "}
       <Suspense fallback={<div>Loading...</div>}>
         <AccountPositions />
       </Suspense>

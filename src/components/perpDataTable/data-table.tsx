@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="">
+    <div>
       <Table>
         <TableHeader className="text-lg uppercase">
           {table.getHeaderGroups().map((headerGroup) => (
@@ -72,13 +72,6 @@ export function DataTable<TData, TValue>({
                         header.getSize() !== 150 ? header.getSize() : undefined,
                     }}
                   >
-                    {/* {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )} */}
-
                     {header.isPlaceholder ? null : (
                       <>
                         <div
@@ -104,14 +97,6 @@ export function DataTable<TData, TValue>({
                             </div>
                           </div>
                         </div>
-                        {/* {header.column.getCanFilter() ? (
-                          <div className="px-0">
-                            <PerpDataFilter
-                              column={header.column}
-                              table={table}
-                            />
-                          </div>
-                        ) : null} */}
                       </>
                     )}
                   </TableHead>
