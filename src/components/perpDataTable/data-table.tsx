@@ -78,7 +78,8 @@ export function DataTable<TData, TValue>({
                           {...{
                             className: header.column.getCanSort()
                               ? "inline-flex min-w-max cursor-pointer select-none"
-                              : "text-center",
+                              : // : "text-center",
+                                "",
                             onClick: header.column.getToggleSortingHandler(),
                           }}
                         >

@@ -39,6 +39,7 @@ export async function getNftPerpDataFromContract() {
       ).toFixed(4),
       nftPerpSlug: value.ammName,
       nftPerpFundingSide: fundingSide,
+      nftPerpAmmAddress: value.nftPerpAmmAddress,
     });
   });
 

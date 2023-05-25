@@ -3,6 +3,7 @@ import { publicClient } from "../viemClient";
 import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 import { ClearingHouseAddress } from "~/constants/constants";
 import { formatEther, type Address } from "viem";
+import { cache } from "react";
 
 type GetPositionResult = {
   size: {
@@ -119,11 +120,11 @@ export type AllPositionsReturnType = {
   marginRatio: string;
 };
 
-export const getAllPositionsForWallet = async ({
+export async function getAllPositionsForWallet({
   walletAddress,
 }: {
   walletAddress: Address | undefined;
-}) => {
+}) {
   if (!walletAddress) return [];
   const res = await Promise.all(
     AMMData.map(async (singleAmm) => {
@@ -170,4 +171,4 @@ export const getAllPositionsForWallet = async ({
       }
     })
     .filter((item): item is AllPositionsReturnType => !!item);
-};
+}

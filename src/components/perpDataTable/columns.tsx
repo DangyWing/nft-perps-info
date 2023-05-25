@@ -3,10 +3,17 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
 import { LegendPopover } from "../LegendPopover";
+import { type Object } from "ts-toolbelt";
 
-const numberFormat = "text-right align-middle px-2";
+// const numberFormat = "text-right align-middle px-2";
+const numberFormat = "mx-auto w-min -translate-x-1/4 text-right";
 
-const columnHelper = createColumnHelper<PerpData>();
+type PerpDataWithUserStatus = Object.Merge<
+  PerpData,
+  { userStatus?: "long" | "short" | undefined }
+>;
+
+const columnHelper = createColumnHelper<PerpDataWithUserStatus>();
 
 export const columns = [
   {
@@ -39,6 +46,7 @@ export const columns = [
   },
   {
     header: "Index Price",
+    id: "indexPrice",
     columns: [
       columnHelper.accessor((row) => row.indexPrice, {
         id: "nfexIndexPrice",
@@ -93,13 +101,10 @@ export const columns = [
         id: "nftPerpMarkPrice",
         header: () => <div className="text-center">nftperp mark</div>,
         cell: (info) => {
-          const markPrice = info.getValue();
           return (
-            markPrice && (
-              <div className={numberFormat}>
-                {parseFloat(markPrice)?.toFixed(2)}
-              </div>
-            )
+            <div className={numberFormat}>
+              {parseFloat(info.getValue()).toFixed(2)}
+            </div>
           );
         },
         enableSorting: true,
@@ -116,9 +121,9 @@ export const columns = [
         header: () => <div className="text-right">Perp vs Nfex</div>,
         cell: (info) => {
           return (
-            <p className={numberFormat}>
-              {parseFloat(info.getValue()).toFixed(2)}
-            </p>
+            <div className={numberFormat}>
+              {parseFloat(info.getValue())?.toFixed(2)}
+            </div>
           );
         },
         sortingFn: (rowA, rowB, columnId) => {
@@ -130,8 +135,6 @@ export const columns = [
         enableSorting: true,
         sortUndefined: 1,
         enableColumnFilter: false,
-        size: 75,
-        maxSize: 75,
       }),
       columnHelper.accessor((row) => row.nftPerpIndexToMark, {
         id: "nftPerpIndexToMark",
@@ -156,10 +159,13 @@ export const columns = [
         id: "nftPerpFundingRate",
         header: () => <div className="text-right">nftperp</div>,
         cell: (info) => {
-          const shortOrLong = parseFloat(info.getValue()) < 0 ? "l" : "s";
+          // const shortOrLong = parseFloat(info.getValue()) < 0 ? "l" : "s";
+          // const fundingRate = `${parseFloat(info.getValue())?.toFixed(
+          //   3
+          // )} ${shortOrLong}`;
           return (
             <div className={numberFormat}>
-              {parseFloat(info.getValue())?.toFixed(3) + " " + shortOrLong}
+              {parseFloat(info.getValue()).toFixed(3)}
             </div>
           );
         },
@@ -167,6 +173,21 @@ export const columns = [
         sortingFn: "basic",
         enableColumnFilter: false,
         size: 75,
+      }),
+    ],
+  },
+  {
+    header: "status",
+    columns: [
+      columnHelper.display({
+        id: "positionStatus",
+        cell: (props) => {
+          const { row } = props;
+          const { userStatus } = row.original;
+          const userStatusClass =
+            userStatus === undefined ? "text-success" : "text-danger";
+          return <div className={userStatusClass}>{userStatus}</div>;
+        },
       }),
     ],
   },
