@@ -1,5 +1,7 @@
+import { O } from "ts-toolbelt";
 import { AMMData } from "~/constants/constants";
 import { type AllAmmsDataResponse, type NftPerpData } from "~/types";
+import { getContractAddressFromAmmName } from "~/utils/getContractAddressFromAmmName";
 
 export async function getNftPerpData() {
   const nftPerpData: NftPerpData[] = [];
@@ -31,6 +33,11 @@ export async function getNftPerpData() {
     if (!nfexProjectName) {
       return;
     }
+    const nftPerpAmmAddress = getContractAddressFromAmmName(value.ammName);
+
+    if (!nftPerpAmmAddress) {
+      return;
+    }
 
     const perpData: NftPerpData = {
       projectName: nfexProjectName,
@@ -40,6 +47,7 @@ export async function getNftPerpData() {
       nftPerpIndexToMark: indexToMarkDelta.toFixed(4),
       nftPerpSlug: value.ammName,
       nftPerpFundingSide: fundingSide,
+      nftPerpAmmAddress: nftPerpAmmAddress,
     };
     nftPerpData.push(perpData);
   });
