@@ -1,4 +1,3 @@
-import { O } from "ts-toolbelt";
 import { AMMData } from "~/constants/constants";
 import { type AllAmmsDataResponse, type NftPerpData } from "~/types";
 import { getContractAddressFromAmmName } from "~/utils/getContractAddressFromAmmName";
