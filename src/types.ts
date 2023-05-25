@@ -198,10 +198,11 @@ export type PerpData = {
   nftPerpIndexPrice: string;
   nftPerpMarkPrice: string;
   nftPerpFundingRate: string;
-  nftPerpIndexToMark: string;
+  nftPerpMarkToIndex: string;
   nftPerpMarkToNfexIndex: string;
   nftPerpFundingSide: string;
   nftPerpAmmAddress: string;
+  nftPerpDynamicFeeStatus: "" | "short" | "long";
 };
 
 export type NfexPerpData = {
@@ -219,9 +220,10 @@ export type NftPerpData = {
   nftPerpIndexPrice: string;
   nftPerpMarkPrice: string;
   nftPerpFundingRate: string;
-  nftPerpIndexToMark: string;
+  nftPerpMarkToIndex: string;
   nftPerpFundingSide: string;
   nftPerpAmmAddress: string;
+  nftPerpDynamicFeeStatus: "" | "short" | "long";
 };
 
 export type AMMResponse = {

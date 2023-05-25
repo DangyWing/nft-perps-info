@@ -3,6 +3,7 @@ import { getAmmData } from "./getAmmData";
 import { type NftPerpData } from "~/types";
 import { calcPercentageDifference } from "../calculatePercentageDifference";
 import { formatEther } from "viem";
+import { calculateDivergenceFee } from "../calculateDivergenceFee";
 
 export async function getNftPerpDataFromContract() {
   const data = await getAmmData();
@@ -28,18 +29,30 @@ export async function getNftPerpDataFromContract() {
 
     const fundingSide = parseFloat(fundingRateLong) > 0 ? "short" : "long";
 
+    const markToIndexDelta = calcPercentageDifference(
+      parseFloat(markPrice),
+      parseFloat(indexPrice)
+    );
+
+    const { longFee, shortFee } = calculateDivergenceFee(markToIndexDelta);
+
+    const dynamicFeeStatus =
+      longFee === 0 && shortFee === 0
+        ? ""
+        : markToIndexDelta > 0
+        ? "short"
+        : "long";
+
     nftPerpData.push({
       projectName: nfexProjectName,
       nftPerpIndexPrice: indexPrice.toString(),
       nftPerpMarkPrice: markPrice.toString(),
       nftPerpFundingRate: fundingRate.toString(),
-      nftPerpIndexToMark: calcPercentageDifference(
-        parseFloat(markPrice),
-        parseFloat(indexPrice)
-      ).toFixed(4),
+      nftPerpMarkToIndex: markToIndexDelta.toFixed(4),
       nftPerpSlug: value.ammName,
       nftPerpFundingSide: fundingSide,
       nftPerpAmmAddress: value.nftPerpAmmAddress,
+      nftPerpDynamicFeeStatus: dynamicFeeStatus,
     });
   });
 

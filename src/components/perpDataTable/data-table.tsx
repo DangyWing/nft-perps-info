@@ -26,11 +26,13 @@ import { useState } from "react";
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isWalletConnected: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  isWalletConnected,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -40,6 +42,9 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     state: {
       sorting,
+      columnVisibility: {
+        positionStatus: isWalletConnected,
+      },
     },
     enableColumnFilters: true,
     enableFilters: true,

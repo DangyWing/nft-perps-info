@@ -5,7 +5,6 @@ import type { PerpData } from "../../types";
 import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
 
-// const numberFormat = "text-right align-middle px-2";
 const numberFormat = "mx-auto w-min -translate-x-1/4 text-right";
 
 type PerpDataWithUserStatus = Object.Merge<
@@ -136,8 +135,8 @@ export const columns = [
         sortUndefined: 1,
         enableColumnFilter: false,
       }),
-      columnHelper.accessor((row) => row.nftPerpIndexToMark, {
-        id: "nftPerpIndexToMark",
+      columnHelper.accessor((row) => row.nftPerpMarkToIndex, {
+        id: "nftPerpMarkToIndex",
         header: () => <div className="text-right">nftperp</div>,
         cell: (info) => {
           return (
@@ -178,15 +177,27 @@ export const columns = [
   },
   {
     header: "status",
+
     columns: [
       columnHelper.display({
         id: "positionStatus",
+        header: "position",
         cell: (props) => {
           const { row } = props;
-          const { userStatus } = row.original;
-          const userStatusClass =
-            userStatus === undefined ? "text-success" : "text-danger";
-          return <div className={userStatusClass}>{userStatus}</div>;
+          return <div className="text-center">{row.original.userStatus}</div>;
+        },
+      }),
+      columnHelper.display({
+        id: "feeStatus",
+        header: "divergence fee",
+        enableHiding: true,
+        cell: (props) => {
+          const { row } = props;
+          return (
+            <div className="text-center">
+              {row.original.nftPerpDynamicFeeStatus}
+            </div>
+          );
         },
       }),
     ],

@@ -17,5 +17,11 @@ export async function NewDataTable({ data }: { data: PerpData[] }) {
 
   const combinedData = joinDataTogether(data, walletPositions);
 
-  return <DataTable columns={columns} data={combinedData} />;
+  return (
+    <DataTable
+      columns={columns}
+      data={combinedData}
+      isWalletConnected={!!address}
+    />
+  );
 }
