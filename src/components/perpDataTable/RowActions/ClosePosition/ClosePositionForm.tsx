@@ -13,21 +13,40 @@ import { Button } from "../../../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { type Address } from "viem";
 import { ClosePositionDisplay } from "./ClosePositionDisplay";
 import { useState } from "react";
 import { PercentageToCloseSelector } from "./percentageToCloseSelector";
+import { useQuery } from "@tanstack/react-query";
+import { getClosePositionSummary } from "~/app/lib/getClosePositionSummary";
+import { ClosePositionTx } from "./ClosePositionTx";
+import { type Address } from "viem";
+import { getNftPerpAmmNameFromContractAddress } from "~/utils/fetchFromConstant/getNftPerpAmmNameFromContractAddress";
+
+const percentageToCloseDefaultValue = 100;
 
 export function ClosePositionForm({
   ammName,
   ammAddress,
   walletAddress,
+  side,
 }: {
   ammName: string;
   ammAddress: Address;
   walletAddress: Address;
+  side: "long" | "short";
 }) {
   const [slippageValue, setSlippageValue] = useState<number | string>(0.5);
+
+  const [percentageToCloseValue, setPercentageToCloseValue] = useState<
+    number[] | undefined
+  >([percentageToCloseDefaultValue]);
+
+  const [textValue, setTextValue] = useState<string | undefined>(
+    percentageToCloseDefaultValue.toString()
+  );
+  const [sliderValue, setSliderValue] = useState<number[]>([
+    percentageToCloseDefaultValue,
+  ]);
 
   const formSchema = z.object({
     percentageToClose: z
@@ -37,8 +56,6 @@ export function ClosePositionForm({
     slippage: z.number().positive().lt(50, "slippage must be less than 50%"),
   });
 
-  const percentageToCloseDefaultValue = 100;
-
   const form = useForm<z.infer<typeof formSchema>>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
@@ -47,10 +64,6 @@ export function ClosePositionForm({
       slippage: 0.5,
     },
   });
-
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
 
   const singlePeriodEnding = /^[0-9]\.$/;
   const endsWithNonNumber = /[^0-9]$/;
@@ -69,25 +82,27 @@ export function ClosePositionForm({
       setSlippageValue(floatValue);
     }
   };
-  const [percentageToCloseValue, setPercentageToCloseValue] = useState<
-    number[] | undefined
-  >([percentageToCloseDefaultValue]);
-
-  const [textValue, setTextValue] = useState<string | undefined>(
-    percentageToCloseDefaultValue.toString() ?? "0"
-  );
 
   const handleSliderChange = (value: number[]) => {
     if (!!value) {
+      setSliderValue(value);
+      setTextValue(value[0]?.toString() ?? "0");
+    }
+  };
+
+  const handleSliderCommit = (value: number[]) => {
+    if (!!value) {
       setPercentageToCloseValue(value);
+      setSliderValue(value);
       setTextValue(value[0]?.toString() ?? "0");
     }
   };
 
   const handleInputChange = (inputValue: string) => {
     if (!inputValue) {
-      setPercentageToCloseValue([0]);
       setTextValue("");
+      setPercentageToCloseValue([0]);
+      setSliderValue([0]);
       return;
     }
 
@@ -95,16 +110,53 @@ export function ClosePositionForm({
 
     if (singlePeriodEnding.test(inputValue)) {
       setTextValue(inputValue);
+      setSliderValue([parseFloat(inputValue)]);
       setPercentageToCloseValue([parseFloat(inputValue)]);
     } else if (endsWithNonNumber.test(inputValue)) {
       return;
     } else if (floatValue >= 0 && floatValue <= 100) {
       setTextValue(inputValue);
+      setSliderValue([floatValue]);
       setPercentageToCloseValue([floatValue]);
     }
   };
 
   const percentageToCloseClean = percentageToCloseValue?.[0] ?? 0;
+
+  const nftPerpAmmName = getNftPerpAmmNameFromContractAddress(ammAddress);
+
+  const {
+    data: closePositionData,
+    isError,
+    isFetched,
+    isLoading: isLoadingClosePosition,
+  } = useQuery({
+    queryKey: [
+      "closePositionSummary",
+      { nftPerpAmmName, walletAddress, percentageToCloseClean },
+    ],
+    refetchInterval: 60_000,
+    queryFn: () =>
+      getClosePositionSummary({
+        ammName: nftPerpAmmName,
+        walletAddress,
+        closePercent: percentageToCloseClean,
+      }),
+    enabled: !!percentageToCloseClean && !!walletAddress && !!nftPerpAmmName,
+  });
+
+  const { write, error } = ClosePositionTx({
+    ammAddress,
+    outputNotional: closePositionData?.data.outputNotional,
+    slippage: slippageValue,
+    percentToClose: percentageToCloseClean,
+    walletAddress: walletAddress,
+    side: side,
+  });
+
+  function onSubmit() {
+    write?.();
+  }
 
   return (
     <Form {...form}>
@@ -123,11 +175,12 @@ export function ClosePositionForm({
                       defaultValue={[100]}
                       field={field}
                       handleInputChange={handleInputChange}
-                      
                       handleSliderChange={handleSliderChange}
+                      handleSliderCommit={handleSliderCommit}
                       textValue={textValue}
                       percentageToCloseValue={percentageToCloseValue}
                       defaultSliderToChangeValue={percentageToCloseDefaultValue}
+                      sliderValue={sliderValue}
                     />
                   </FormControl>
                   <FormMessage />
@@ -156,13 +209,18 @@ export function ClosePositionForm({
           <div>
             {/* @ts-expect-error Server Component */}
             <ClosePositionDisplay
+              closePositionData={closePositionData}
+              isLoading={isLoadingClosePosition}
+              isError={isError}
+              isFetched={isFetched}
               ammAddress={ammAddress}
               walletAddress={walletAddress}
               closePercent={percentageToCloseClean}
-              slippage={slippageValue}
             />
           </div>
-          <Button type="submit">Close</Button>
+          <Button type="submit" disabled={!write || !!error}>
+            Close
+          </Button>
         </form>
       </div>
     </Form>

@@ -1,44 +1,27 @@
 import { type Address } from "viem";
-import { getNftPerpAmmNameFromContractAddress } from "~/utils/fetchFromConstant/getNftPerpAmmNameFromContractAddress";
-import { getClosePositionSummary } from "~/app/lib/getClosePositionSummary";
-import { useQuery } from "@tanstack/react-query";
 import { LoadingBlocks } from "~/components/loading";
+import type { ClosePositionSummaryResponse } from "~/app/lib/getClosePositionSummary";
 
 export function ClosePositionDisplay({
-  ammAddress,
-  walletAddress,
-  closePercent,
-  slippage,
+  closePositionData,
+  isLoading,
+  isError,
+  isFetched,
 }: {
+  closePositionData: ClosePositionSummaryResponse | undefined;
+  isLoading: boolean;
+  isError: boolean;
+  isFetched: boolean;
   ammAddress: Address;
   ammName: string;
   walletAddress: Address;
   closePercent: number;
-  slippage: string | number;
 }) {
-  const ammName = getNftPerpAmmNameFromContractAddress(ammAddress);
-
-  const {
-    data: closePositionData,
-    isError,
-    isFetched,
-    isLoading,
-  } = useQuery({
-    queryKey: [
-      "closePositionSummary",
-      { ammName, walletAddress, closePercent },
-    ],
-    refetchInterval: 60_000,
-    refetchOnMount: true,
-    refetchOnWindowFocus: true,
-    queryFn: () =>
-      getClosePositionSummary({ ammName, walletAddress, closePercent }),
-  });
-
   if (isLoading) return <LoadingBlocks />;
   if (isError) return <div>Failed to fetch close position summary</div>;
 
-  const data = closePositionData.data;
+  const data = closePositionData?.data;
+  if (!data) return <div>... oops</div>;
 
   const outputInEth =
     parseFloat(data.outputMargin) - parseFloat(data.fee) + parseFloat(data.pnl);
@@ -46,7 +29,7 @@ export function ClosePositionDisplay({
   if (isFetched) {
     return (
       <div>
-        {/* <div>Output Notional: {parseFloat(data.outputNotional).toFixed(3)}</div> */}
+        <div>Output Notional: {parseFloat(data.outputNotional).toFixed(3)}</div>
         <div>Est out: {outputInEth.toFixed(4)} Ξ</div>
         <div>pnl: {parseFloat(data.pnl).toFixed(2)}</div>
         <div>exit price: {parseFloat(data.exitPrice).toFixed(3)}</div>

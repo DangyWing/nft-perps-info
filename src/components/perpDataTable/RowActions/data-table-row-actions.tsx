@@ -14,10 +14,12 @@ export function DataTableRowActions({
   ammName,
   ammAddress,
   walletAddress,
+  side,
 }: {
   ammName: string;
   ammAddress: Address | undefined;
   walletAddress: Address | undefined;
+  side: "long" | "short";
 }) {
   return (
     <DropdownMenu>
@@ -65,6 +67,7 @@ export function DataTableRowActions({
                 ammName={ammName}
                 ammAddress={ammAddress}
                 walletAddress={walletAddress}
+                side={side}
               />
             </div>
           </>

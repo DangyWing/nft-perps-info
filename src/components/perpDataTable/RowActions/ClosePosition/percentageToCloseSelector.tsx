@@ -15,8 +15,10 @@ interface PercentageToCloseSelector {
   >;
 
   handleSliderChange: (value: number[]) => void;
+  handleSliderCommit: (value: number[]) => void;
   handleInputChange: (value: string) => void;
   textValue: string | undefined;
+  sliderValue: number[] | undefined;
   percentageToCloseValue: number[] | undefined;
   defaultSliderToChangeValue: number;
 }
@@ -24,9 +26,11 @@ interface PercentageToCloseSelector {
 export function PercentageToCloseSelector({
   field,
   handleSliderChange,
+  handleSliderCommit,
   handleInputChange,
   textValue,
   defaultSliderToChangeValue,
+  sliderValue,
 }: PercentageToCloseSelector) {
   return (
     <div className="grid gap-2">
@@ -45,8 +49,9 @@ export function PercentageToCloseSelector({
           max={100}
           defaultValue={[defaultSliderToChangeValue]}
           step={5}
-          // value={value ?? [0]}
-          onValueCommit={handleSliderChange}
+          onValueCommit={handleSliderCommit}
+          onValueChange={handleSliderChange}
+          value={sliderValue}
           className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
           aria-label="Percentage To Close"
         />

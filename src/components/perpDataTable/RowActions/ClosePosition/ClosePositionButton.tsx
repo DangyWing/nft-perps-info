@@ -15,10 +15,12 @@ export function ClosePositionButton({
   ammName,
   ammAddress,
   walletAddress,
+  side,
 }: {
   ammName: string;
   ammAddress: Address;
   walletAddress: Address;
+  side: "long" | "short";
 }) {
   return (
     <Popover>
@@ -37,6 +39,7 @@ export function ClosePositionButton({
             ammAddress={ammAddress}
             ammName={ammName}
             walletAddress={walletAddress}
+            side={side}
           />
         </Suspense>
       </PopoverContent>

@@ -208,10 +208,10 @@ export const columns = [
         id: "actions",
         cell: (props) => {
           const walletAddress = props.table.options.meta?.walletAddress;
-          const isUserActive = !!props.row.original?.userStatus;
+          const side = props.row.original.userStatus;
 
           return (
-            isUserActive && (
+            side && (
               <div>
                 <DataTableRowActions
                   ammName={props.row.original.projectName}
@@ -221,6 +221,7 @@ export const columns = [
                       : undefined
                   }
                   walletAddress={walletAddress}
+                  side={side}
                 />
               </div>
             )
