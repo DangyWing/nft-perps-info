@@ -1,5 +1,5 @@
 import { type PerpData } from "~/types";
-import { type AllPositionsReturnType } from "~/utils/directFromContract/getAllPositionsForWallet";
+import { type AllPositionsReturnType } from "~/app/lib/directFromContract/getAllPositionsForWallet";
 import { type Object } from "ts-toolbelt";
 
 type PerpDataWithUserStatus = Object.Merge<

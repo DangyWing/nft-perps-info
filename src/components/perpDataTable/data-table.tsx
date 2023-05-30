@@ -2,6 +2,7 @@
 
 import {
   type ColumnDef,
+  type ColumnMeta,
   flexRender,
   getCoreRowModel,
   useReactTable,
@@ -10,6 +11,7 @@ import {
   getFilteredRowModel,
   getFacetedUniqueValues,
   type SortingState,
+  type RowData,
 } from "@tanstack/react-table";
 
 import {
@@ -20,19 +22,29 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/ui/table";
-import { getBackgroundColorScales } from "~/utils/getBackgroundColorScales";
+import { getBackgroundColorScales } from "~/components/perpDataTable/getBackgroundColorScales";
 import { useState } from "react";
+import { type Address } from "viem";
+
+import "@tanstack/react-table";
+
+declare module "@tanstack/table-core" {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface TableMeta<TData extends RowData> {
+    walletAddress: Address | undefined;
+  }
+}
 
 export interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  isWalletConnected: boolean;
+  connectedWalletAddress: Address | undefined;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  isWalletConnected,
+  connectedWalletAddress,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -43,8 +55,11 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       columnVisibility: {
-        positionStatus: isWalletConnected,
+        positionStatus: !!connectedWalletAddress,
       },
+    },
+    meta: {
+      walletAddress: connectedWalletAddress,
     },
     enableColumnFilters: true,
     enableFilters: true,

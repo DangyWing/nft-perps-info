@@ -1,8 +1,8 @@
-import { AmmABI } from "../../constants/AmmAbi";
-import { publicClient } from "../viemClient";
-import { AMMData } from "../../constants/constants";
+import { AmmABI } from "../../../constants/AmmAbi";
+import { publicClient } from "../../../utils/viemClient";
+import { AMMData } from "../../../constants/constants";
 
-import { type MulticallContracts, type ResultType } from "../../types";
+import { type MulticallContracts, type ResultType } from "../../../types";
 
 const functionNames = ["getMarkPrice", "getIndexPrice", "fundingRate"];
 

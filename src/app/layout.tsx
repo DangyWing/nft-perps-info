@@ -1,14 +1,8 @@
-import { VT323 } from "next/font/google";
 import "../styles/globals.css";
 import { cn } from "~/utils/utils";
 import { SiteHeader } from "~/components/SiteHeader";
 import { Providers } from "./providers";
-
-const fontMono = VT323({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-mono",
-});
+import { fontMono } from "~/styles/fonts";
 
 export default function RootLayout({
   children,

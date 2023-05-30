@@ -1,4 +1,4 @@
-import { type getAllPositionsForWallet } from "~/utils/directFromContract/getAllPositionsForWallet";
+import { type getAllPositionsForWallet } from "~/app/lib/directFromContract/getAllPositionsForWallet";
 import { cn } from "../utils/utils";
 import {
   Card,
@@ -38,13 +38,13 @@ export function PositionCard({ className, ammData, ...props }: CardProps) {
                   <p className="text-sm font-medium leading-none">
                     marginRatio: {ammData.marginRatio}
                   </p>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-sm text-muted-foreground">
                     uPnl: {ammData.unrealizedPnl}
                   </p>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-sm text-muted-foreground">
                     open Notional: {ammData.openNotional}
                   </p>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-sm text-muted-foreground">
                     position Notional: {ammData.positionNotional}
                   </p>
                 </div>

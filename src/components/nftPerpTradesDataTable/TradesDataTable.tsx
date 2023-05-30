@@ -84,12 +84,6 @@ export function TradesDataTable() {
       customSide = "short";
     }
 
-    console.log("SIDE");
-    console.log(relevantTraderPosition.side);
-
-    console.log("DATA");
-    console.log(data);
-
     const liqData: LiqEventDisplay = {
       ammName: relevantTraderPosition.ammName,
       entryPrice: relevantTraderPosition?.entryPrice ?? data.markPrice,

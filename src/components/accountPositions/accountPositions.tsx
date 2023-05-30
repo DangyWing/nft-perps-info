@@ -1,9 +1,9 @@
 "use client";
 
-import { getAllPositionsForWallet } from "~/utils/directFromContract/getAllPositionsForWallet";
+import { getAllPositionsForWallet } from "~/app/lib/directFromContract/getAllPositionsForWallet";
 import { PositionCard } from "../PositionCard";
 import { useEffect, useState } from "react";
-import type { AllPositionsReturnType } from "~/utils/directFromContract/getAllPositionsForWallet";
+import type { AllPositionsReturnType } from "~/app/lib/directFromContract/getAllPositionsForWallet";
 import { useAccount } from "wagmi";
 
 export const AccountPositions = () => {

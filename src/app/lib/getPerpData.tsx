@@ -1,7 +1,7 @@
 import type { PerpData } from "~/types";
 import { percentageChangeFromBase } from "~/utils/utils";
 import { getNfexPerpData } from "./getNfexPerpData";
-import { getNftPerpDataFromContract } from "~/utils/directFromContract/getNftPerpDataFromContract";
+import { getNftPerpDataFromContract } from "~/app/lib/directFromContract/getNftPerpDataFromContract";
 
 export async function getPerpData() {
   const [nfexData, nftPerpData] = await Promise.all([

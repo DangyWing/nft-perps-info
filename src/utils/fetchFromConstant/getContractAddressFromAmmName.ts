@@ -1,4 +1,4 @@
-import { AMMData } from "../constants/constants";
+import { AMMData } from "../../constants/constants";
 
 export function getContractAddressFromAmmName(ammName: string) {
   const ammData = AMMData.find(

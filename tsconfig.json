@@ -42,8 +42,8 @@
     "**/*.tsx",
     "**/*.cjs",
     "**/*.mjs",
-    ".next/types/**/*.ts"
-, "src/utils/directFromContract"  ],
+    ".next/types/**/*.ts",
+    "src/app/lib/directFromContract"],
   "exclude": [
     "node_modules"
   ]

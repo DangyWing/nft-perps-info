@@ -4,8 +4,10 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
 import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
+import { DataTableRowActions } from "./RowActions/data-table-row-actions";
+import { isAddress } from "viem";
 
-const numberFormat = "mx-auto w-min -translate-x-1/4 text-right";
+const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
 
 type PerpDataWithUserStatus = Object.Merge<
   PerpData,
@@ -22,6 +24,7 @@ export const columns = [
       columnHelper.accessor((row) => row.projectName, {
         id: "projectName",
         header: () => <div className="text-left">Project</div>,
+
         cell: (info) => (
           <a
             href={
@@ -134,6 +137,7 @@ export const columns = [
         enableSorting: true,
         sortUndefined: 1,
         enableColumnFilter: false,
+        size: 75,
       }),
       columnHelper.accessor((row) => row.nftPerpMarkToIndex, {
         id: "nftPerpMarkToIndex",
@@ -152,16 +156,12 @@ export const columns = [
     ],
   },
   {
-    header: "Funding",
+    id: "funding",
     columns: [
       columnHelper.accessor((row) => row.nftPerpFundingRate, {
         id: "nftPerpFundingRate",
-        header: () => <div className="text-right">nftperp</div>,
+        header: () => <div className="text-right">funding</div>,
         cell: (info) => {
-          // const shortOrLong = parseFloat(info.getValue()) < 0 ? "l" : "s";
-          // const fundingRate = `${parseFloat(info.getValue())?.toFixed(
-          //   3
-          // )} ${shortOrLong}`;
           return (
             <div className={numberFormat}>
               {parseFloat(info.getValue()).toFixed(3)}
@@ -171,17 +171,16 @@ export const columns = [
         enableSorting: true,
         sortingFn: "basic",
         enableColumnFilter: false,
-        size: 75,
       }),
     ],
   },
   {
-    header: "status",
-
+    // header: "status",
+    id: "status",
     columns: [
       columnHelper.display({
         id: "positionStatus",
-        header: "position",
+        header: "active position",
         cell: (props) => {
           const { row } = props;
           return <div className="text-center">{row.original.userStatus}</div>;
@@ -189,7 +188,7 @@ export const columns = [
       }),
       columnHelper.display({
         id: "feeStatus",
-        header: "divergence fee",
+        header: "converging?",
         enableHiding: true,
         cell: (props) => {
           const { row } = props;
@@ -197,6 +196,34 @@ export const columns = [
             <div className="text-center">
               {row.original.nftPerpDynamicFeeStatus}
             </div>
+          );
+        },
+      }),
+    ],
+  },
+  {
+    id: "actions",
+    columns: [
+      columnHelper.display({
+        id: "actions",
+        cell: (props) => {
+          const walletAddress = props.table.options.meta?.walletAddress;
+          const isUserActive = !!props.row.original?.userStatus;
+
+          return (
+            isUserActive && (
+              <div>
+                <DataTableRowActions
+                  ammName={props.row.original.projectName}
+                  ammAddress={
+                    isAddress(props.row.original.nftPerpAmmAddress)
+                      ? props.row.original.nftPerpAmmAddress
+                      : undefined
+                  }
+                  walletAddress={walletAddress}
+                />
+              </div>
+            )
           );
         },
       }),

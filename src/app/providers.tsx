@@ -4,6 +4,7 @@ import { WagmiConfig, createConfig } from "wagmi";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { env } from "env";
 import { arbitrum } from "viem/chains";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const config = createConfig(
   getDefaultConfig({
@@ -18,10 +19,16 @@ const config = createConfig(
   })
 );
 
+const queryClient = new QueryClient();
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <WagmiConfig config={config}>
-      <ConnectKitProvider>{children}</ConnectKitProvider>
+      <ConnectKitProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   );
 }

@@ -1,9 +1,9 @@
 import { AMMData } from "~/constants/constants";
 import { getAmmData } from "./getAmmData";
 import { type NftPerpData } from "~/types";
-import { calcPercentageDifference } from "../calculatePercentageDifference";
+import { calcPercentageDifference } from "../../../utils/calculatePercentageDifference";
 import { formatEther } from "viem";
-import { calculateDivergenceFee } from "../calculateDivergenceFee";
+import { calculateDivergenceFee } from "../../../utils/calculateDivergenceFee";
 
 export async function getNftPerpDataFromContract() {
   const data = await getAmmData();

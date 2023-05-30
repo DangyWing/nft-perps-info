@@ -43,7 +43,7 @@ export function getBackgroundColorScales({
         return cn("bg-white text-black", defaultClasses);
     }
   }
-  if (columnId === "nftPerpIndexToMark") {
+  if (columnId === "nftPerpMarkToIndex") {
     const cellValueTyped = Math.abs(cellValue as number);
     switch (true) {
       case cellValue === 0:

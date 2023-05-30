@@ -1,9 +1,9 @@
 import { AMMData } from "~/constants/constants";
-import { publicClient } from "../viemClient";
+import { publicClient } from "../../../utils/viemClient";
 import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 import { ClearingHouseAddress } from "~/constants/constants";
 import { formatEther, type Address } from "viem";
-import { cache } from "react";
+// import { cache } from "react";
 
 type GetPositionResult = {
   size: {
