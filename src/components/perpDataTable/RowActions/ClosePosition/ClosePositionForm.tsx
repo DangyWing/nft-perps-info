@@ -37,11 +37,13 @@ export function ClosePositionForm({
     slippage: z.number().positive().lt(50, "slippage must be less than 50%"),
   });
 
+  const percentageToCloseDefaultValue = 100;
+
   const form = useForm<z.infer<typeof formSchema>>({
     mode: "onBlur",
     resolver: zodResolver(formSchema),
     defaultValues: {
-      percentageToClose: 100,
+      percentageToClose: percentageToCloseDefaultValue,
       slippage: 0.5,
     },
   });
@@ -67,6 +69,40 @@ export function ClosePositionForm({
       setSlippageValue(floatValue);
     }
   };
+  const [percentageToCloseValue, setPercentageToCloseValue] = useState<
+    number[] | undefined
+  >([percentageToCloseDefaultValue]);
+
+  const [textValue, setTextValue] = useState<string | undefined>(
+    percentageToCloseDefaultValue.toString() ?? "0"
+  );
+
+  const handleSliderChange = (value: number[]) => {
+    if (!!value) {
+      setPercentageToCloseValue(value);
+      setTextValue(value[0]?.toString() ?? "0");
+    }
+  };
+
+  const handleInputChange = (inputValue: string) => {
+    if (!inputValue) {
+      setPercentageToCloseValue([0]);
+      setTextValue("");
+      return;
+    }
+
+    const floatValue = parseFloat(inputValue);
+
+    if (singlePeriodEnding.test(inputValue)) {
+      setTextValue(inputValue);
+      setPercentageToCloseValue([parseFloat(inputValue)]);
+    } else if (endsWithNonNumber.test(inputValue)) {
+      return;
+    } else if (floatValue >= 0 && floatValue <= 100) {
+      setTextValue(inputValue);
+      setPercentageToCloseValue([floatValue]);
+    }
+  };
 
   return (
     <Form {...form}>
@@ -79,11 +115,16 @@ export function ClosePositionForm({
               name="percentageToClose"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="leverage">close %</FormLabel>
+                  <FormLabel htmlFor="leverage">close (%)</FormLabel>
                   <FormControl>
                     <PercentageToCloseSelector
                       defaultValue={[100]}
                       field={field}
+                      handleInputChange={handleInputChange}
+                      handleSliderChange={handleSliderChange}
+                      textValue={textValue}
+                      percentageToCloseValue={percentageToCloseValue}
+                      defaultSliderToChangeValue={percentageToCloseDefaultValue}
                     />
                   </FormControl>
                   <FormMessage />
@@ -115,8 +156,10 @@ export function ClosePositionForm({
               ammAddress={ammAddress}
               walletAddress={walletAddress}
               closePercent={form.watch("percentageToClose")}
+              slippage={slippageValue}
             />
           </div>
+          <div>{percentageToCloseValue}</div>
           <Button type="submit">Close</Button>
         </form>
       </div>

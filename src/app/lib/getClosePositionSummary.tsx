@@ -32,7 +32,5 @@ export async function getClosePositionSummary({
     next: { revalidate: 60 },
   });
 
-  // if (!res.ok) throw new Error("Failed to fetch close position summary");
-
   return (await res.json()) as ClosePositionSummaryResponse;
 }
