@@ -29,11 +29,10 @@ export function ClosePositionDisplay({
   if (isFetched) {
     return (
       <div>
-        <div>Output Notional: {parseFloat(data.outputNotional).toFixed(3)}</div>
         <div>Est out: {outputInEth.toFixed(4)} Ξ</div>
         <div>pnl: {parseFloat(data.pnl).toFixed(2)}</div>
         <div>exit price: {parseFloat(data.exitPrice).toFixed(3)}</div>
-        <div>fee: {parseFloat(data.fee).toFixed(2)}</div>
+        <div>fee: {parseFloat(data.fee).toFixed(2)} Ξ</div>
         <div>price impact: {parseFloat(data.priceImpact).toFixed(2)}%</div>
         {/*THIS IS WRONG BUT FROM THE API */}
         {/* <div>liq price: {parseFloat(data.liquidationPrice).toFixed(3)}</div> */}
