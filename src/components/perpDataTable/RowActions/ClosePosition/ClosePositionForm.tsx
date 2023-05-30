@@ -159,7 +159,6 @@ export function ClosePositionForm({
               slippage={slippageValue}
             />
           </div>
-          <div>{percentageToCloseValue}</div>
           <Button type="submit">Close</Button>
         </form>
       </div>

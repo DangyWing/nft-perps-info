@@ -48,7 +48,6 @@ export function ClosePositionDisplay({
         <div>output margin: {parseFloat(data.outputMargin).toFixed(2)}</div>
         <div>forced partial close: {data.forcedPartialClose.toString()}</div>
         <div>liq price: {data.liquidationPrice}</div>
-        {/* <div>Close %: {closePercent}</div> */}
         <div>Slip %: {slippageClean}</div>
       </div>
     );
