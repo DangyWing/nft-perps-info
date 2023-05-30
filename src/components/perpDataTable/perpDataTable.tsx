@@ -14,7 +14,7 @@ export function PerpDataTable() {
   const isLoadingWallet = isConnecting || isReconnecting;
 
   const { data: walletPositions } = useQuery({
-    queryKey: ["allPositionsForWallet"],
+    queryKey: ["allPositionsForWallet", { address }],
     queryFn: () => getAllPositionsForWallet({ walletAddress: address }),
   });
 

@@ -104,6 +104,8 @@ export function ClosePositionForm({
     }
   };
 
+  const percentageToCloseClean = percentageToCloseValue?.[0] ?? 0;
+
   return (
     <Form {...form}>
       <h4 className="font-medium leading-none">{`CLOSE ${ammName}`}</h4>
@@ -121,6 +123,7 @@ export function ClosePositionForm({
                       defaultValue={[100]}
                       field={field}
                       handleInputChange={handleInputChange}
+                      
                       handleSliderChange={handleSliderChange}
                       textValue={textValue}
                       percentageToCloseValue={percentageToCloseValue}
@@ -155,7 +158,7 @@ export function ClosePositionForm({
             <ClosePositionDisplay
               ammAddress={ammAddress}
               walletAddress={walletAddress}
-              closePercent={form.watch("percentageToClose")}
+              closePercent={percentageToCloseClean}
               slippage={slippageValue}
             />
           </div>

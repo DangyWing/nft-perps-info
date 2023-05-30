@@ -46,7 +46,7 @@ export function PercentageToCloseSelector({
           defaultValue={[defaultSliderToChangeValue]}
           step={5}
           // value={value ?? [0]}
-          onValueChange={handleSliderChange}
+          onValueCommit={handleSliderChange}
           className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
           aria-label="Percentage To Close"
         />

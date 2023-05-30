@@ -24,8 +24,13 @@ export function ClosePositionDisplay({
     isFetched,
     isLoading,
   } = useQuery({
-    queryKey: ["closePositionSummary"],
+    queryKey: [
+      "closePositionSummary",
+      { ammName, walletAddress, closePercent },
+    ],
     refetchInterval: 60_000,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
     queryFn: () =>
       getClosePositionSummary({ ammName, walletAddress, closePercent }),
   });
@@ -35,20 +40,20 @@ export function ClosePositionDisplay({
 
   const data = closePositionData.data;
 
-  const slippageClean = typeof slippage === "string" ? 0 : slippage;
+  const outputInEth =
+    parseFloat(data.outputMargin) - parseFloat(data.fee) + parseFloat(data.pnl);
 
   if (isFetched) {
     return (
       <div>
-        <div>Output Notional: {parseFloat(data.outputNotional).toFixed(3)}</div>
+        {/* <div>Output Notional: {parseFloat(data.outputNotional).toFixed(3)}</div> */}
+        <div>Est out: {outputInEth.toFixed(4)} Ξ</div>
+        <div>pnl: {parseFloat(data.pnl).toFixed(2)}</div>
         <div>exit price: {parseFloat(data.exitPrice).toFixed(3)}</div>
         <div>fee: {parseFloat(data.fee).toFixed(2)}</div>
-        <div>pnl: {parseFloat(data.pnl).toFixed(2)}</div>
         <div>price impact: {parseFloat(data.priceImpact).toFixed(2)}%</div>
-        <div>output margin: {parseFloat(data.outputMargin).toFixed(2)}</div>
-        <div>forced partial close: {data.forcedPartialClose.toString()}</div>
-        <div>liq price: {data.liquidationPrice}</div>
-        <div>Slip %: {slippageClean}</div>
+        {/*THIS IS WRONG BUT FROM THE API */}
+        {/* <div>liq price: {parseFloat(data.liquidationPrice).toFixed(3)}</div> */}
       </div>
     );
   }
