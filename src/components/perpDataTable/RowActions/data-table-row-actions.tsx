@@ -19,7 +19,7 @@ export function DataTableRowActions({
   ammName: string;
   ammAddress: Address | undefined;
   walletAddress: Address | undefined;
-  side: "long" | "short";
+  side: "long" | "short" | undefined;
 }) {
   return (
     <DropdownMenu>
@@ -44,6 +44,7 @@ export function DataTableRowActions({
                 ammName={ammName}
                 ammAddress={ammAddress}
                 positionType={"long"}
+                walletAddress={walletAddress}
               />
             </div>
             <div
@@ -55,21 +56,24 @@ export function DataTableRowActions({
                 ammName={ammName}
                 ammAddress={ammAddress}
                 positionType={"short"}
+                walletAddress={walletAddress}
               />
             </div>
             <DropdownMenuSeparator />
-            <div
-              className={
-                "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-              }
-            >
-              <ClosePositionButton
-                ammName={ammName}
-                ammAddress={ammAddress}
-                walletAddress={walletAddress}
-                side={side}
-              />
-            </div>
+            {!!side && (
+              <div
+                className={
+                  "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                }
+              >
+                <ClosePositionButton
+                  ammName={ammName}
+                  ammAddress={ammAddress}
+                  walletAddress={walletAddress}
+                  side={side}
+                />
+              </div>
+            )}
           </>
         )}
       </DropdownMenuContent>

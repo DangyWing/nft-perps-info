@@ -1,8 +1,5 @@
-"use client";
-
 import * as React from "react";
 import { type SliderProps } from "@radix-ui/react-slider";
-import { useState } from "react";
 import { Slider } from "~/components/ui/slider";
 import { Input } from "../../../ui/input";
 import { type ControllerRenderProps } from "react-hook-form";
@@ -18,48 +15,24 @@ interface LeverageSelectorProps {
     },
     "leverage"
   >;
+  handleSliderChange: (value: number[]) => void;
+  handleSliderCommit: (value: number[]) => void;
+  handleInputChange: (value: string) => void;
+  textValue: string | undefined;
+  sliderValue: number[] | undefined;
+  leverageValue: number[] | undefined;
+  defaultSliderToChangeValue: number;
 }
 
 export function LeverageSelector({
-  defaultValue,
-  maxLeverage,
   field,
+  handleSliderChange,
+  handleSliderCommit,
+  handleInputChange,
+  textValue,
+  sliderValue,
+  maxLeverage,
 }: LeverageSelectorProps) {
-  const [value, setValue] = useState<number[] | undefined>(defaultValue);
-  const [textValue, setTextValue] = useState<string | undefined>(
-    defaultValue?.[0]?.toString() ?? "0"
-  );
-
-  const handleSliderChange = (value: number[]) => {
-    if (!!value) {
-      setValue(value);
-      setTextValue(value[0]?.toString() ?? "0");
-    }
-  };
-
-  const singlePeriodEnding = /^[0-9]\.$/;
-  const endsWithNonNumber = /[^0-9]$/;
-
-  const handleInputChange = (inputValue: string) => {
-    if (!inputValue) {
-      setValue([0]);
-      setTextValue("");
-      return;
-    }
-
-    const floatValue = parseFloat(inputValue);
-
-    if (singlePeriodEnding.test(inputValue)) {
-      setTextValue(inputValue);
-      setValue([parseFloat(inputValue)]);
-    } else if (endsWithNonNumber.test(inputValue)) {
-      return;
-    } else if (floatValue >= 0 && floatValue <= maxLeverage) {
-      setTextValue(inputValue);
-      setValue([floatValue]);
-    }
-  };
-
   return (
     <div className="grid gap-2">
       <div className="grid gap-4">
@@ -75,10 +48,11 @@ export function LeverageSelector({
         <Slider
           id="leverage"
           max={maxLeverage}
-          defaultValue={value}
+          defaultValue={[maxLeverage]}
           step={0.01}
-          value={value ?? [0]}
+          onValueCommit={handleSliderCommit}
           onValueChange={handleSliderChange}
+          value={sliderValue}
           className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
           aria-label="Leverage"
         />

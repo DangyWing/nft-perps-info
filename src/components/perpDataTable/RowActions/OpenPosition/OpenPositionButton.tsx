@@ -9,14 +9,17 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { OpenPositionForm } from "./OpenPositionForm";
+import { Slinput } from "~/components/Slinput/Slinput";
 
 export function OpenPositionButton({
   ammName,
   ammAddress,
   positionType,
+  walletAddress,
 }: {
   ammName: string;
   ammAddress: Address;
+  walletAddress: Address;
   positionType: "long" | "short";
 }) {
   return (
@@ -38,7 +41,8 @@ export function OpenPositionButton({
         <OpenPositionForm
           ammAddress={ammAddress}
           ammName={ammName}
-          positionType={positionType}
+          side={positionType}
+          walletAddress={walletAddress}
         />
       </PopoverContent>
     </Popover>
