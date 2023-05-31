@@ -1,4 +1,4 @@
-import { type Address } from "viem";
+import { type TransactionReceipt, type Address } from "viem";
 import { LoadingBlocks } from "~/components/loading";
 import type { ClosePositionSummaryResponse } from "~/app/lib/getClosePositionSummary";
 
@@ -7,15 +7,13 @@ export function ClosePositionDisplay({
   isLoading,
   isError,
   isFetched,
+  dataWaitForTx,
 }: {
   closePositionData: ClosePositionSummaryResponse | undefined;
   isLoading: boolean;
   isError: boolean;
   isFetched: boolean;
-  ammAddress: Address;
-  ammName: string;
-  walletAddress: Address;
-  closePercent: number;
+  dataWaitForTx: TransactionReceipt | undefined;
 }) {
   if (isLoading) return <LoadingBlocks />;
   if (isError) return <div>Failed to fetch close position summary</div>;
@@ -26,6 +24,9 @@ export function ClosePositionDisplay({
 
   const outputInEth =
     parseFloat(data.outputMargin) - parseFloat(data.fee) + parseFloat(data.pnl);
+
+  if (dataWaitForTx?.status === "success") return <div>Success</div>;
+  if (dataWaitForTx?.status === "reverted") return <div>Reverted</div>;
 
   return (
     <div>

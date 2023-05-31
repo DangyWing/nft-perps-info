@@ -1,17 +1,20 @@
 import { LoadingBlocks } from "~/components/loading";
 import type { OpenPositionSummaryResponse } from "~/app/lib/getOpenPositionSummary";
+import { type TransactionReceipt } from "viem";
 
 export function OpenPositionDisplay({
   openPositionData,
   isLoading,
   isError,
   enabled,
+  dataWaitForTx,
 }: {
   openPositionData: OpenPositionSummaryResponse | undefined;
   isLoading: boolean;
   isError: boolean;
   isFetched: boolean;
   enabled: boolean;
+  dataWaitForTx: TransactionReceipt | undefined;
 }) {
   if (!enabled) return null;
   if (isLoading) return <LoadingBlocks />;
@@ -25,6 +28,9 @@ export function OpenPositionDisplay({
     : !!data.loweredFee
     ? "Lowered"
     : "";
+
+  if (dataWaitForTx?.status === "success") return <div>Success</div>;
+  if (dataWaitForTx?.status === "reverted") return <div>Reverted</div>;
 
   return (
     <div>

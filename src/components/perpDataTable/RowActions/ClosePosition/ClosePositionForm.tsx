@@ -213,9 +213,6 @@ export function ClosePositionForm({
               isLoading={isLoadingClosePosition}
               isError={isError}
               isFetched={isFetched}
-              ammAddress={ammAddress}
-              walletAddress={walletAddress}
-              closePercent={percentageToCloseClean}
             />
           </div>
           <Button type="submit" disabled={!write || !!error}>

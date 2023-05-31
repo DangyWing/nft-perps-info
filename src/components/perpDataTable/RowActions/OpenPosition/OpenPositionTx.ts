@@ -1,4 +1,9 @@
-import { usePrepareContractWrite, useContractWrite, type Address } from "wagmi";
+import {
+  usePrepareContractWrite,
+  useContractWrite,
+  type Address,
+  useWaitForTransaction,
+} from "wagmi";
 import { ClearingHouseAddress } from "~/constants/constants";
 import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 import { getSlippageBaseAssetAmount } from "~/utils/getSlippageBaseAssetAmount";
@@ -28,8 +33,6 @@ export function OpenPositionTx({
     slippage
   );
 
-  // console.log("WETH AMT: ", wethAmount);
-
   const isSlippageBaseAmountError = slippageBaseAmount instanceof Error;
 
   const { config, error } = usePrepareContractWrite({
@@ -50,5 +53,22 @@ export function OpenPositionTx({
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
-  return { write, data, isLoading, isSuccess, error };
+  const {
+    data: dataWaitForTx,
+    isError: isErrorWaitForTx,
+    isLoading: isLoadingWaitForTx,
+  } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
+  return {
+    write,
+    data,
+    isLoading,
+    isSuccess,
+    error,
+    dataWaitForTx,
+    isErrorWaitForTx,
+    isLoadingWaitForTx,
+  };
 }

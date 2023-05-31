@@ -1,4 +1,9 @@
-import { usePrepareContractWrite, useContractWrite, type Address } from "wagmi";
+import {
+  usePrepareContractWrite,
+  useContractWrite,
+  type Address,
+  useWaitForTransaction,
+} from "wagmi";
 import { ClearingHouseAddress } from "~/constants/constants";
 import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 import { calcSlippageQuoteAssetAmount } from "~/utils/calcSlippageQuoteAssetAmount";
@@ -65,6 +70,14 @@ export function ClosePositionTx({
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
+  const {
+    data: dataWaitForTx,
+    isError: isErrorWaitForTx,
+    isLoading: isLoadingWaitForTx,
+  } = useWaitForTransaction({
+    hash: data?.hash,
+  });
+
   const error = fullCloseError ?? partialCloseError;
-  return { write, data, isLoading, isSuccess, error };
+  return { write, data, isLoading, isSuccess, error, dataWaitForTx };
 }

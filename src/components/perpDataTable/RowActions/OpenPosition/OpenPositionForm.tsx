@@ -13,7 +13,12 @@ import { Button } from "../../../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { type Address, useAccount, erc20ABI } from "wagmi";
+import {
+  type Address,
+  useAccount,
+  erc20ABI,
+  useWaitForTransaction,
+} from "wagmi";
 import { getMaxLeverageFromContractAddress } from "~/utils/fetchFromConstant/getMaxLeverageFromContractAddress";
 import { formatEther } from "viem";
 import { useContractRead } from "wagmi";
@@ -231,7 +236,12 @@ export function OpenPositionForm({
 
   if (!leverageValueParsed) return <div>Invalid leverage selected</div>;
 
-  const { write, error } = OpenPositionTx({
+  const {
+    write,
+    error,
+    // data: dataOpenPositionTx,
+    dataWaitForTx,
+  } = OpenPositionTx({
     ammAddress,
     wethAmount: wethValue,
     slippage: slippageValue,
@@ -326,6 +336,7 @@ export function OpenPositionForm({
             isFetched={isFetched}
             isLoading={isLoadingPositionSummary}
             enabled={enableOpenPositionSummaryQuery}
+            dataWaitForTx={dataWaitForTx}
           />
           <Button type="submit" disabled={!write || !!error}>
             {side}
