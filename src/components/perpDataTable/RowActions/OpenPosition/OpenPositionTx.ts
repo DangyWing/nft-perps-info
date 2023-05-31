@@ -39,11 +39,8 @@ export function OpenPositionTx({
     args: [
       ammAddress,
       side === "long" ? 0 : 1,
-      // quote Asset Amount
       { d: parseEther(wethAmount.toString() as `${number}`) },
-      // leverage
       { d: parseEther(`${leverage ?? 0}`) },
-      //_baseAssetAmountLimit
       { d: isSlippageBaseAmountError ? BigInt(0) : slippageBaseAmount },
     ],
     account: walletAddress,
