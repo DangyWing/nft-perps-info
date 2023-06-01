@@ -2,7 +2,7 @@
 
 import { Trash } from "lucide-react";
 import { type Address } from "viem";
-import { Button } from "~/components/ui/button";
+import { Button, type ButtonProps } from "~/components/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -16,19 +16,20 @@ export function ClosePositionButton({
   ammAddress,
   walletAddress,
   side,
+  buttonVariant,
+  buttonClasses,
 }: {
   ammName: string;
   ammAddress: Address;
   walletAddress: Address;
   side: "long" | "short";
+  buttonVariant: ButtonProps["variant"];
+  buttonClasses?: string;
 }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-full justify-start border-none p-0"
-        >
+        <Button variant={buttonVariant} className={buttonClasses}>
           <Trash className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
           <span>Close</span>
         </Button>

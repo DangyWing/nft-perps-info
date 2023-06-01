@@ -4,7 +4,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { PerpData } from "../../types";
 import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
-import { DataTableRowActions } from "./RowActions/data-table-row-actions";
+import { RowActions } from "./RowActions/rowActions";
 import { isAddress } from "viem";
 
 const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
@@ -211,7 +211,7 @@ export const columns = [
           const side = props.row.original.userStatus;
 
           return (
-            <DataTableRowActions
+            <RowActions
               ammName={props.row.original.projectName}
               ammAddress={
                 isAddress(props.row.original.nftPerpAmmAddress)

@@ -14,7 +14,7 @@ export default function RootLayout({
       <Providers>
         <body
           className={cn(
-            "bg-primary  text-primary-foreground",
+            "bg-primary text-primary-foreground",
             fontMono.className
           )}
         >

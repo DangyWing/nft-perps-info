@@ -10,7 +10,13 @@ import { OpenPositionButton } from "~/components/perpDataTable/RowActions/OpenPo
 import { type Address } from "viem";
 import { ClosePositionButton } from "./ClosePosition/ClosePositionButton";
 
-export function DataTableRowActions({
+const dropdownListItemCSS =
+  "hover:text-accent-foreground relative flex cursor-default select-none items-center bg-primary px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50";
+
+const buttonClasses =
+  "w-full justify-start border-none p-0 m-0 rounded-none focus:bg-accent focus:text-accent-foreground";
+
+export function RowActions({
   ammName,
   ammAddress,
   walletAddress,
@@ -35,47 +41,43 @@ export function DataTableRowActions({
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="bg-primary text-primary-foreground"
+        className="bg-primary p-0 text-primary-foreground"
       >
         {ammAddress && walletAddress && (
           <>
-            <div
-              className={
-                "relative flex cursor-default select-none items-center rounded-sm bg-primary px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-              }
-            >
+            <div className={dropdownListItemCSS}>
               <OpenPositionButton
                 ammName={ammName}
                 ammAddress={ammAddress}
                 positionType={"long"}
                 walletAddress={walletAddress}
+                buttonVariant="none"
+                buttonClasses={buttonClasses}
               />
             </div>
-            <div
-              className={
-                "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-              }
-            >
+            <div className={dropdownListItemCSS}>
               <OpenPositionButton
                 ammName={ammName}
                 ammAddress={ammAddress}
                 positionType={"short"}
                 walletAddress={walletAddress}
+                buttonVariant="none"
+                buttonClasses={buttonClasses}
               />
             </div>
-            <DropdownMenuSeparator />
             {!!side && (
-              <div
-                className={
-                  "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
-                }
-              >
-                <ClosePositionButton
-                  ammName={ammName}
-                  ammAddress={ammAddress}
-                  walletAddress={walletAddress}
-                  side={side}
-                />
+              <div>
+                <DropdownMenuSeparator className="m-0 p-0" />
+                <div className={dropdownListItemCSS}>
+                  <ClosePositionButton
+                    ammName={ammName}
+                    ammAddress={ammAddress}
+                    walletAddress={walletAddress}
+                    side={side}
+                    buttonVariant="none"
+                    buttonClasses={buttonClasses}
+                  />
+                </div>
               </div>
             )}
           </>

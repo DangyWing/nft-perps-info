@@ -9,25 +9,27 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { OpenPositionForm } from "./OpenPositionForm";
+import { type ButtonProps } from "~/components/ui/button";
 
 export function OpenPositionButton({
   ammName,
   ammAddress,
   positionType,
   walletAddress,
+  buttonVariant,
+  buttonClasses,
 }: {
   ammName: string;
   ammAddress: Address;
   walletAddress: Address;
   positionType: "long" | "short";
+  buttonVariant: ButtonProps["variant"];
+  buttonClasses?: string;
 }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className="w-full justify-start border-none p-0"
-        >
+        <Button variant={buttonVariant} className={buttonClasses}>
           {positionType === "long" ? (
             <Rocket className="mr-2 h-3.5 w-3.5 text-muted-foreground/80" />
           ) : (
