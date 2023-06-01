@@ -9,7 +9,6 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { OpenPositionForm } from "./OpenPositionForm";
-import { Slinput } from "~/components/Slinput/Slinput";
 
 export function OpenPositionButton({
   ammName,
@@ -30,14 +29,17 @@ export function OpenPositionButton({
           className="w-full justify-start border-none p-0"
         >
           {positionType === "long" ? (
-            <Rocket className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            <Rocket className="mr-2 h-3.5 w-3.5 text-muted-foreground/80" />
           ) : (
-            <TrendingDown className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            <TrendingDown
+              className="mr-2 h-3.5 w-3.5 text-muted-foreground/80
+            hover:text-accent-foreground"
+            />
           )}
           <span className="">{positionType.toLowerCase()}</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="w-80 bg-primary text-primary-foreground">
         <OpenPositionForm
           ammAddress={ammAddress}
           ammName={ammName}

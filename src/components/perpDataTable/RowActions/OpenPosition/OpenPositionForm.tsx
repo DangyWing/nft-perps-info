@@ -13,12 +13,7 @@ import { Button } from "../../../ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  type Address,
-  useAccount,
-  erc20ABI,
-  useWaitForTransaction,
-} from "wagmi";
+import { type Address, useAccount, erc20ABI } from "wagmi";
 import { getMaxLeverageFromContractAddress } from "~/utils/fetchFromConstant/getMaxLeverageFromContractAddress";
 import { formatEther } from "viem";
 import { useContractRead } from "wagmi";

@@ -1,4 +1,4 @@
-import { type TransactionReceipt, type Address } from "viem";
+import { type TransactionReceipt } from "viem";
 import { LoadingBlocks } from "~/components/loading";
 import type { ClosePositionSummaryResponse } from "~/app/lib/getClosePositionSummary";
 

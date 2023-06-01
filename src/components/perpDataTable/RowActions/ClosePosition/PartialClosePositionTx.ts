@@ -7,12 +7,10 @@ export function PartialClosePositionTx({
   ammAddress,
   outputNotional,
   slippage,
-  closePercent,
 }: {
   ammAddress: Address;
   outputNotional: string | undefined;
   slippage: string | number;
-  closePercent: bigint;
 }) {
   const quoteAssetAmountLimit = calcSlippageQuoteAssetAmount(
     "long",

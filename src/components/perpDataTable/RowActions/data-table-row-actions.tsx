@@ -26,18 +26,22 @@ export function DataTableRowActions({
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
+          size="sm"
           className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
         >
           <MoreHorizontal className="h-4 w-4" />
           <span className="sr-only">Open menu</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
+      <DropdownMenuContent
+        align="end"
+        className="bg-primary text-primary-foreground"
+      >
         {ammAddress && walletAddress && (
           <>
             <div
               className={
-                "relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+                "relative flex cursor-default select-none items-center rounded-sm bg-primary px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
               }
             >
               <OpenPositionButton

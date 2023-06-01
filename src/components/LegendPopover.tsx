@@ -16,7 +16,7 @@ export function LegendPopover() {
         </Button>
       </HoverCardTrigger>
       <HoverCardContent
-        className="background w-96 rounded-none border border-zinc-500 bg-zinc-900 bg-opacity-100 p-4"
+        className="background rounded-none border bg-primary/80 p-4"
         side="bottom"
       >
         <div className="grid gap-4">
@@ -24,6 +24,7 @@ export function LegendPopover() {
             <h4 className="font-xl leading-none">wat mean?</h4>
             <ul className="space-y-1">
               <li className="flex items-center space-x-2">
+                {/* todo: update to reflect actual heatmap/revamp legend to be meaningful */}
                 <div className=" bg-zinc-100 px-1 text-zinc-800">
                   Funding on NftPerp AND Nfex AND Index To Mark
                 </div>

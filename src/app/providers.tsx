@@ -10,9 +10,7 @@ const config = createConfig(
   getDefaultConfig({
     alchemyId: env.PUBLIC_INFURA_ID,
     walletConnectProjectId: env.PUBLIC_WALLETCONNECT_PROJECT_ID,
-
     appName: "NFT Perps Info",
-
     appDescription: "NFT Perps Info",
     appUrl: "https://nft-perps-info.vercel.app/",
     chains: [arbitrum],

@@ -14,7 +14,7 @@ export default function RootLayout({
       <Providers>
         <body
           className={cn(
-            "flex flex-col items-center justify-center bg-zinc-900 align-middle text-lg text-zinc-200",
+            "bg-primary  text-primary-foreground",
             fontMono.className
           )}
         >

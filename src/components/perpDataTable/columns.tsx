@@ -211,20 +211,16 @@ export const columns = [
           const side = props.row.original.userStatus;
 
           return (
-            // side && (
-            <div>
-              <DataTableRowActions
-                ammName={props.row.original.projectName}
-                ammAddress={
-                  isAddress(props.row.original.nftPerpAmmAddress)
-                    ? props.row.original.nftPerpAmmAddress
-                    : undefined
-                }
-                walletAddress={walletAddress}
-                side={side}
-              />
-            </div>
-            // )
+            <DataTableRowActions
+              ammName={props.row.original.projectName}
+              ammAddress={
+                isAddress(props.row.original.nftPerpAmmAddress)
+                  ? props.row.original.nftPerpAmmAddress
+                  : undefined
+              }
+              walletAddress={walletAddress}
+              side={side}
+            />
           );
         },
       }),

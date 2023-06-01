@@ -70,11 +70,7 @@ export function ClosePositionTx({
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
 
-  const {
-    data: dataWaitForTx,
-    isError: isErrorWaitForTx,
-    isLoading: isLoadingWaitForTx,
-  } = useWaitForTransaction({
+  const { data: dataWaitForTx } = useWaitForTransaction({
     hash: data?.hash,
   });
 
