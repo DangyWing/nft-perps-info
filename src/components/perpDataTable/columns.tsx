@@ -175,17 +175,8 @@ export const columns = [
     ],
   },
   {
-    // header: "status",
     id: "status",
     columns: [
-      columnHelper.display({
-        id: "positionStatus",
-        header: "active position",
-        cell: (props) => {
-          const { row } = props;
-          return <div className="text-center">{row.original.userStatus}</div>;
-        },
-      }),
       columnHelper.display({
         id: "feeStatus",
         header: "converging?",
@@ -197,6 +188,14 @@ export const columns = [
               {row.original.nftPerpDynamicFeeStatus}
             </div>
           );
+        },
+      }),
+      columnHelper.display({
+        id: "positionStatus",
+        header: "your position",
+        cell: (props) => {
+          const { row } = props;
+          return <div className="text-center">{row.original.userStatus}</div>;
         },
       }),
     ],

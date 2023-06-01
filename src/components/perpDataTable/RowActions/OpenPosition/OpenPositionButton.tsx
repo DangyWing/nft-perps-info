@@ -42,6 +42,7 @@ export function OpenPositionButton({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-80 bg-primary text-primary-foreground">
+        {/* <PopoverContent className=""> */}
         <OpenPositionForm
           ammAddress={ammAddress}
           ammName={ammName}

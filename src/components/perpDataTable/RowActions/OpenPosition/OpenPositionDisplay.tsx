@@ -17,7 +17,7 @@ export function OpenPositionDisplay({
   dataWaitForTx: TransactionReceipt | undefined;
 }) {
   if (!enabled) return null;
-  if (isLoading) return <LoadingBlocks />;
+  if (isLoading) return <LoadingBlocks className="fill-primary-foreground" />;
   if (isError) return <div>Failed to fetch close position summary</div>;
   const data = openPositionData?.data;
 

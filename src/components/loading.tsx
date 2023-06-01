@@ -5,12 +5,14 @@ export function LoadingBlocks({
   height = 24,
   dur = "0.2s",
   color,
+  className,
 }: SVGProps<SVGElement>): JSX.Element {
   return (
     <svg
       width={width}
       height={height}
       fill={color}
+      className={className}
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
     >

@@ -51,7 +51,7 @@ export const Slinput = ({
           onValueCommit={handleSliderCommit}
           onValueChange={handleSliderChange}
           value={sliderValue}
-          className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
+          className="accent-red-400 [&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
           aria-label={label}
         />
       </div>

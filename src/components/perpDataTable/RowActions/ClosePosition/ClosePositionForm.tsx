@@ -215,7 +215,11 @@ export function ClosePositionForm({
               isFetched={isFetched}
             />
           </div>
-          <Button type="submit" disabled={!write || !!error}>
+          <Button
+            type="submit"
+            disabled={!write || !!error}
+            className="rounded-none bg-primary-foreground text-primary hover:border hover:border-primary-foreground hover:bg-primary hover:text-primary-foreground"
+          >
             Close
           </Button>
         </form>

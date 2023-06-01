@@ -35,10 +35,12 @@ export function PerpDataTable() {
   const combinedData = joinDataTogether(data, walletPositions);
 
   return (
-    <DataTable
-      columns={columns}
-      data={combinedData}
-      connectedWalletAddress={address}
-    />
+    <div className="flex max-w-full items-center justify-center">
+      <DataTable
+        columns={columns}
+        data={combinedData}
+        connectedWalletAddress={address}
+      />
+    </div>
   );
 }

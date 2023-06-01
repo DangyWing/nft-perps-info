@@ -15,7 +15,7 @@ export function ClosePositionDisplay({
   isFetched: boolean;
   dataWaitForTx: TransactionReceipt | undefined;
 }) {
-  if (isLoading) return <LoadingBlocks />;
+  if (isLoading) return <LoadingBlocks className="fill-primary-foreground" />;
   if (isError) return <div>Failed to fetch close position summary</div>;
   if (!isFetched) return <div>... fetching</div>;
 
