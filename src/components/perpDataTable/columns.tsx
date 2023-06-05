@@ -5,7 +5,7 @@ import type { PerpData } from "../../types";
 import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
 import { RowActions } from "./RowActions/rowActions";
-import { isAddress } from "viem";
+import { isAddress, formatEther } from "viem";
 
 const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
 
@@ -47,6 +47,68 @@ export const columns = [
     ],
   },
   {
+    header: "Positions",
+    id: "positions",
+    columns: [
+      columnHelper.accessor((row) => row.nftPerpPositionSizeLong, {
+        id: "nftPerpPositionSizes",
+        header: () => <div className="text-right">pos size</div>,
+        cell: (info) => {
+          return (
+            <div>
+              <div className={numberFormat}>
+                {parseFloat(formatEther(info.getValue())).toFixed(2)}
+              </div>
+              <div className={numberFormat}>
+                {parseFloat(
+                  formatEther(info.row.original.nftPerpPositionSizeShort)
+                ).toFixed(2)}
+              </div>
+            </div>
+          );
+        },
+        enableSorting: true,
+        sortingFn: "alphanumeric",
+        enableColumnFilter: false,
+      }),
+      columnHelper.accessor((row) => row.nftPerpPositionSizeShort, {
+        id: "Position Ratio",
+        header: () => <div className="text-right">pos ratio (%)</div>,
+        cell: (info) => {
+          const moreLongs =
+            info.row.original.nftPerpPositionSizeLong >
+            info.row.original.nftPerpPositionSizeShort;
+
+          const positionSizeLong = parseFloat(
+            formatEther(info.row.original.nftPerpPositionSizeLong)
+          );
+          const positionSizeShort = parseFloat(
+            formatEther(info.row.original.nftPerpPositionSizeShort)
+          );
+
+          const longRatio =
+            (positionSizeLong / (positionSizeLong + positionSizeShort)) * 100;
+
+          const relevantRatio = moreLongs ? longRatio : 100 - longRatio;
+
+          return (
+            <div>
+              <div className={numberFormat}>
+                {" "}
+                {moreLongs
+                  ? relevantRatio.toFixed(2)
+                  : "-" + relevantRatio.toFixed(2)}
+              </div>
+            </div>
+          );
+        },
+        enableSorting: true,
+        sortingFn: "alphanumeric",
+        enableColumnFilter: false,
+      }),
+    ],
+  },
+  {
     header: "Index Price",
     id: "indexPrice",
     columns: [
@@ -64,6 +126,7 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
+
       columnHelper.accessor((row) => row.nftPerpIndexPrice, {
         id: "nftPerpIndexPrice",
         header: () => <div className="text-right">NFTPerp Index</div>,

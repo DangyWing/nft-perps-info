@@ -26,6 +26,7 @@ export function PerpDataTable() {
   if (isLoadingWallet) return <div>Loading...(Wallet)</div>;
 
   if (isLoading) return <div>Data is Loading...</div>;
+
   if (!data) return <div>No Data ... yet?</div>;
 
   if (data instanceof Error) {

@@ -1,6 +1,7 @@
 import { type Address } from "viem";
 import { z } from "zod";
 import type { AmmABI } from "./constants/AmmAbi";
+import { type ClearingHouseAbi } from "./constants/ClearingHouseABI";
 
 export type TraderPositionResponse = {
   status: string;
@@ -14,8 +15,9 @@ export type TradeDataResponse = {
 
 export type MulticallContracts = {
   address: `0x${string}`;
-  abi: typeof AmmABI;
+  abi: typeof AmmABI | typeof ClearingHouseAbi;
   functionName: string;
+  args?: string[];
 }[];
 
 export type ResultType =
@@ -203,6 +205,9 @@ export type PerpData = {
   nftPerpFundingSide: string;
   nftPerpAmmAddress: string;
   nftPerpDynamicFeeStatus: "" | "short" | "long";
+  nftPerpNetPositionSize: bigint;
+  nftPerpPositionSizeLong: bigint;
+  nftPerpPositionSizeShort: bigint;
 };
 
 export type NfexPerpData = {

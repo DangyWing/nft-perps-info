@@ -1074,7 +1074,7 @@ export const ClearingHouseAbi = [
         components: [
           {
             internalType: "int256",
-            name: "d",
+            name: "netPositionSize",
             type: "int256",
           },
         ],
@@ -1086,7 +1086,7 @@ export const ClearingHouseAbi = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "positionSizeLong",
             type: "uint256",
           },
         ],
@@ -1098,7 +1098,7 @@ export const ClearingHouseAbi = [
         components: [
           {
             internalType: "uint256",
-            name: "d",
+            name: "positionSizeShort",
             type: "uint256",
           },
         ],

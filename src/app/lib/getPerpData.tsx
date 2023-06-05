@@ -2,11 +2,13 @@ import type { PerpData } from "~/types";
 import { percentageChangeFromBase } from "~/utils/utils";
 import { getNfexPerpData } from "./getNfexPerpData";
 import { getNftPerpDataFromContract } from "~/app/lib/directFromContract/getNftPerpDataFromContract";
+import { getTotalPositionSize } from "./directFromContract/getTotalPositionSizeMap";
 
 export async function getPerpData() {
-  const [nfexData, nftPerpData] = await Promise.all([
+  const [nfexData, nftPerpData, nftPerpPositionSizeData] = await Promise.all([
     await getNfexPerpData(),
     await getNftPerpDataFromContract(),
+    await getTotalPositionSize(),
   ]);
 
   const combinedPerpData = [];
@@ -19,6 +21,14 @@ export async function getPerpData() {
     if (!nfexDataItem) {
       return new Error("Failed to find nfexDataItem");
     }
+    const nftPerpPositionSize = nftPerpPositionSizeData.find(
+      (nftPerpPositionSizeData) =>
+        nftPerpPositionSizeData.ammName === nftPerp.nftPerpSlug
+    );
+
+    if (!nftPerpPositionSize) {
+      return new Error("Failed to find nftPerpPositionSize");
+    }
 
     const nftPerpMarkToNfexIndex = percentageChangeFromBase(
       parseFloat(nfexDataItem.indexPrice),
@@ -29,6 +39,9 @@ export async function getPerpData() {
       nftPerpMarkToNfexIndex,
       ...nftPerp,
       ...nfexDataItem,
+      nftPerpNetPositionSize: nftPerpPositionSize.netPositionSize ?? "",
+      nftPerpPositionSizeLong: nftPerpPositionSize.positionSizeLong ?? "",
+      nftPerpPositionSizeShort: nftPerpPositionSize.positionSizeShort ?? "",
     };
 
     combinedPerpData.push(perpData);
