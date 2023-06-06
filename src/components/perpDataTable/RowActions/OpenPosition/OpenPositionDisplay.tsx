@@ -1,4 +1,4 @@
-import { LoadingBlocks } from "~/components/Loading";
+import { LoadingBlocks } from "~/components/LoadingRENAME";
 import type { OpenPositionSummaryResponse } from "~/app/lib/getOpenPositionSummary";
 import { type TransactionReceipt } from "viem";
 
