@@ -7,7 +7,7 @@ import { getAllPositionsForWallet } from "~/app/lib/directFromContract/getAllPos
 import { joinDataTogether } from "./joinDataTogether";
 import { useQuery } from "@tanstack/react-query";
 import { getPerpData } from "~/app/lib/getPerpData";
-import { LoadingBlocks } from "~/components/LoadingRENAME";
+import { LoadingBlocks } from "~/components/Loading";
 
 export function PerpDataTable() {
   const { address, isConnecting, isReconnecting } = useAccount();

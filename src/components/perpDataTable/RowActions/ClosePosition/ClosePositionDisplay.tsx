@@ -1,5 +1,5 @@
 import { type TransactionReceipt } from "viem";
-import { LoadingBlocks } from "~/components/LoadingRENAME";
+import { LoadingBlocks } from "~/components/Loading";
 import type { ClosePositionSummaryResponse } from "~/app/lib/getClosePositionSummary";
 
 export function ClosePositionDisplay({
