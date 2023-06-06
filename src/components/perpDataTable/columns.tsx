@@ -6,6 +6,7 @@ import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
 import { RowActions } from "./RowActions/rowActions";
 import { isAddress, formatEther } from "viem";
+import { Donut } from "../ui/donut";
 
 const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
 
@@ -74,6 +75,7 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
+      // todo: add slider to display ratio?
       columnHelper.accessor((row) => row.nftPerpPositionRatio, {
         id: "positionRatio",
         header: () => <div className="text-right">pos ratio (%)</div>,
@@ -83,6 +85,21 @@ export const columns = [
         enableSorting: true,
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
+      }),
+      columnHelper.display({
+        id: "positionRatioDonut",
+        header: "posRatio",
+        cell: (props) => {
+          const { row } = props;
+          return (
+            <Donut
+              ratio={(parseFloat(row.original.nftPerpPositionRatio) + 100) / 2}
+              colorOne="#22c55e"
+              colorTwo="#ef4444"
+              backgroundColor="#18181b"
+            />
+          );
+        },
       }),
     ],
   },

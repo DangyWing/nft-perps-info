@@ -1,6 +1,5 @@
 import { LiqDataTable } from "~/components/liqDataTable/liqDataTable";
 import { getPositionDataFromDb } from "../lib/getPositionDataFromDb";
-import { Suspense } from "react";
 
 export const metadata = {
   title: "NFTPerp Liq Info",
@@ -17,9 +16,7 @@ export default async function Page() {
         THOUGH I MADE IT
       </h1>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <LiqDataTable data={positionData} />
-      </Suspense>
+      <LiqDataTable data={positionData} />
     </div>
   );
 }
