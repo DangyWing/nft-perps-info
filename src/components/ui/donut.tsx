@@ -15,7 +15,7 @@ export const Donut = ({
   colorTwo?: string;
   backgroundColor?: string;
 }) => {
-  const css_string = ` ${colorOne ?? "#FF5722"} 0% calc(${ratio}% + 1px), ${
+  const css_string = ` ${colorOne ?? "#FF5722"} 0% ${ratio}%, ${
     colorTwo ?? "#2196F3"
   } ${ratio}% 100%`;
 
@@ -25,7 +25,7 @@ export const Donut = ({
 
   return (
     <div className={cn("", className)}>
-      <div className="float-left inline-block p-2">
+      <div className="p-2 text-center">
         <div
           className="inline-block"
           style={{
