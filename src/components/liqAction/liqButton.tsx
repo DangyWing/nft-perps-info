@@ -9,8 +9,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../../components/ui/alert-dialog";
-// import { Button } from "../../components/ui/button";
+} from "~/components/ui/alert-dialog";
+// import { Button } from "~/components/ui/button";
 // import { useContractWrite, usePrepareContractWrite } from "wagmi";
 // import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 // import { getContractAddressFromAmmName } from "~/utils/getContractAddressFromAmmName";

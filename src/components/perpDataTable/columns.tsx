@@ -1,7 +1,7 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import type { PerpData } from "../../types";
+import type { PerpData } from "~/types";
 import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
 import { RowActions } from "./RowActions/rowActions";

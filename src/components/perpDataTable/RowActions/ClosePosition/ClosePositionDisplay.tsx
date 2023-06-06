@@ -1,5 +1,5 @@
 import { type TransactionReceipt } from "viem";
-import { LoadingBlocks } from "~/components/loading";
+import { LoadingBlocks } from "~/components/Loading";
 import type { ClosePositionSummaryResponse } from "~/app/lib/getClosePositionSummary";
 
 export function ClosePositionDisplay({
@@ -17,7 +17,7 @@ export function ClosePositionDisplay({
 }) {
   if (isLoading) return <LoadingBlocks className="fill-primary-foreground" />;
   if (isError) return <div>Failed to fetch close position summary</div>;
-  if (!isFetched) return <div>... fetching</div>;
+  if (!isFetched) return <LoadingBlocks label="... FETCHING" />;
 
   const data = closePositionData?.data;
   if (!data) return <div>... oops</div>;

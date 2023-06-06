@@ -1,7 +1,7 @@
 import * as React from "react";
 import { type SliderProps } from "@radix-ui/react-slider";
 import { Slider } from "~/components/ui/slider";
-import { Input } from "../../../ui/input";
+import { Input } from "~/components/ui/input";
 import { type ControllerRenderProps } from "react-hook-form";
 
 interface LeverageSelectorProps {

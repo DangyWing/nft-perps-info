@@ -7,6 +7,7 @@ import { getAllPositionsForWallet } from "~/app/lib/directFromContract/getAllPos
 import { joinDataTogether } from "./joinDataTogether";
 import { useQuery } from "@tanstack/react-query";
 import { getPerpData } from "~/app/lib/getPerpData";
+import { LoadingBlocks } from "../Loading";
 
 export function PerpDataTable() {
   const { address, isConnecting, isReconnecting } = useAccount();
@@ -23,11 +24,9 @@ export function PerpDataTable() {
     queryFn: () => getPerpData(),
   });
 
-  if (isLoadingWallet) return <div>Loading...(Wallet)</div>;
-
-  if (isLoading) return <div>Data is Loading...</div>;
-
-  if (!data) return <div>No Data ... yet?</div>;
+  if (isLoadingWallet) return <LoadingBlocks label="LOADING WALLET" />;
+  if (isLoading) return <LoadingBlocks label="LOADING DATA" />;
+  if (!data) return <LoadingBlocks label="NO DATA ... YET" />;
 
   if (data instanceof Error) {
     return <div>Failed to fetch data</div>;

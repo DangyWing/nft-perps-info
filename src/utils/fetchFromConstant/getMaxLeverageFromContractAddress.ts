@@ -1,5 +1,5 @@
 import { type Address, getAddress } from "viem";
-import { AMMData } from "../../constants/constants";
+import { AMMData } from "~/constants/constants";
 
 export function getMaxLeverageFromContractAddress(address: Address) {
   const ammData = AMMData.find(

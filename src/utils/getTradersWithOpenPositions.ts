@@ -1,4 +1,4 @@
-import { execute } from "../../.graphclient";
+import { execute } from "~/../.graphclient";
 
 export type TradersWithOpenPositionsRes = {
   data: TradersWithOpenPositionsData;
