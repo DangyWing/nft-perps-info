@@ -74,36 +74,11 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
-      columnHelper.accessor((row) => row.nftPerpPositionSizeShort, {
-        id: "Position Ratio",
+      columnHelper.accessor((row) => row.nftPerpPositionRatio, {
+        id: "positionRatio",
         header: () => <div className="text-right">pos ratio (%)</div>,
         cell: (info) => {
-          const moreLongs =
-            info.row.original.nftPerpPositionSizeLong >
-            info.row.original.nftPerpPositionSizeShort;
-
-          const positionSizeLong = parseFloat(
-            formatEther(info.row.original.nftPerpPositionSizeLong)
-          );
-          const positionSizeShort = parseFloat(
-            formatEther(info.row.original.nftPerpPositionSizeShort)
-          );
-
-          const longRatio =
-            (positionSizeLong / (positionSizeLong + positionSizeShort)) * 100;
-
-          const relevantRatio = moreLongs ? longRatio : 100 - longRatio;
-
-          return (
-            <div>
-              <div className={numberFormat}>
-                {" "}
-                {moreLongs
-                  ? relevantRatio.toFixed(2)
-                  : "-" + relevantRatio.toFixed(2)}
-              </div>
-            </div>
-          );
+          return <div className={numberFormat}>{info.getValue()}</div>;
         },
         enableSorting: true,
         sortingFn: "alphanumeric",

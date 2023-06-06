@@ -3,6 +3,7 @@ import { percentageChangeFromBase } from "~/utils/utils";
 import { getNfexPerpData } from "./getNfexPerpData";
 import { getNftPerpDataFromContract } from "~/app/lib/directFromContract/getNftPerpDataFromContract";
 import { getTotalPositionSize } from "./directFromContract/getTotalPositionSizeMap";
+import { formatEther } from "viem";
 
 export async function getPerpData() {
   const [nfexData, nftPerpData, nftPerpPositionSizeData] = await Promise.all([
@@ -35,6 +36,24 @@ export async function getPerpData() {
       parseFloat(nftPerp.nftPerpMarkPrice)
     ).toFixed(4);
 
+    const moreLongs =
+      nftPerpPositionSize.positionSizeLong >
+      nftPerpPositionSize.positionSizeShort;
+
+    const positionSizeLong = parseFloat(
+      formatEther(nftPerpPositionSize.positionSizeLong)
+    );
+    const positionSizeShort = parseFloat(
+      formatEther(nftPerpPositionSize.positionSizeShort)
+    );
+
+    const longRatio =
+      (positionSizeLong / (positionSizeLong + positionSizeShort)) * 100;
+
+    const relevantRatio = moreLongs
+      ? longRatio.toFixed(2)
+      : "-" + (100 - longRatio).toFixed(2);
+
     const perpData: PerpData = {
       nftPerpMarkToNfexIndex,
       ...nftPerp,
@@ -42,6 +61,7 @@ export async function getPerpData() {
       nftPerpNetPositionSize: nftPerpPositionSize.netPositionSize ?? "",
       nftPerpPositionSizeLong: nftPerpPositionSize.positionSizeLong ?? "",
       nftPerpPositionSizeShort: nftPerpPositionSize.positionSizeShort ?? "",
+      nftPerpPositionRatio: relevantRatio,
     };
 
     combinedPerpData.push(perpData);

@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { formatEther } from "viem";
 import { cn } from "~/utils/utils";
 
 const defaultClasses = clsx("text-center");
@@ -7,13 +8,33 @@ export function getBackgroundColorScales({
   cellValue,
   columnId,
 }: {
-  cellValue: unknown | null;
+  cellValue: unknown | null | string;
   columnId: string;
 }) {
   if (!cellValue) {
     return "";
   }
 
+  if (columnId === "positionRatio") {
+    const cellValueTyped = Math.abs(parseFloat(cellValue as string));
+
+    switch (true) {
+      case cellValue === 0:
+        return "";
+      case cellValueTyped > 90:
+        return cn("bg-transparent", defaultClasses);
+      case cellValueTyped > 80:
+        return cn("bg-red-500", defaultClasses);
+      case cellValueTyped > 70:
+        return cn("bg-orange-500", defaultClasses);
+      case cellValueTyped > 60:
+        return cn("bg-yellow-500 text-zinc-800", defaultClasses);
+      case cellValueTyped > 50:
+        return cn("bg-green-500", defaultClasses);
+      default:
+        return cn("bg-white text-black", defaultClasses);
+    }
+  }
   if (columnId === "perpMarkToNfexIndex") {
     const cellValueTyped = Math.abs(cellValue as number);
     switch (true) {

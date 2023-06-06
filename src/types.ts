@@ -208,6 +208,7 @@ export type PerpData = {
   nftPerpNetPositionSize: bigint;
   nftPerpPositionSizeLong: bigint;
   nftPerpPositionSizeShort: bigint;
+  nftPerpPositionRatio: string;
 };
 
 export type NfexPerpData = {
