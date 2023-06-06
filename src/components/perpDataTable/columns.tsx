@@ -52,18 +52,21 @@ export const columns = [
     columns: [
       columnHelper.accessor((row) => row.nftPerpPositionSizeLong, {
         id: "nftPerpPositionSizes",
-        header: () => <div className="text-right">pos size</div>,
+        header: () => <div className="text-right">pos size (Ξ)</div>,
         cell: (info) => {
+          const markPrice = parseFloat(info.row.original.nftPerpMarkPrice);
+          const posSizeLong =
+            parseFloat(formatEther(info.row.original.nftPerpPositionSizeLong)) *
+            markPrice;
+          const posSizeShort =
+            parseFloat(
+              formatEther(info.row.original.nftPerpPositionSizeShort)
+            ) * markPrice;
+
           return (
             <div>
-              <div className={numberFormat}>
-                {parseFloat(formatEther(info.getValue())).toFixed(2)}
-              </div>
-              <div className={numberFormat}>
-                {parseFloat(
-                  formatEther(info.row.original.nftPerpPositionSizeShort)
-                ).toFixed(2)}
-              </div>
+              <div className={numberFormat}>{posSizeLong.toFixed(2)}</div>
+              <div className={numberFormat}>{posSizeShort.toFixed(2)}</div>
             </div>
           );
         },
