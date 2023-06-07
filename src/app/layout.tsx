@@ -13,14 +13,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
+        <head />
         <body
           className={cn(
-            "bg-primary text-primary-foreground",
+            // "bg-primary text-primary-foreground",
+            "min-h-screen bg-primary font-sans text-primary-foreground antialiased",
             fontMono.className
           )}
         >
-          <SiteHeader />
-          {children}
+          <div className="relative flex min-h-screen flex-col">
+            <SiteHeader />
+            <div className="flex-1">{children}</div>
+          </div>
           <Toaster />
         </body>
       </Providers>
