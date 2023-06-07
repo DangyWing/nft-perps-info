@@ -255,13 +255,12 @@ export function OpenPositionForm({
           <FormField
             control={form.control}
             name="weth"
-            render={({ field }) => (
+            render={() => (
               <FormItem>
                 <FormLabel htmlFor="weth">weth</FormLabel>
                 <FormControl>
                   <Slinput
                     defaultValue={[0.01]}
-                    // field={field}
                     handleInputChange={handleWethInputChange}
                     handleSliderChange={handleWethSliderChange}
                     handleSliderCommit={handleWethSliderCommit}
@@ -281,7 +280,7 @@ export function OpenPositionForm({
             <FormField
               control={form.control}
               name="leverage"
-              render={({ field }) => (
+              render={() => (
                 <FormItem>
                   <FormLabel htmlFor="leverage">leverage</FormLabel>
                   <FormControl>
@@ -290,7 +289,6 @@ export function OpenPositionForm({
                       max={maxLeverage}
                       placeholder="0"
                       sliderStep={0.01}
-                      // field={field}
                       defaultValue={[maxLeverage]}
                       handleInputChange={handleSliderInputChange}
                       handleSliderChange={handleSliderChange}

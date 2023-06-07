@@ -1,12 +1,9 @@
-import { type ControllerRenderProps } from "react-hook-form";
 import { type SliderProps } from "@radix-ui/react-slider";
 import { Slider } from "../ui/slider";
 import { Input } from "../ui/input";
-import type { FieldValues } from "react-hook-form";
 
 export type SlinputProps = {
   defaultValue: SliderProps["defaultValue"];
-  // field: Partial<ControllerRenderProps<FieldValues>>;
 
   handleSliderChange: (value: (string | number)[]) => void;
   handleSliderCommit: (value: (string | number)[]) => void;
@@ -20,7 +17,6 @@ export type SlinputProps = {
 };
 
 export const Slinput = ({
-  // field,
   handleSliderChange,
   handleSliderCommit,
   handleInputChange,
@@ -37,7 +33,6 @@ export const Slinput = ({
         <div className="flex items-center justify-between">
           <Input
             placeholder={placeholder}
-            // {...field}
             value={textValue}
             type="text"
             onChange={(e: { target: { value: string } }) =>
