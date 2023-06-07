@@ -6,7 +6,7 @@ import type { FieldValues } from "react-hook-form";
 
 export type SlinputProps = {
   defaultValue: SliderProps["defaultValue"];
-  field: Partial<ControllerRenderProps<FieldValues>>;
+  // field: Partial<ControllerRenderProps<FieldValues>>;
 
   handleSliderChange: (value: (string | number)[]) => void;
   handleSliderCommit: (value: (string | number)[]) => void;
@@ -20,7 +20,7 @@ export type SlinputProps = {
 };
 
 export const Slinput = ({
-  field,
+  // field,
   handleSliderChange,
   handleSliderCommit,
   handleInputChange,
@@ -37,7 +37,7 @@ export const Slinput = ({
         <div className="flex items-center justify-between">
           <Input
             placeholder={placeholder}
-            {...field}
+            // {...field}
             value={textValue}
             type="text"
             onChange={(e: { target: { value: string } }) =>

@@ -44,7 +44,7 @@
     "tailwind-merge": "^1.12.0",
     "tailwindcss-animate": "^1.0.5",
     "ts-toolbelt": "^9.6.0",
-    "viem": "^0.3.39",
+    "viem": "^0.3.50",
     "wagmi": "^1.1.0",
     "zod": "^3.21.4"
   },

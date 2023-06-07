@@ -45,7 +45,7 @@ export function OpenPositionForm({
   const [leverageValue, setLeverageValue] = useState<number[] | undefined>([
     maxLeverage,
   ]);
-  const [textValue, setTextValue] = useState<string | undefined>(
+  const [sliderTextValue, setSliderTextValue] = useState<string | undefined>(
     maxLeverage.toString()
   );
   const [wethValue, setWethValue] = useState<number>(defaultWethValue);
@@ -150,7 +150,7 @@ export function OpenPositionForm({
   const handleSliderChange = (value: (string | number)[]) => {
     if (!!value && isNumberArray(value)) {
       setSliderValue(value);
-      setTextValue(value[0]?.toString() ?? "0");
+      setSliderTextValue(value[0]?.toString() ?? "0");
     }
   };
 
@@ -158,13 +158,13 @@ export function OpenPositionForm({
     if (!!value && isNumberArray(value)) {
       setLeverageValue(value);
       setSliderValue(value);
-      setTextValue(value[0]?.toString() ?? "0");
+      setSliderTextValue(value[0]?.toString() ?? "0");
     }
   };
 
-  const handleInputChange = (inputValue: string) => {
+  const handleSliderInputChange = (inputValue: string) => {
     if (!inputValue) {
-      setTextValue("");
+      setSliderTextValue("");
       setLeverageValue([0]);
       setSliderValue([0]);
       return;
@@ -173,13 +173,13 @@ export function OpenPositionForm({
     const floatValue = parseFloat(inputValue);
 
     if (singlePeriodEnding.test(inputValue)) {
-      setTextValue(inputValue);
+      setSliderTextValue(inputValue);
       setSliderValue([parseFloat(inputValue)]);
       setLeverageValue([parseFloat(inputValue)]);
     } else if (endsWithNonNumber.test(inputValue)) {
       return;
     } else if (floatValue >= 0 && floatValue <= 100) {
-      setTextValue(inputValue);
+      setSliderTextValue(inputValue);
       setSliderValue([floatValue]);
       setLeverageValue([floatValue]);
     }
@@ -215,9 +215,11 @@ export function OpenPositionForm({
     const floatValue = parseFloat(inputValue);
 
     if (singlePeriodEnding.test(inputValue)) {
-      setTextValue(inputValue);
+      console.log(inputValue);
+      // setTextValue(inputValue);
       setSliderValue([floatValue]);
       setWethValue(floatValue);
+      setWethTextValue(inputValue);
     } else if (endsWithNonNumber.test(inputValue)) {
       return;
     } else if (floatValue >= 0 && floatValue <= wethBalanceFloat) {
@@ -231,11 +233,7 @@ export function OpenPositionForm({
 
   if (!leverageValueParsed) return <div>Invalid leverage selected</div>;
 
-  const {
-    write,
-    error,
-    dataWaitForTx,
-  } = OpenPositionTx({
+  const { write, error, dataWaitForTx } = OpenPositionTx({
     ammAddress,
     wethAmount: wethValue,
     slippage: slippageValue,
@@ -263,7 +261,7 @@ export function OpenPositionForm({
                 <FormControl>
                   <Slinput
                     defaultValue={[0.01]}
-                    field={field}
+                    // field={field}
                     handleInputChange={handleWethInputChange}
                     handleSliderChange={handleWethSliderChange}
                     handleSliderCommit={handleWethSliderCommit}
@@ -292,12 +290,12 @@ export function OpenPositionForm({
                       max={maxLeverage}
                       placeholder="0"
                       sliderStep={0.01}
-                      field={field}
+                      // field={field}
                       defaultValue={[maxLeverage]}
-                      handleInputChange={handleInputChange}
+                      handleInputChange={handleSliderInputChange}
                       handleSliderChange={handleSliderChange}
                       handleSliderCommit={handleSliderCommit}
-                      textValue={textValue}
+                      textValue={sliderTextValue}
                       sliderValue={sliderValue}
                     />
                   </FormControl>
