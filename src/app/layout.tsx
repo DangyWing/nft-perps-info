@@ -3,6 +3,7 @@ import { cn } from "~/utils/utils";
 import { SiteHeader } from "~/components/SiteHeader";
 import { Providers } from "./providers";
 import { fontMono } from "~/styles/fonts";
+import { Toaster } from "~/components/ui/Toaster";
 
 export default function RootLayout({
   children,
@@ -20,6 +21,7 @@ export default function RootLayout({
         >
           <SiteHeader />
           {children}
+          <Toaster />
         </body>
       </Providers>
     </html>

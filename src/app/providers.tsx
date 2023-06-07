@@ -25,6 +25,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ConnectKitProvider>
         <QueryClientProvider client={queryClient}>
           {children}
+          {/* <Toaster /> */}
         </QueryClientProvider>
       </ConnectKitProvider>
     </WagmiConfig>

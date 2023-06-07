@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import { formatEther } from "viem";
 import { cn } from "~/utils/utils";
 
 const defaultClasses = clsx("text-center");

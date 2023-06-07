@@ -215,8 +215,6 @@ export function OpenPositionForm({
     const floatValue = parseFloat(inputValue);
 
     if (singlePeriodEnding.test(inputValue)) {
-      console.log(inputValue);
-      // setTextValue(inputValue);
       setSliderValue([floatValue]);
       setWethValue(floatValue);
       setWethTextValue(inputValue);
@@ -233,7 +231,8 @@ export function OpenPositionForm({
 
   if (!leverageValueParsed) return <div>Invalid leverage selected</div>;
 
-  const { write, error, dataWaitForTx } = OpenPositionTx({
+  const { write, error, dataWaitForTx, status } = OpenPositionTx({
+    ammName,
     ammAddress,
     wethAmount: wethValue,
     slippage: slippageValue,
@@ -330,7 +329,7 @@ export function OpenPositionForm({
           />
           <Button
             type="submit"
-            disabled={!write || !!error}
+            disabled={!write || !!error || status == "loading"}
             className="rounded-none bg-primary-foreground text-primary hover:border hover:border-primary-foreground hover:bg-primary hover:text-primary-foreground"
           >
             {side}

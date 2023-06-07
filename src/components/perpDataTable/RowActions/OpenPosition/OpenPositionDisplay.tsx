@@ -30,6 +30,7 @@ export function OpenPositionDisplay({
     : "";
 
   if (dataWaitForTx?.status === "success") return <div>Success</div>;
+
   if (dataWaitForTx?.status === "reverted") return <div>Reverted</div>;
 
   return (
