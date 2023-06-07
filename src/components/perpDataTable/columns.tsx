@@ -8,7 +8,6 @@ import { RowActions } from "./RowActions/rowActions";
 import { isAddress, formatEther } from "viem";
 import { Donut } from "../ui/donut";
 import { TooltipWithContent } from "../TooltipWithContent";
-import { cn } from "~/utils/utils";
 
 const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
 
