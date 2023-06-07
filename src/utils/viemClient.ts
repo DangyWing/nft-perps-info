@@ -1,15 +1,17 @@
 import { createPublicClient, http } from "viem";
 import { arbitrum } from "viem/chains";
+import { env } from "env";
+
+const { PUBLIC_INFURA_RPC_URL, PUBLIC_ALCHEMY_RPC_URL } = env;
 
 export const publicClient = createPublicClient({
   chain: arbitrum,
   batch: {
     multicall: {
       batchSize: 1_024,
-      wait: 16,
+      wait: 0,
     },
   },
-  transport: http(
-    "https://arbitrum-mainnet.infura.io/v3/cedae0e5449f4711a498a87ba69b133e"
-  ),
+  pollingInterval: 4_000,
+  transport: http(PUBLIC_INFURA_RPC_URL),
 });

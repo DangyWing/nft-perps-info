@@ -19,13 +19,14 @@ export function PerpDataTable() {
     queryFn: () => getAllPositionsForWallet({ walletAddress: address }),
   });
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["getPerpData"],
     queryFn: () => getPerpData(),
   });
 
   if (isLoadingWallet) return <LoadingBlocks label="LOADING WALLET" />;
   if (isLoading) return <LoadingBlocks label="LOADING DATA" />;
+  if (!!error) return <LoadingBlocks label="ERROR" />;
   if (!data) return <LoadingBlocks label="NO DATA ... YET" />;
 
   if (data instanceof Error) {

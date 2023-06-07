@@ -234,7 +234,6 @@ export function OpenPositionForm({
   const {
     write,
     error,
-    // data: dataOpenPositionTx,
     dataWaitForTx,
   } = OpenPositionTx({
     ammAddress,

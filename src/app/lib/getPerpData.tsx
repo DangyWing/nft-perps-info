@@ -22,6 +22,7 @@ export async function getPerpData() {
     if (!nfexDataItem) {
       return new Error("Failed to find nfexDataItem");
     }
+
     const nftPerpPositionSize = nftPerpPositionSizeData.find(
       (nftPerpPositionSizeData) =>
         nftPerpPositionSizeData.ammName === nftPerp.nftPerpSlug
@@ -36,13 +37,10 @@ export async function getPerpData() {
       parseFloat(nftPerp.nftPerpMarkPrice)
     ).toFixed(4);
 
-    const moreLongs =
-      nftPerpPositionSize.positionSizeLong >
-      nftPerpPositionSize.positionSizeShort;
-
     const positionSizeLong = parseFloat(
       formatEther(nftPerpPositionSize.positionSizeLong)
     );
+
     const positionSizeShort = parseFloat(
       formatEther(nftPerpPositionSize.positionSizeShort)
     );
@@ -50,9 +48,11 @@ export async function getPerpData() {
     const longRatio =
       (positionSizeLong / (positionSizeLong + positionSizeShort)) * 100;
 
-    const relevantRatio = moreLongs
-      ? longRatio.toFixed(2)
-      : "-" + (100 - longRatio).toFixed(2);
+    const relevantRatio =
+      nftPerpPositionSize.positionSizeLong >
+      nftPerpPositionSize.positionSizeShort
+        ? longRatio.toFixed(2)
+        : "-" + (100 - longRatio).toFixed(2);
 
     const perpData: PerpData = {
       nftPerpMarkToNfexIndex,
