@@ -7,6 +7,8 @@ import { type Object } from "ts-toolbelt";
 import { RowActions } from "./RowActions/rowActions";
 import { isAddress, formatEther } from "viem";
 import { Donut } from "../ui/donut";
+import { TooltipWithContent } from "../TooltipWithContent";
+import { cn } from "~/utils/utils";
 
 const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
 
@@ -75,29 +77,26 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
-      // todo: add slider to display ratio?
-      columnHelper.accessor((row) => row.nftPerpPositionRatio, {
-        id: "positionRatio",
-        header: () => <div className="text-right">pos ratio (%)</div>,
-        cell: (info) => {
-          return <div className={numberFormat}>{info.getValue()}</div>;
-        },
-        enableSorting: true,
-        sortingFn: "alphanumeric",
-        enableColumnFilter: false,
-      }),
       columnHelper.display({
         id: "positionRatioDonut",
-        header: "posRatio",
+        header: "pos Ratio",
         cell: (props) => {
           const { row } = props;
+
+          const ratio =
+            parseFloat(row.original.nftPerpPositionRatio).toFixed(2) + "%";
+
           return (
-            <Donut
-              ratio={(parseFloat(row.original.nftPerpPositionRatio) + 100) / 2}
-              colorOne="#22c55e"
-              colorTwo="#ef4444"
-              backgroundColor="#18181b"
-            />
+            <TooltipWithContent content={ratio}>
+              <Donut
+                ratio={
+                  (parseFloat(row.original.nftPerpPositionRatio) + 100) / 2
+                }
+                colorOne="#22c55e"
+                colorTwo="#ef4444"
+                backgroundColor="#18181b"
+              />
+            </TooltipWithContent>
           );
         },
       }),
