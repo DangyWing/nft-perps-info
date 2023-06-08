@@ -52,30 +52,30 @@ export const columns = [
     header: "Positions",
     id: "positions",
     columns: [
-      columnHelper.accessor((row) => row.nftPerpPositionSizeLong, {
-        id: "nftPerpPositionSizes",
-        header: () => <div className="text-right">pos size (Ξ)</div>,
-        cell: (info) => {
-          const markPrice = parseFloat(info.row.original.nftPerpMarkPrice);
-          const posSizeLong =
-            parseFloat(formatEther(info.row.original.nftPerpPositionSizeLong)) *
-            markPrice;
-          const posSizeShort =
-            parseFloat(
-              formatEther(info.row.original.nftPerpPositionSizeShort)
-            ) * markPrice;
+      // columnHelper.accessor((row) => row.nftPerpPositionSizeLong, {
+      //   id: "nftPerpPositionSizes",
+      //   header: () => <div className="text-right">pos size (Ξ)</div>,
+      //   cell: (info) => {
+      //     const markPrice = parseFloat(info.row.original.nftPerpMarkPrice);
+      //     const posSizeLong =
+      //       parseFloat(formatEther(info.row.original.nftPerpPositionSizeLong)) *
+      //       markPrice;
+      //     const posSizeShort =
+      //       parseFloat(
+      //         formatEther(info.row.original.nftPerpPositionSizeShort)
+      //       ) * markPrice;
 
-          return (
-            <div>
-              <div className={numberFormat}>{posSizeLong.toFixed(2)}</div>
-              <div className={numberFormat}>{posSizeShort.toFixed(2)}</div>
-            </div>
-          );
-        },
-        enableSorting: true,
-        sortingFn: "alphanumeric",
-        enableColumnFilter: false,
-      }),
+      //     return (
+      //       <div>
+      //         <div className={numberFormat}>{posSizeLong.toFixed(2)}</div>
+      //         <div className={numberFormat}>{posSizeShort.toFixed(2)}</div>
+      //       </div>
+      //     );
+      //   },
+      //   enableSorting: true,
+      //   sortingFn: "alphanumeric",
+      //   enableColumnFilter: false,
+      // }),
       columnHelper.display({
         id: "positionRatioDonut",
         header: "pos Ratio",
