@@ -20,15 +20,15 @@ export function getBackgroundColorScales({
     switch (true) {
       case cellValue === 0:
         return "";
-      case cellValueTyped > 90:
+      case cellValueTyped > 95:
         return cn("bg-transparent", defaultClasses);
-      case cellValueTyped > 80:
+      case cellValueTyped > 90:
         return cn("bg-red-500", defaultClasses);
-      case cellValueTyped > 70:
+      case cellValueTyped > 80:
         return cn("bg-orange-500", defaultClasses);
-      case cellValueTyped > 60:
+      case cellValueTyped > 70:
         return cn("bg-yellow-500 text-zinc-800", defaultClasses);
-      case cellValueTyped > 50:
+      case cellValueTyped > 60:
         return cn("bg-green-500", defaultClasses);
       default:
         return cn("bg-white text-black", defaultClasses);
