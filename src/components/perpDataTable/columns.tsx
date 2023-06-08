@@ -49,7 +49,7 @@ export const columns = [
     ],
   },
   {
-    header: "Positions",
+    header: "",
     id: "positions",
     columns: [
       // columnHelper.accessor((row) => row.nftPerpPositionSizeLong, {
