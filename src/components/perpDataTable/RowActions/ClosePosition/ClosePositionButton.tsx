@@ -9,7 +9,6 @@ import {
   PopoverTrigger,
 } from "~/components/ui/popover";
 import { ClosePositionForm } from "./ClosePositionForm";
-import { Suspense } from "react";
 
 export function ClosePositionButton({
   ammName,
@@ -34,15 +33,13 @@ export function ClosePositionButton({
           <span>Close</span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-80">
-        <Suspense fallback={<div>Loading...</div>}>
-          <ClosePositionForm
-            ammAddress={ammAddress}
-            ammName={ammName}
-            walletAddress={walletAddress}
-            side={side}
-          />
-        </Suspense>
+      <PopoverContent className="w-80 bg-primary text-primary-foreground">
+        <ClosePositionForm
+          ammAddress={ammAddress}
+          ammName={ammName}
+          walletAddress={walletAddress}
+          side={side}
+        />
       </PopoverContent>
     </Popover>
   );

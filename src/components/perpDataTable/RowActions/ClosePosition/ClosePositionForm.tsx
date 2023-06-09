@@ -163,58 +163,56 @@ export function ClosePositionForm({
       <h4 className="font-medium leading-none">{`CLOSE ${ammName}`}</h4>
       <div className="grid gap-2">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className="grid grid-cols-2 items-start gap-4">
-            <FormField
-              control={form.control}
-              name="percentageToClose"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor="leverage">close (%)</FormLabel>
-                  <FormControl>
-                    <PercentageToCloseSelector
-                      defaultValue={[100]}
-                      field={field}
-                      handleInputChange={handleInputChange}
-                      handleSliderChange={handleSliderChange}
-                      handleSliderCommit={handleSliderCommit}
-                      textValue={textValue}
-                      percentageToCloseValue={percentageToCloseValue}
-                      defaultSliderToChangeValue={percentageToCloseDefaultValue}
-                      sliderValue={sliderValue}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="slippage"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor="slippage">slippage (%)</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="0.5"
-                      {...field}
-                      onChange={(e) => handleSlippageChange(e.target.value)}
-                      value={slippageValue}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          <div>
-            {/* @ts-expect-error Server Component */}
-            <ClosePositionDisplay
-              closePositionData={closePositionData}
-              isLoading={isLoadingClosePosition}
-              isError={isError}
-              isFetched={isFetched}
-            />
-          </div>
+          {/* <div className="grid grid-cols-2 items-start gap-4"> */}
+          <FormField
+            control={form.control}
+            name="percentageToClose"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="leverage">close (%)</FormLabel>
+                <FormControl>
+                  <PercentageToCloseSelector
+                    defaultValue={[100]}
+                    field={field}
+                    handleInputChange={handleInputChange}
+                    handleSliderChange={handleSliderChange}
+                    handleSliderCommit={handleSliderCommit}
+                    textValue={textValue}
+                    percentageToCloseValue={percentageToCloseValue}
+                    defaultSliderToChangeValue={percentageToCloseDefaultValue}
+                    sliderValue={sliderValue}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="slippage"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel htmlFor="slippage">slippage (%)</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="0.5"
+                    {...field}
+                    onChange={(e) => handleSlippageChange(e.target.value)}
+                    value={slippageValue}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          {/* </div> */}
+          {/* @ts-expect-error Server Component */}
+          <ClosePositionDisplay
+            closePositionData={closePositionData}
+            isLoading={isLoadingClosePosition}
+            isError={isError}
+            isFetched={isFetched}
+          />
           <Button
             type="submit"
             disabled={!write || !!error}

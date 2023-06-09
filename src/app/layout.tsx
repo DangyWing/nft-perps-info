@@ -4,13 +4,6 @@ import { SiteHeader } from "~/components/SiteHeader";
 import { Providers } from "./providers";
 import { fontMono } from "~/styles/fonts";
 import { Toaster } from "~/components/ui/Toaster";
-// import { VT323 } from "next/font/google";
-
-// const fontMono = VT323({
-//   subsets: ["latin"],
-//   weight: ["400"],
-//   variable: "--font-mono",
-// });
 
 export default function RootLayout({
   children,
