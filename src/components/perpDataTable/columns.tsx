@@ -5,7 +5,7 @@ import type { PerpData } from "~/types";
 import { LegendPopover } from "../LegendPopover";
 import { type Object } from "ts-toolbelt";
 import { RowActions } from "./RowActions/rowActions";
-import { isAddress, formatEther } from "viem";
+import { isAddress } from "viem";
 import { Donut } from "../ui/donut";
 import { TooltipWithContent } from "../TooltipWithContent";
 
