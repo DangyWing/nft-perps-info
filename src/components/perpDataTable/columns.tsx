@@ -18,6 +18,23 @@ type PerpDataWithUserStatus = Object.Merge<
 
 const columnHelper = createColumnHelper<PerpDataWithUserStatus>();
 
+function donutHoleColor(ratio: number) {
+  switch (true) {
+    case ratio > 95:
+      return "#18181b";
+    case ratio > 90:
+      return "#f97316";
+    case ratio > 80:
+      return "#eab308";
+    case ratio > 70:
+      return "#3b82f6";
+    case ratio > 60:
+      return "#22c55e";
+    default:
+      return "#ffffff";
+  }
+}
+
 export const columns = [
   {
     header: () => <LegendPopover />,
@@ -52,48 +69,21 @@ export const columns = [
     header: "",
     id: "positions",
     columns: [
-      // columnHelper.accessor((row) => row.nftPerpPositionSizeLong, {
-      //   id: "nftPerpPositionSizes",
-      //   header: () => <div className="text-right">pos size (Ξ)</div>,
-      //   cell: (info) => {
-      //     const markPrice = parseFloat(info.row.original.nftPerpMarkPrice);
-      //     const posSizeLong =
-      //       parseFloat(formatEther(info.row.original.nftPerpPositionSizeLong)) *
-      //       markPrice;
-      //     const posSizeShort =
-      //       parseFloat(
-      //         formatEther(info.row.original.nftPerpPositionSizeShort)
-      //       ) * markPrice;
-
-      //     return (
-      //       <div>
-      //         <div className={numberFormat}>{posSizeLong.toFixed(2)}</div>
-      //         <div className={numberFormat}>{posSizeShort.toFixed(2)}</div>
-      //       </div>
-      //     );
-      //   },
-      //   enableSorting: true,
-      //   sortingFn: "alphanumeric",
-      //   enableColumnFilter: false,
-      // }),
-      columnHelper.display({
+      columnHelper.accessor((row) => row.nftPerpPositionRatio, {
         id: "positionRatioDonut",
         header: "pos Ratio",
-        cell: (props) => {
-          const { row } = props;
+        cell: (info) => {
+          const floatValue = parseFloat(info.getValue());
 
-          const ratio =
-            parseFloat(row.original.nftPerpPositionRatio).toFixed(2) + "%";
+          const ratio = floatValue.toFixed(2) + "%";
 
           return (
             <TooltipWithContent content={ratio}>
               <Donut
-                ratio={
-                  (parseFloat(row.original.nftPerpPositionRatio) + 100) / 2
-                }
+                ratio={(parseFloat(info.getValue()) + 100) / 2}
                 colorOne="#22c55e"
                 colorTwo="#ef4444"
-                backgroundColor="#18181b"
+                backgroundColor={donutHoleColor(Math.abs(floatValue))}
               />
             </TooltipWithContent>
           );

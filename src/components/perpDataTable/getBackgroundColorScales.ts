@@ -1,3 +1,4 @@
+import { type Cell, type CoreRow } from "@tanstack/react-table";
 import clsx from "clsx";
 import { cn } from "~/utils/utils";
 
@@ -14,7 +15,7 @@ export function getBackgroundColorScales({
     return "";
   }
 
-  if (columnId === "positionRatio") {
+  if (columnId === "positionRatioDonutold") {
     const cellValueTyped = Math.abs(parseFloat(cellValue as string));
 
     switch (true) {
@@ -23,11 +24,11 @@ export function getBackgroundColorScales({
       case cellValueTyped > 95:
         return cn("bg-transparent", defaultClasses);
       case cellValueTyped > 90:
-        return cn("bg-red-500", defaultClasses);
-      case cellValueTyped > 80:
         return cn("bg-orange-500", defaultClasses);
+      case cellValueTyped > 80:
+        return cn("bg-yellow-500", defaultClasses);
       case cellValueTyped > 70:
-        return cn("bg-yellow-500 text-zinc-800", defaultClasses);
+        return cn("bg-blue-500 text-zinc-800", defaultClasses);
       case cellValueTyped > 60:
         return cn("bg-green-500", defaultClasses);
       default:

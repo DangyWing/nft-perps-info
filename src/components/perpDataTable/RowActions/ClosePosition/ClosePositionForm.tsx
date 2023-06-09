@@ -163,7 +163,6 @@ export function ClosePositionForm({
       <h4 className="font-medium leading-none">{`CLOSE ${ammName}`}</h4>
       <div className="grid gap-2">
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {/* <div className="grid grid-cols-2 items-start gap-4"> */}
           <FormField
             control={form.control}
             name="percentageToClose"
@@ -205,7 +204,6 @@ export function ClosePositionForm({
               </FormItem>
             )}
           />
-          {/* </div> */}
           {/* @ts-expect-error Server Component */}
           <ClosePositionDisplay
             closePositionData={closePositionData}
