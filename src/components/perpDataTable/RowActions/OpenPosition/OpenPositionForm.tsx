@@ -255,6 +255,7 @@ export function OpenPositionForm({
             control={form.control}
             name="weth"
             render={() => (
+              // todo: refactor so that Slinput has both FormItems and FormControls
               <FormItem>
                 <FormLabel htmlFor="weth">weth</FormLabel>
                 <FormControl>
@@ -269,6 +270,7 @@ export function OpenPositionForm({
                     sliderValue={wethSliderValue}
                     sliderStep={0.01}
                     placeholder="0.01"
+                    id="weth"
                   />
                 </FormControl>
                 <FormMessage />
@@ -294,6 +296,7 @@ export function OpenPositionForm({
                       handleSliderCommit={handleSliderCommit}
                       textValue={sliderTextValue}
                       sliderValue={sliderValue}
+                      id="leverage"
                     />
                   </FormControl>
                   <FormMessage />

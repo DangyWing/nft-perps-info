@@ -4,6 +4,13 @@ import { SiteHeader } from "~/components/SiteHeader";
 import { Providers } from "./providers";
 import { fontMono } from "~/styles/fonts";
 import { Toaster } from "~/components/ui/Toaster";
+// import { VT323 } from "next/font/google";
+
+// const fontMono = VT323({
+//   subsets: ["latin"],
+//   weight: ["400"],
+//   variable: "--font-mono",
+// });
 
 export default function RootLayout({
   children,
@@ -16,7 +23,6 @@ export default function RootLayout({
         <head />
         <body
           className={cn(
-            // "bg-primary text-primary-foreground",
             "min-h-screen bg-primary font-sans text-primary-foreground antialiased",
             fontMono.className
           )}

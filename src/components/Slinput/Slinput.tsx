@@ -14,6 +14,7 @@ export type SlinputProps = {
   label: string;
   sliderStep: number;
   placeholder: string;
+  id: string;
 };
 
 export const Slinput = ({
@@ -26,6 +27,7 @@ export const Slinput = ({
   label,
   sliderStep,
   placeholder,
+  id,
 }: SlinputProps) => {
   return (
     <div className="grid gap-2">
@@ -38,6 +40,7 @@ export const Slinput = ({
             onChange={(e: { target: { value: string } }) =>
               handleInputChange(e.target.value)
             }
+            id={id}
           />
         </div>
         <Slider
@@ -48,6 +51,7 @@ export const Slinput = ({
           value={sliderValue}
           className="accent-red-400 [&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
           aria-label={label}
+          id="slinputSliderInput"
         />
       </div>
     </div>
