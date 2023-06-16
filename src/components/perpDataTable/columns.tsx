@@ -23,13 +23,13 @@ function donutHoleColor(ratio: number) {
     case ratio > 95:
       return "#18181b";
     case ratio > 90:
-      return "#f97316";
+      return "#3f3f46";
     case ratio > 80:
-      return "#eab308";
+      return "#71717a";
     case ratio > 70:
-      return "#3b82f6";
+      return "#d4d4d8";
     case ratio > 60:
-      return "#22c55e";
+      return "#f4f4f5";
     default:
       return "#ffffff";
   }
