@@ -55,6 +55,7 @@ export function TradesDataTable() {
     );
 
     if (!relevantTraderPosition || data.exchangedPositionSize === "0") return;
+
     const tradeType = getTradeTypeFromPositionEvent(data);
 
     const liqPrice =

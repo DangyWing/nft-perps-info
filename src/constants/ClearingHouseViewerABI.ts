@@ -2,6 +2,30 @@ export const ClearingHouseViewerABI = [
   {
     inputs: [
       {
+        internalType: "contract IAmm",
+        name: "amm",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "trader",
+        type: "address",
+      },
+    ],
+    name: "isLiquidatable",
+    outputs: [
+      {
+        internalType: "boolean",
+        name: "isLiquidatable",
+        type: "boolean",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
         internalType: "contract ClearingHouse",
         name: "_clearingHouse",
         type: "address",

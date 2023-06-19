@@ -1,4 +1,4 @@
-import { TradesDataTable } from "~/components/nftPerpTradesDataTable/TradesDataTable";
+import { TradesDataTable } from "~/components/nftPerpTradesDataTable/tradesDataTableold";
 
 export const metadata = {
   title: "NFTPerp trades",

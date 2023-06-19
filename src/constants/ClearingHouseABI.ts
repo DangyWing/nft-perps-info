@@ -1,5 +1,30 @@
 export const ClearingHouseAbi = [
   {
+    inputs: [
+      {
+        internalType: "contract IAmm",
+        name: "amm",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "trader",
+        type: "address",
+      },
+    ],
+    name: "isLiquidatable",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "isLiquidatable",
+        type: "bool",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+
+  {
     anonymous: false,
     inputs: [
       {
