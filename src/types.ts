@@ -1,17 +1,18 @@
 import { type Address } from "viem";
-import { z } from "zod";
 import type { AmmABI } from "./constants/AmmAbi";
 import { type ClearingHouseAbi } from "./constants/ClearingHouseABI";
+import { type Object } from "ts-toolbelt";
+import { z } from "zod";
 
 export type TraderPositionResponse = {
   status: string;
   data: TraderPositionData;
 };
 
-export type TradeDataResponse = {
-  status: string;
-  data: TradeData;
-};
+export type PerpDataWithUserStatus = Object.Merge<
+  PerpData,
+  { userStatus?: "long" | "short" | undefined; uPnl?: string }
+>;
 
 export type MulticallContracts = {
   address: `0x${string}`;
@@ -44,13 +45,6 @@ export type ResultType =
 
 export type TupleResultType = bigint[];
 export type BasicResultType = bigint;
-export type TradeData = {
-  page: number;
-  pageSize: number;
-  totalPages: number;
-  totalCount: number;
-  result: Trade[];
-};
 
 export type Trade = {
   trader: Address;

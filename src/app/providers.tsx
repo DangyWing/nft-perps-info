@@ -16,7 +16,6 @@ const config = createConfig(
     chains: [arbitrum],
   })
 );
-
 const queryClient = new QueryClient();
 
 export function Providers({ children }: { children: React.ReactNode }) {
@@ -25,7 +24,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ConnectKitProvider>
         <QueryClientProvider client={queryClient}>
           {children}
-          {/* <Toaster /> */}
         </QueryClientProvider>
       </ConnectKitProvider>
     </WagmiConfig>

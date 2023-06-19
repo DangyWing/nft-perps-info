@@ -3,7 +3,6 @@ import { publicClient } from "../../../utils/viemClient";
 import { ClearingHouseAbi } from "~/constants/ClearingHouseABI";
 import { ClearingHouseAddress } from "~/constants/constants";
 import { formatEther, type Address } from "viem";
-// import { cache } from "react";
 
 type GetPositionResult = {
   size: {
@@ -126,6 +125,7 @@ export async function getAllPositionsForWallet({
   walletAddress: Address | undefined;
 }) {
   if (!walletAddress) return [];
+  
   const res = await Promise.all(
     AMMData.map(async (singleAmm) => {
       return await getSingleAmmPositionForWallet({

@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getPerpData } from "~/app/lib/getPerpData";
 import { LoadingBlocks } from "~/components/Loading";
 
+
 export function PerpDataTable() {
   const { address, isConnecting, isReconnecting } = useAccount();
 

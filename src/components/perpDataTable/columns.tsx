@@ -1,20 +1,14 @@
 "use client";
 
 import { createColumnHelper } from "@tanstack/react-table";
-import type { PerpData } from "~/types";
+import type { PerpDataWithUserStatus } from "~/types";
 import { LegendPopover } from "../LegendPopover";
-import { type Object } from "ts-toolbelt";
 import { RowActions } from "./RowActions/rowActions";
 import { isAddress } from "viem";
 import { Donut } from "../ui/donut";
 import { TooltipWithContent } from "../TooltipWithContent";
 
 const numberFormat = "mx-auto w-min -translate-x-1/3 text-right";
-
-type PerpDataWithUserStatus = Object.Merge<
-  PerpData,
-  { userStatus?: "long" | "short" | undefined }
->;
 
 const columnHelper = createColumnHelper<PerpDataWithUserStatus>();
 
@@ -229,19 +223,34 @@ export const columns = [
         enableHiding: true,
         cell: (props) => {
           const { row } = props;
-          return (
-            <div className="text-center">
-              {row.original.nftPerpDynamicFeeStatus}
-            </div>
-          );
+          const feeStatus = row.original.nftPerpDynamicFeeStatus;
+
+          const displayIcon =
+            feeStatus === "" ? feeStatus : feeStatus === "long" ? "🚀" : "📉";
+
+          return <div className="text-center">{displayIcon}</div>;
         },
       }),
       columnHelper.display({
         id: "positionStatus",
-        header: "your position",
+        header: "your position pnl",
         cell: (props) => {
           const { row } = props;
-          return <div className="text-center">{row.original.userStatus}</div>;
+          const displayIcon =
+            row.original.uPnl == undefined
+              ? ""
+              : row.original.userStatus === "long"
+              ? "🚀"
+              : "📉";
+
+          return (
+            <div>
+              {/* <div className="text-center">{row.original.userStatus}</div> */}
+              <div className="text-center">
+                 {displayIcon} {row.original.uPnl}
+              </div>
+            </div>
+          );
         },
       }),
     ],

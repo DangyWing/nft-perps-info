@@ -2,7 +2,7 @@ import { createPublicClient, http } from "viem";
 import { arbitrum } from "viem/chains";
 import { env } from "env";
 
-const { PUBLIC_INFURA_RPC_URL, PUBLIC_ALCHEMY_RPC_URL } = env;
+const { PUBLIC_INFURA_RPC_URL } = env;
 
 export const publicClient = createPublicClient({
   chain: arbitrum,

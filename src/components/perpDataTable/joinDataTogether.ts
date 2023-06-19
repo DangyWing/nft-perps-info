@@ -1,11 +1,5 @@
-import { type PerpData } from "~/types";
+import type { PerpData, PerpDataWithUserStatus } from "~/types";
 import { type AllPositionsReturnType } from "~/app/lib/directFromContract/getAllPositionsForWallet";
-import { type Object } from "ts-toolbelt";
-
-type PerpDataWithUserStatus = Object.Merge<
-  PerpData,
-  { userStatus?: "long" | "short" | undefined }
->;
 
 export function joinDataTogether(
   perpData: PerpData[],
@@ -33,6 +27,7 @@ export function joinDataTogether(
         return {
           ...perp,
           userStatus: parseFloat(userStatus.size) > 0 ? "long" : "short",
+          uPnl: userStatus.unrealizedPnl,
         };
       }
     });

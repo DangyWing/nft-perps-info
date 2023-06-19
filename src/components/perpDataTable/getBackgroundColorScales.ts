@@ -1,4 +1,3 @@
-import { type Cell, type CoreRow } from "@tanstack/react-table";
 import clsx from "clsx";
 import { cn } from "~/utils/utils";
 
