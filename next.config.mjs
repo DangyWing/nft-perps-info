@@ -3,6 +3,7 @@
  * for Docker builds.
  */
 // await import("./app/env.mjs");
+import "./src/env.mjs";
 
 /** @type {import("next").NextConfig} */
 const config = {

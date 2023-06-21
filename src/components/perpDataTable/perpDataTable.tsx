@@ -8,11 +8,8 @@ import { joinDataTogether } from "./joinDataTogether";
 import { useQuery } from "@tanstack/react-query";
 import { getPerpData } from "~/app/lib/getPerpData";
 import { LoadingBlocks } from "~/components/Loading";
-import { type getAllBlurBidData } from "~/app/lib/getAllBlurBidData";
 
-type BlurBidData = Awaited<ReturnType<typeof getAllBlurBidData>>;
-
-export function PerpDataTable({ blurBidData }: { blurBidData: BlurBidData }) {
+export function PerpDataTable() {
   const { address, isConnecting, isReconnecting } = useAccount();
 
   const isLoadingWallet = isConnecting || isReconnecting;
@@ -24,7 +21,7 @@ export function PerpDataTable({ blurBidData }: { blurBidData: BlurBidData }) {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["getPerpData"],
-    queryFn: () => getPerpData({ blurBidData }),
+    queryFn: () => getPerpData(),
   });
 
   if (isLoadingWallet) return <LoadingBlocks label="LOADING WALLET" />;

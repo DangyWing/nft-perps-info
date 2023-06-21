@@ -1,8 +1,6 @@
 import { createPublicClient, http } from "viem";
 import { arbitrum } from "viem/chains";
-import { env } from "env";
-
-const { PUBLIC_INFURA_RPC_URL } = env;
+import { env } from "~/env.mjs";
 
 export const publicClient = createPublicClient({
   chain: arbitrum,
@@ -13,5 +11,5 @@ export const publicClient = createPublicClient({
     },
   },
   pollingInterval: 4_000,
-  transport: http(PUBLIC_INFURA_RPC_URL),
+  transport: http(env.NEXT_PUBLIC_INFURA_RPC_URL),
 });
