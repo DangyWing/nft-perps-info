@@ -190,7 +190,6 @@ export type BlurBidData = {
     price: string;
     executableSize: number;
     numberBidders: number;
-    bidderAddressesSample: string[];
   }[];
 };
 
