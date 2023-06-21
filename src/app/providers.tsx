@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const config = createConfig(
   getDefaultConfig({
-    alchemyId: env.NEXT_PUBLIC_INFURA_ID,
+    alchemyId: env.NEXT_PUBLIC_ALCHEMY_ID,
     walletConnectProjectId: env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
     appName: "NFT Perps Info",
     appDescription: "NFT Perps Info",

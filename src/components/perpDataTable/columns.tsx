@@ -103,21 +103,6 @@ export const columns = [
         sortingFn: "alphanumeric",
         enableColumnFilter: false,
       }),
-      // columnHelper.accessor((row) => row.topBlurBid, {
-      //   id: "topBlurBid",
-      //   header: () => <div className="text-right">top bid</div>,
-      //   cell: (info) => {
-      //     const amount = parseFloat(info.getValue());
-      //     const formatted = new Intl.NumberFormat("en-US", {}).format(amount);
-
-      //     return <div className={numberFormat}>{formatted}</div>;
-      //   },
-
-      //   enableSorting: true,
-      //   sortingFn: "alphanumeric",
-      //   enableColumnFilter: false,
-      // }),
-
       columnHelper.accessor((row) => row.nftPerpIndexPrice, {
         id: "nftPerpIndexPrice",
         header: () => <div className="text-right">NFTPerp Index</div>,

@@ -190,6 +190,8 @@ export function OpenPositionForm({
   }
 
   function handleWethSliderChange(value: (string | number)[]) {
+    console.log("NEW VALUE: ", value);
+
     if (!!value && isNumberArray(value)) {
       setWethSliderValue(value);
       setWethTextValue(value[0]?.toString() ?? "0");
