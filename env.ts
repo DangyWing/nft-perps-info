@@ -10,6 +10,7 @@ export const env = createEnv({
     PUBLIC_INFURA_ID: z.string(),
     PUBLIC_INFURA_RPC_URL: z.string().url(),
     PUBLIC_ALCHEMY_RPC_URL: z.string().url(),
+    BLUR_COOKIE: z.string(),
   },
   client: {},
   runtimeEnv: process.env,

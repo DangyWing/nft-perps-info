@@ -4,7 +4,7 @@ import { parseNfexData } from "~/utils/parseNfexData";
 export async function getNfexPerpData() {
   const res = await fetch("https://apigw.nfex.io/market/pairs", {
     next: {
-      revalidate: 5,
+      revalidate: 300,
     },
   });
 

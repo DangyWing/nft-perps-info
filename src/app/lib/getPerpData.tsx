@@ -3,9 +3,18 @@ import { percentageChangeFromBase } from "~/utils/utils";
 import { getNfexPerpData } from "./getNfexPerpData";
 import { getNftPerpDataFromContract } from "~/app/lib/directFromContract/getNftPerpDataFromContract";
 import { getTotalPositionSize } from "./directFromContract/getTotalPositionSizeMap";
+import { type getAllBlurBidData } from "./getAllBlurBidData";
+import { getCollectionSlugFromAmmAddress } from "~/utils/fetchFromConstant/getCollectionSlugFromAmmAddress";
+
 import { formatEther } from "viem";
 
-export async function getPerpData() {
+type BlurBidData = Awaited<ReturnType<typeof getAllBlurBidData>>;
+
+export async function getPerpData({
+  blurBidData,
+}: {
+  blurBidData: BlurBidData;
+}) {
   const [nfexData, nftPerpData, nftPerpPositionSizeData] = await Promise.all([
     await getNfexPerpData(),
     await getNftPerpDataFromContract(),
@@ -22,6 +31,13 @@ export async function getPerpData() {
     if (!nfexDataItem) {
       return new Error("Failed to find nfexDataItem");
     }
+    const collectionSlug = getCollectionSlugFromAmmAddress(
+      nftPerp.nftPerpAmmAddress
+    );
+
+    const blurBidDataItem = blurBidData.find(
+      (blurBidData) => blurBidData?.collectionSlug === collectionSlug
+    );
 
     const nftPerpPositionSize = nftPerpPositionSizeData.find(
       (nftPerpPositionSizeData) =>
@@ -54,6 +70,12 @@ export async function getPerpData() {
         ? longRatio.toFixed(2)
         : "-" + (100 - longRatio).toFixed(2);
 
+    const topBlurBid = blurBidDataItem
+      ? blurBidDataItem.priceLevels.sort(
+          (a, b) => parseFloat(b.price) - parseFloat(a.price)
+        )[0]?.price ?? "N/A"
+      : "N/A";
+
     const perpData: PerpData = {
       nftPerpMarkToNfexIndex,
       ...nftPerp,
@@ -62,6 +84,7 @@ export async function getPerpData() {
       nftPerpPositionSizeLong: nftPerpPositionSize.positionSizeLong ?? "",
       nftPerpPositionSizeShort: nftPerpPositionSize.positionSizeShort ?? "",
       nftPerpPositionRatio: relevantRatio,
+      topBlurBid: topBlurBid,
     };
 
     combinedPerpData.push(perpData);

@@ -15,7 +15,13 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
+import { getIsLiquidatable } from "~/app/lib/directFromContract/getIsLiquidatable";
 import type { LiquidatablePosition } from "~/app/api/liquidatable/[amm]/[markPrice]/route";
+// import {
+//   type ActiveTraderPositions,
+//   getManyIsLiquidateable,
+// } from "~/app/lib/directFromContract/getManyIsLiquidateable";
+// import type { Address } from "viem";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -48,11 +54,31 @@ export function TradesDataTable() {
 
     setLiquidatablePositions((previous) => [...positions, ...previous]);
 
+    const isLiquidateable = await getIsLiquidatable({
+      ammAddress: data.amm as `0x${string}`,
+      traderAddress: trader,
+    });
+
     const traderPositions = await getTraderPositions(trader);
 
     const relevantTraderPosition = traderPositions?.find(
       (traderPosition) => traderPosition.ammName === data.ammName
     );
+
+    // todo: identify trades to check if they're liquidatable on change. Maybe, the top 10 most at risk for each AMM?
+
+    // todo: fetch these from db.
+
+    // const activePositions: ActiveTraderPositions[] = [
+    //   {
+    //     ammAddress: data.amm as Address,
+    //     trader: trader,
+    //   },
+    // ];
+
+    // const areManyLiquidatable = getManyIsLiquidateable({
+    //   activePositions: activePositions,
+    // });
 
     if (!relevantTraderPosition || data.exchangedPositionSize === "0") return;
 
@@ -99,6 +125,7 @@ export function TradesDataTable() {
       trader: relevantTraderPosition.trader,
       transactionHash: data.transactionHash as `0x${string}`,
       tradeType: tradeType,
+      isLiquidateable: isLiquidateable,
     };
 
     setTraderEvents((previous) => [liqData, ...previous]);
@@ -133,17 +160,6 @@ export function TradesDataTable() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
-  // const imageURLs = [
-  //   "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif",
-  //   "https://media.tenor.com/bHsSDAiy6FUAAAAC/betmore-money.gif",
-  //   "https://media.tenor.com/PaYR5iS-jukAAAAC/poker-all-in.gif",
-  //   "https://media.tenor.com/NWKdzSeCIWkAAAAC/timethemarkets-doge.gif",
-  // ];
-
-  // const imageURLToUse =
-  //   imageURLs[Math.floor(Math.random() * imageURLs.length)] ??
-  //   "https://media.tenor.com/6RSRCt6Va0sAAAAC/gambling-problem.gif";
-
   return (
     <div className="p-2">
       <div className="flex items-center">
@@ -155,15 +171,7 @@ export function TradesDataTable() {
         )}
       </div>
       {traderEvents.length === 0 ? (
-        <div>
-          <div className="text-center text-xl">Trades: none</div>
-          {/* <Image
-            src={imageURLToUse}
-            width={300}
-            height={300}
-            alt={"No Trades Placeholder"}
-          /> */}
-        </div>
+        <div className="text-center text-xl">Trades: none</div>
       ) : (
         <div>
           <table className="border p-2">
@@ -174,7 +182,7 @@ export function TradesDataTable() {
                     <th
                       key={header.id}
                       colSpan={header.colSpan}
-                      className=" text-slate-800 dark:text-slate-200"
+                      // className=" text-slate-800 dark:text-slate-200"
                       style={{
                         width:
                           header.getSize() !== 150

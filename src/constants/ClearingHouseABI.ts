@@ -1,30 +1,5 @@
 export const ClearingHouseAbi = [
   {
-    inputs: [
-      {
-        internalType: "contract IAmm",
-        name: "amm",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "trader",
-        type: "address",
-      },
-    ],
-    name: "isLiquidatable",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "isLiquidatable",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-
-  {
     anonymous: false,
     inputs: [
       {
@@ -665,6 +640,30 @@ export const ClearingHouseAbi = [
         internalType: "struct SignedDecimal.signedDecimal",
         name: "unrealizedPnl",
         type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "amm",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "trader",
+        type: "address",
+      },
+    ],
+    name: "isLiquidateable",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "isLiquidateable",
+        type: "bool",
       },
     ],
     stateMutability: "view",

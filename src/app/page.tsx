@@ -1,9 +1,12 @@
 import { PerpDataTable } from "~/components/perpDataTable/perpDataTable";
+import { getAllBlurBidData } from "./lib/getAllBlurBidData";
 
-export default function Page() {
+export default async function Page() {
+  const blurBidData = await getAllBlurBidData();
+
   return (
     <div>
-      <PerpDataTable />
+      <PerpDataTable blurBidData={blurBidData} />
     </div>
   );
 }

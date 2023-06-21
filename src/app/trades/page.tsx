@@ -1,5 +1,4 @@
 import { TradesDataTable } from "~/components/nftPerpTradesDataTable/tradesDataTable";
-
 export const metadata = {
   title: "NFTPerp trades",
   description: "Shows you current trades",

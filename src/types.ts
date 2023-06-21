@@ -94,6 +94,7 @@ export type LiqEventDisplay = {
   trader: `0x${string}`;
   transactionHash: `0x${string}`;
   tradeType: string;
+  isLiquidateable: boolean;
 };
 
 export type AllAmmsData = {
@@ -183,6 +184,16 @@ export const NfexResponseSchema = z.object({
 export type NfexDataResponse = z.infer<typeof NfexResponseSchema>;
 export type NfexData = z.infer<typeof NfexData>;
 
+export type BlurBidData = {
+  success: boolean;
+  priceLevels: {
+    price: string;
+    executableSize: number;
+    numberBidders: number;
+    bidderAddressesSample: string[];
+  }[];
+};
+
 export type PerpData = {
   projectName: string;
   nfexSlug: string;
@@ -203,6 +214,7 @@ export type PerpData = {
   nftPerpPositionSizeLong: bigint;
   nftPerpPositionSizeShort: bigint;
   nftPerpPositionRatio: string;
+  topBlurBid: string;
 };
 
 export type NfexPerpData = {
