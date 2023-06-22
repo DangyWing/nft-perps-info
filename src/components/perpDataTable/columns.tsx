@@ -231,8 +231,23 @@ export const columns = [
         },
       }),
       columnHelper.display({
-        id: "positionStatus",
-        header: "your position pnl",
+        id: "positionPnl",
+        // header: "your position pnl",
+        header: ({ table }) => {
+          const totalPnl = table
+            .getFilteredRowModel()
+            .rows.reduce(
+              (total, row) => total + parseFloat(row.original.uPnl ?? "0"),
+              0
+            );
+
+          return (
+            <div className="text-center">
+              your position pnl:{" "}
+              <span className={numberFormat}>{totalPnl.toFixed(2)}</span>
+            </div>
+          );
+        },
         cell: (props) => {
           const { row } = props;
           const displayIcon =
@@ -244,7 +259,6 @@ export const columns = [
 
           return (
             <div>
-              {/* <div className="text-center">{row.original.userStatus}</div> */}
               <div className="text-center">
                  {displayIcon} {row.original.uPnl}
               </div>
