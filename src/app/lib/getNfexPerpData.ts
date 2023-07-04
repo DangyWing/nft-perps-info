@@ -2,11 +2,14 @@ import { type NfexDataResponse } from "~/types";
 import { parseNfexData } from "~/utils/parseNfexData";
 
 export async function getNfexPerpData() {
-  const res = await fetch("https://apigw.nfex.io/market/pairs", {
-    next: {
-      revalidate: 300,
-    },
-  });
+  const res = await fetch(
+    "https://apigw.nfex.io/market/pairs?enable=2&visible=2",
+    {
+      next: {
+        revalidate: 300,
+      },
+    }
+  );
 
   if (!res.ok) {
     throw new Error("Failed to fetch data");

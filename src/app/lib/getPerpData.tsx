@@ -4,7 +4,7 @@ import { getNfexPerpData } from "./getNfexPerpData";
 import { getNftPerpDataFromContract } from "~/app/lib/directFromContract/getNftPerpDataFromContract";
 import { getTotalPositionSize } from "./directFromContract/getTotalPositionSizeMap";
 
-import { getCollectionSlugFromAmmAddress } from "~/utils/fetchFromConstant/getCollectionSlugFromAmmAddress";
+// import { getCollectionSlugFromAmmAddress } from "~/utils/fetchFromConstant/getCollectionSlugFromAmmAddress";
 import { formatEther } from "viem";
 
 export async function getPerpData() {

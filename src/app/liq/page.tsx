@@ -1,7 +1,8 @@
 import { LiqDataTable } from "~/components/liqDataTable/liqDataTable";
 import { getPositionDataFromDb } from "../lib/getPositionDataFromDb";
+import { type Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "NFTPerp Liq Info",
   description: "Shows you the potential liquidation prices for NFTPerps",
 };
