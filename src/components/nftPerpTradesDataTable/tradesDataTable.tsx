@@ -15,22 +15,12 @@ import { socket } from "~/utils/nftPerpSocket";
 import { type ProcessedPositionChangedEvent } from "@nftperp/sdk/types";
 import { getTraderPositions } from "~/utils/getTraderPositions";
 import { getTradeTypeFromPositionEvent } from "~/utils/getTradeTypeFromPositionEvent";
-import { getIsLiquidatable } from "~/app/lib/directFromContract/getIsLiquidatable";
-import type { LiquidatablePosition } from "~/app/api/liquidatable/[amm]/[markPrice]/route";
-// import {
-//   type ActiveTraderPositions,
-//   getManyIsLiquidateable,
-// } from "~/app/lib/directFromContract/getManyIsLiquidateable";
-// import type { Address } from "viem";
 
 export function TradesDataTable() {
   const [sorting, setSorting] = useState<SortingState>([]);
 
   const [isConnected, setIsConnected] = useState(false);
   const [traderEvents, setTraderEvents] = useState<LiqEventDisplay[]>([]);
-  const [liquidatablePositions, setLiquidatablePositions] = useState<
-    LiquidatablePosition[]
-  >([]);
 
   useEffect(() => {
     socket.connect();
@@ -48,37 +38,11 @@ export function TradesDataTable() {
   async function onTradeEvent(data: ProcessedPositionChangedEvent) {
     const trader = data.trader as `0x${string}`;
 
-    const res = await fetch(`/api/liquidatable/${data.amm}/${data.markPrice}`);
-
-    const positions = (await res.json()) as LiquidatablePosition[];
-
-    setLiquidatablePositions((previous) => [...positions, ...previous]);
-
-    const isLiquidateable = await getIsLiquidatable({
-      ammAddress: data.amm as `0x${string}`,
-      traderAddress: trader,
-    });
-
     const traderPositions = await getTraderPositions(trader);
 
     const relevantTraderPosition = traderPositions?.find(
       (traderPosition) => traderPosition.ammName === data.ammName
     );
-
-    // todo: identify trades to check if they're liquidatable on change. Maybe, the top 10 most at risk for each AMM?
-
-    // todo: fetch these from db.
-
-    // const activePositions: ActiveTraderPositions[] = [
-    //   {
-    //     ammAddress: data.amm as Address,
-    //     trader: trader,
-    //   },
-    // ];
-
-    // const areManyLiquidatable = getManyIsLiquidateable({
-    //   activePositions: activePositions,
-    // });
 
     if (!relevantTraderPosition || data.exchangedPositionSize === "0") return;
 
@@ -89,9 +53,6 @@ export function TradesDataTable() {
       relevantTraderPosition.liquidationPrice === "0"
         ? 0
         : parseFloat(relevantTraderPosition.liquidationPrice);
-
-    // this sucks but if there is no relevant trader position margin, get margin from the data object
-    // if the relevant trader position margin is 0, then set it to "-"
 
     const marginNum = !relevantTraderPosition.margin
       ? parseFloat(data.margin).toFixed(2)
@@ -125,7 +86,7 @@ export function TradesDataTable() {
       trader: relevantTraderPosition.trader,
       transactionHash: data.transactionHash as `0x${string}`,
       tradeType: tradeType,
-      isLiquidateable: isLiquidateable,
+      isLiquidateable: false,
     };
 
     setTraderEvents((previous) => [liqData, ...previous]);
@@ -249,18 +210,6 @@ export function TradesDataTable() {
           </table>
         </div>
       )}
-      <div>
-        Liquidatable Positions: {liquidatablePositions.length === 0 && "none"}
-        {liquidatablePositions.map((position, index) => (
-          <div
-            key={`trader: ${position.trader} amm: ${position.amm}, index: ${index}`}
-          >
-            <div className="text-xl">
-              {position.entryPrice} - {position.side} - {position.trader}
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }

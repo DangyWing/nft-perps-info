@@ -2,10 +2,11 @@
 
 import { createColumnHelper } from "@tanstack/react-table";
 import type { LiqEventDisplay } from "~/types";
-import { numberFormat } from "../liqDataTable/columns";
 import { middleEllipsize } from "~/utils/middleEllipsize";
 
 const columnHelper = createColumnHelper<LiqEventDisplay>();
+
+export const numberFormat = "text-right mx-6";
 
 export const columns = [
   columnHelper.accessor((row) => row.ammName, {
