@@ -1,6 +1,6 @@
 import type { PerpData } from "~/types";
 import { percentageChangeFromBase } from "~/utils/utils";
-import { getNfexPerpData } from "./getNfexPerpData";
+import { getNfexPerpData } from "./nfexDataFetching/getNfexPerpData";
 import { getNftPerpDataFromContract } from "~/app/lib/directFromContract/getNftPerpDataFromContract";
 import { getTotalPositionSize } from "./directFromContract/getTotalPositionSizeMap";
 

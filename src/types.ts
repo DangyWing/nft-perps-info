@@ -165,9 +165,14 @@ export const NfexData = z.object({
   taker_fratio: z.string(),
   maker_fratio: z.string(),
   max_lever: z.string(),
+  enable: z.boolean(),
+  visible: z.boolean(),
   last_fund_rate_info: z.object({
     current_period_fund_rate: z.string(),
+    trade_pair_id: z.number(),
     timestamp: z.number(),
+    moment_fund_rate_state: z.boolean(),
+    makeup_state: z.boolean(),
     MomentBaseData: z.object({
       market_p: z.string(),
       index_p: z.string(),
@@ -183,6 +188,17 @@ export const NfexResponseSchema = z.object({
 
 export type NfexDataResponse = z.infer<typeof NfexResponseSchema>;
 export type NfexData = z.infer<typeof NfexData>;
+
+export const NfexDepthResponseSchema = z.object({
+  errno: z.string(),
+  msg: z.string(),
+  data: z.object({
+    sell: z.array(z.string()),
+    buy: z.array(z.string()),
+  }),
+});
+
+export type NfexDepthResponse = z.infer<typeof NfexDepthResponseSchema>;
 
 export type BlurBidData = {
   success: boolean;
@@ -219,6 +235,7 @@ export type PerpData = {
 export type NfexPerpData = {
   projectName: string;
   nfexSlug: string;
+  symbolId: number;
   indexPrice: string;
   markPrice: string;
   fundingRate: string;

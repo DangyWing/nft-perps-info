@@ -1,30 +1,10 @@
-import { PerpDataTable } from "~/components/perpDataTable/perpDataTable";
-// import { getAllBlurBidData } from "./lib/getAllBlurBidData";
-
-// import { TempFetchBlurBid } from "./tempFetchBlurBid";
+// import { PerpDataTable } from "~/components/perpDataTable/perpDataTable";
+import { NfexDataTable } from "~/components/nfexDataTable/nfexDataTable";
 
 export default function Page() {
-  // export default function Page() {
-  // const blurBidData = await getAllBlurBidData();
-
-  // const blurBidData = [
-  //   {
-  //     collectionSlug: "boredapeyachtclub",
-  //     success: true,
-  //     priceLevels: [
-  //       {
-  //         price: "66.66",
-  //         executableSize: 2,
-  //         numberBidders: 2,
-  //       },
-  //     ],
-  //   },
-  // ];
-
   return (
     <div>
-      {/* <TempFetchBlurBid /> */}
-      <PerpDataTable />
+      <NfexDataTable />
     </div>
   );
 }
