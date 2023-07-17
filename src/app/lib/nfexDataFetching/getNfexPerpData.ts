@@ -13,7 +13,6 @@ export async function getNfexPerpData() {
   }
 
   const { data } = (await res.json()) as NfexDataResponse;
-  console.log(data);
 
   return parseNfexData(data);
 }
