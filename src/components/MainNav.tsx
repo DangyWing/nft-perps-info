@@ -19,13 +19,7 @@ export function MainNav({
       >
         🏠
       </Link>
-      <Link
-        href="/liq"
-        prefetch={false}
-        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-      >
-        👅
-      </Link>
+
       <Link
         href="/trades"
         prefetch={false}
